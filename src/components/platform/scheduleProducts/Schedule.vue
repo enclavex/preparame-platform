@@ -1,0 +1,280 @@
+<template>
+  <div>
+    <q-card class="col-12" flat bordered>
+      <q-card-section class="schedule-card q-pa-none">
+        <div class="schedule-title col-3">
+          Selecione um dia e horário disponível
+        </div>
+        <div class="schedule-header">
+          <div class="schedule-header-set-prior-day">
+            <q-icon
+              name="mdi-chevron-double-left"
+              class="specialist-schedule-icon text-blue-grey-8"
+              @click="priorWeek()"
+              ><q-tooltip>Semana Anterior</q-tooltip></q-icon
+            >
+          </div>
+          <div class="schedule-container">
+            <div class="schedule-days">
+              <div
+                class="schedule-day"
+                v-for="day in specialistScheduleData"
+                :key="day.id"
+              >
+                <div
+                  class="schedule-day-header text-blue-grey-10 text-caption bg-grey-4"
+                >
+                  <div class="schedule-day-header-weekday">
+                    {{ day.header.weekDay }}
+                  </div>
+                  <div class="schedule-day-header-month-data text-weight-light">
+                    {{ day.header.monthDay }}
+                    {{ day.header.monthAbbr }}
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="schedule-day-hours-container">
+              <div
+                class="schedule-day-hours"
+                v-for="day in specialistScheduleData"
+                :key="day.monthDay"
+              >
+                <q-btn
+                  v-for="hour in day.hours"
+                  :key="hour.id"
+                  :label="hour.hour ? hour.hour : 'N/A'"
+                  class="q-pl-sm q-pr-sm schedule-day-hour text-weight-light"
+                  color="light-blue-2"
+                  text-color="black"
+                  dense
+                  unelevated
+                  :disable="hour.hour && hour.available ? false : true"
+                  @click="confirmSchedule(day.header, hour)"
+                ></q-btn>
+              </div>
+            </div>
+          </div>
+          <div class="schedule-header-set-next-day">
+            <q-icon
+              name="mdi-chevron-double-right"
+              class="specialist-schedule-icon text-blue-grey-8"
+              @click="nextWeek()"
+            >
+              <q-tooltip>Próxima semana</q-tooltip>
+            </q-icon>
+          </div>
+        </div>
+      </q-card-section>
+    </q-card>
+    <ConfirmSchedule :confirmScheduleFunctions="confirmScheduleFunctions" />
+  </div>
+</template>
+
+<script>
+import axios from "axios";
+import { baseApiUrl, showError } from "../../../global.js";
+import {
+  organizeSpecialistScheduleData,
+  getDayOfNextWeek,
+  getDayOfWeek,
+} from "./organizeSpecialistScheduleData.js";
+
+import ConfirmSchedule from "./ConfirmSchedule.vue";
+
+import Vue from "vue";
+
+export default {
+  components: {
+    ConfirmSchedule,
+  },
+  data() {
+    return {
+      weekCount: 1,
+      specialistScheduleData: {},
+      specialistScheduleSelected: {},
+      confirmScheduleFunctions: new Vue(),
+    };
+  },
+  props: {
+    specialistSchedule: {
+      type: Array,
+      required: false,
+    },
+    specialist: {
+      type: Object,
+      required: true,
+    },
+    product: {
+      type: Object,
+      required: true,
+    },
+  },
+  created() {
+    this.specialistScheduleData = this.specialistSchedule;
+  },
+  methods: {
+    confirmSchedule: function (daySchedule, hourSchedule) {
+      this.confirmScheduleFunctions.$emit(
+        "showScheduleConfirmDialog",
+        daySchedule,
+        hourSchedule,
+        this.specialist,
+        this.product
+      );
+    },
+    priorWeek: function () {
+      if (this.weekCount === 1) {
+        this.$q.notify({
+          type: "negative",
+          message:
+            "Não é possível agendar horários para semanas anteriores a esta.",
+          timeout: 2000,
+        });
+
+        return;
+      }
+
+      this.loadPriorWeekSchedules();
+      this.weekCount--;
+    },
+    nextWeek: function () {
+      if (this.weekCount === 2) {
+        this.$q.notify({
+          type: "negative",
+          message:
+            "Não é possível agendar horários para semanas posteriores a esta.",
+          timeout: 2000,
+        });
+
+        return;
+      }
+
+      this.loadNextWeekSchedules();
+      this.weekCount++;
+    },
+    async loadNextWeekSchedules() {
+      const actualDate = new Date();
+
+      const dateBegin = getDayOfNextWeek(
+        actualDate,
+        1,
+        actualDate.getDay() <= 5
+      );
+      const dateEnd = getDayOfNextWeek(actualDate, 5, actualDate.getDay() <= 5);
+
+      await this.loadWeekSchedules(dateBegin, dateEnd);
+    },
+    async loadPriorWeekSchedules() {
+      const actualDate = new Date();
+
+      const dateBegin = getDayOfWeek(actualDate, 1, actualDate.getDay() <= 5);
+      const dateEnd = getDayOfWeek(actualDate, 5, actualDate.getDay() <= 5);
+
+      await this.loadWeekSchedules(dateBegin, dateEnd);
+    },
+    async loadWeekSchedules(dateBegin, dateEnd) {
+      dateBegin.setHours(0,0,0)
+      dateEnd.setHours(23,59,59)
+
+      const config = {
+        headers: {
+          datebegin: dateBegin,
+          dateend: dateEnd,
+        },
+      };
+
+      await axios
+        .get(
+          `${baseApiUrl}/specialists/scheduleSpecialistAvailable/${this.specialist.id}`,
+          config
+        )
+        .then(async (specialistsSchedule) => {
+          this.specialistScheduleData = organizeSpecialistScheduleData(
+            specialistsSchedule.data,
+            dateBegin,
+            dateEnd
+          );
+        })
+        .catch(showError);
+    },
+  },
+};
+</script>
+
+<style lang="scss">
+.schedule-card {
+  display: flex;
+  flex-direction: column;
+}
+
+.schedule-header {
+  display: flex;
+  margin: 0 auto;
+}
+
+.schedule-title {
+  text-align: center;
+}
+
+.schedule-container {
+  display: flex;
+  flex-direction: column;
+}
+
+.schedule-days {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  margin-right: 10px;
+}
+
+.schedule-day-header {
+  font-size: 0.5rem;
+  display: flex;
+  flex-direction: column;
+  margin: 0 4px 4px 4px;
+  width: 40px;
+  border-radius: 5px;
+  align-items: center;
+}
+
+.schedule-day-header-month-data {
+  line-height: 6px;
+  margin-bottom: 4px;
+}
+
+.schedule-day-header-weekday {
+  line-height: 15px;
+  margin-bottom: 2px;
+}
+
+.schedule-day-header-weekday::first-letter {
+  text-transform: capitalize;
+}
+
+.schedule-day-hours-container {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  max-height: 150px;
+  overflow: scroll;
+}
+
+.schedule-day-hours {
+  display: flex;
+  flex-direction: column;
+  width: 40px;
+}
+
+.schedule-day-hour {
+  font-size: 0.6rem;
+  text-align: center;
+  margin: 2px;
+}
+
+.schedule-header-set-next-day,
+.schedule-header-set-prior-day {
+  cursor: pointer;
+}
+</style>
