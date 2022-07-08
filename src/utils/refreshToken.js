@@ -1,15 +1,13 @@
-import { Notify } from 'quasar'
-import { setTimeout } from 'core-js';
 import axios from 'axios'
 
-import { baseApiUrl, showError } from "src/global.js";
+import { baseApiUrl } from "src/global.js";
 
 async function refreshToken(error) {
     return new Promise((resolve, reject) => {
         try {
             const refresh_token = localStorage.getItem("refresh_token");
 
-            if (!refresh_token ) {
+            if (!refresh_token) {
                 return resolve(false)
             }
 

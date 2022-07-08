@@ -83,10 +83,8 @@ export default {
         .put(`${baseApiUrl}/specialists/dateSchedule/${this.hourSchedule.id}`)
         .then(() => {
           this.$q.notify({
-            type: "positive",
+            type: "success",
             message: "Agendado com sucesso",
-            timeout: 1500,
-            position: "center",
           });
           setTimeout(() => {
             this.$router.push({ path: "/platform" });

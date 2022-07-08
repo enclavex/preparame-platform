@@ -7,19 +7,20 @@
     </q-card-section>
     <q-separator />
     <q-card-section>
-      <EventSchedule/>
-      <EventSchedule/>
-      <EventSchedule/>
+      <EventSchedule />
+      <EventSchedule />
+      <EventSchedule />
     </q-card-section>
   </q-card>
 </template>
 
 <script>
-import EventSchedule from "./EventSchedule.vue"
+import EventSchedule from "./EventSchedule.vue";
+
 export default {
-    components: {
-        EventSchedule
-    }
+  components: {
+    EventSchedule,
+  }
 };
 </script>
 

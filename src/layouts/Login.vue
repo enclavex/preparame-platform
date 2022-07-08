@@ -150,11 +150,11 @@ export default {
       const loggedUser = await refreshToken().then((token) => {
         return token.status === 200;
       });
-  
+
       if (loggedUser) {
         this.$router.push({ path: "/platform" });
       }
-    } catch(err) {
+    } catch (err) {
       //
     }
   },
@@ -198,7 +198,8 @@ export default {
       axios
         .post(`${baseApiUrl}/sessions`, userData)
         .then(async (user) => {
-          this.$q.notify("Sucesso");
+          successNotification();
+
           this.loggingIn = false;
 
           await this.setUser(user.data);

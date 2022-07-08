@@ -126,10 +126,9 @@ export default {
     priorWeek: function () {
       if (this.weekCount === 1) {
         this.$q.notify({
-          type: "negative",
+          type: "error",
           message:
             "Não é possível agendar horários para semanas anteriores a esta.",
-          timeout: 2000,
         });
 
         return;
@@ -141,10 +140,9 @@ export default {
     nextWeek: function () {
       if (this.weekCount === 2) {
         this.$q.notify({
-          type: "negative",
+          type: "error",
           message:
             "Não é possível agendar horários para semanas posteriores a esta.",
-          timeout: 2000,
         });
 
         return;

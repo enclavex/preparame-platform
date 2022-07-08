@@ -5,13 +5,13 @@ export const baseApiUrl = "http://localhost:3334"
 
 export function showError(e) {
     if (e && e.response && e.response.data && e.response.data.message) {
-        Notify.create(e.response.data.message)
+        Notify.create({ type: 'error', message: e.response.data.message })
     } else if (e && e.response && e.response.data) {
-        Notify.create(e.response.data)
+        Notify.create({ type: 'error', message: e.response.data })
     } else if (typeof e === "string") {
-        Notify.create(e)
+        Notify.create({ type: 'error', message: e })
     } else {
-        Notify.create("Error")
+        Notify.create({ type: 'error' })
     }
 }
 
