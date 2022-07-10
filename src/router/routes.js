@@ -1,5 +1,6 @@
 import HomePage from "../layouts/HomePage.vue"
 import Login from "../layouts/Login.vue"
+import ResetPassword from "../layouts/ResetPassword.vue"
 import ProductDetails from "../layouts/ProductDetails.vue"
 import ProductList from "../layouts/ProductList.vue"
 import PlatformProductList from "../components/platform/scheduleProducts/ProductsList.vue"
@@ -69,6 +70,13 @@ const routes = [
     name: "Login",
     components: {
       site: Login
+    }
+  },
+  {
+    path: "/password/reset/:token",
+    name: "ResetPassword",
+    components: {
+      site: ResetPassword
     }
   },
   {

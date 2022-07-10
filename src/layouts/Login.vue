@@ -40,8 +40,31 @@
           </q-input>
           <div class="login-forgot-pass">
             Esqueceu sua senha?
-            <a @click="loggingIn = !loggingIn">Redefina agora!</a>
+            <a @click="openResetPasswordDialog()">Redefina agora!</a>
           </div>
+
+          <q-dialog v-model="resetPasswordDialog" persistent>
+            <q-card style="min-width: 350px">
+              <q-card-section>
+                <div class="text-h6">
+                  Insira o e-mail para alteração da sua senha
+                </div>
+              </q-card-section>
+
+              <q-card-section class="q-pt-none">
+                <q-input dense v-model="emailAddress" autofocus></q-input>
+              </q-card-section>
+
+              <q-card-actions align="right" class="text-primary">
+                <q-btn flat label="Cancel" v-close-popup></q-btn>
+                <q-btn
+                  flat
+                  label="Alterar senha"
+                  @click="resetPassword()"
+                ></q-btn>
+              </q-card-actions>
+            </q-card>
+          </q-dialog>
 
           <div class="login-form-signin-in" @click="login()">Entrar</div>
           <div class="login-others-links">
@@ -94,7 +117,6 @@
             class="login-form-signin-container"
             v-model="user.password"
             type="password"
-            mask="'###.###.###-##'"
             name="password"
             label="Senha"
           >
@@ -107,8 +129,7 @@
             id="confirmPassword"
             class="login-form-signin-container"
             v-model="user.confirmPassword"
-            type="confirmPassword"
-            mask="'###.###.###-##'"
+            type="password"
             name="confirmPassword"
             label="Confirmação da Senha"
           >
@@ -145,6 +166,8 @@ export default {
     return {
       loggingIn: true,
       showPassword: false,
+      resetPasswordDialog: false,
+      emailAddress: "",
       eyePassIco: "eye-off",
       user: {},
     };
@@ -213,9 +236,7 @@ export default {
 
           this.$router.push({ path: "/platform" });
         })
-        .catch(showError => {
-          console.log(showError)
-        });
+        .catch(showError);
 
       this.user = {};
     },
@@ -280,12 +301,38 @@ export default {
       axios
         .post(`${baseApiUrl}/users`, userData)
         .then(() => {
-          this.$toasted.global.defaultSuccess();
-          this.loggingIn = true;
+          this.$q.notify({
+            type: "success",
+            message: "Sucesso",
+          });
+
+          this.resetPasswordDialog = false;
         })
         .catch(showError);
 
       this.user = {};
+    },
+    openResetPasswordDialog: function () {
+      this.resetPasswordDialog = true
+    },
+    resetPassword: async function () {
+      this.$q.loading.show();
+      await axios
+        .post(`${baseApiUrl}/password/forgot`, {
+          email: this.emailAddress
+        })
+        .then(() => {
+          this.$q.notify({
+            type: "success",
+            message: "Sucesso",
+          });
+
+          this.resetPasswordDialog = false;
+        })
+        .catch(err => {
+          showError("Não foi possível localizar este e-mail em nossa base de dados.")
+        });
+      this.$q.loading.hide();
     },
   },
 };
