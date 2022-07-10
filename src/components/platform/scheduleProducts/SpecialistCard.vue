@@ -54,6 +54,6 @@ export default {
 
 <style lang="scss">
 .specialists-card {
-  min-height: 200px;
+  max-height: 200px;
 }
 </style>

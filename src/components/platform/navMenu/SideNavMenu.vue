@@ -43,7 +43,7 @@ const menuList = [
     icon: "schedule",
     label: "Agendar Serviço",
     separator: true,
-    url: "products"
+    url: "products",
   },
 ];
 
@@ -54,21 +54,19 @@ export default {
       drawerController: false,
     };
   },
-  props: {
-    drawer: {
-      type: Boolean,
-      required: true,
-    },
-  },
+  props: ["sideNavMenuComponent"],
   methods: {
     goUrl: function (url) {
-      this.$router.push({ path: `/${url}` });
+      if (this.$router.history.current.path !== `/${url}`) {
+        this.$router.push({ path: `/${url}` });
+      }
+    },
+    toogleMenu() {
+      this.drawerController = !this.drawerController;
     },
   },
-  watch: {
-    drawer: function (newVal, oldVal) {
-      this.drawerController = newVal;
-    },
+  mounted() {
+    this.sideNavMenuComponent.$on("toogleMenu", this.toogleMenu);
   },
 };
 </script>

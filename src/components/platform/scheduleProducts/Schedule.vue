@@ -204,6 +204,7 @@ export default {
 .schedule-card {
   display: flex;
   flex-direction: column;
+  height: 160px;
 }
 
 .schedule-header {
@@ -255,7 +256,7 @@ export default {
   display: flex;
   flex-direction: row;
   justify-content: space-around;
-  max-height: 150px;
+  max-height: 110px;
   overflow: scroll;
 }
 

@@ -38,9 +38,13 @@
               ></q-icon>
             </template>
           </q-input>
+          <div class="login-forgot-pass">
+            Esqueceu sua senha?
+            <a @click="loggingIn = !loggingIn">Redefina agora!</a>
+          </div>
 
           <div class="login-form-signin-in" @click="login()">Entrar</div>
-          <div class="login-outros-links">
+          <div class="login-others-links">
             Ainda não tem cadastro?
             <a @click="loggingIn = false">Clique aqui!</a>
           </div>
@@ -106,7 +110,7 @@
             type="confirmPassword"
             mask="'###.###.###-##'"
             name="confirmPassword"
-            label="Confimação da Senha"
+            label="Confirmação da Senha"
           >
             <template v-slot:prepend>
               <q-icon name="mdi-lock" />
@@ -114,7 +118,7 @@
           </q-input>
 
           <div class="login-form-signin-in" @click="signUp()">Cadastrar</div>
-          <div class="login-outros-links">
+          <div class="login-others-links">
             Já tem cadastro?
             <a @click="loggingIn = !loggingIn">Clique aqui!</a>
           </div>
@@ -198,7 +202,10 @@ export default {
       axios
         .post(`${baseApiUrl}/sessions`, userData)
         .then(async (user) => {
-          successNotification();
+          this.$q.notify({
+            type: "success",
+            message: "Sucesso",
+          });
 
           this.loggingIn = false;
 
@@ -206,7 +213,9 @@ export default {
 
           this.$router.push({ path: "/platform" });
         })
-        .catch(showError);
+        .catch(showError => {
+          console.log(showError)
+        });
 
       this.user = {};
     },
@@ -282,7 +291,7 @@ export default {
 };
 </script>
 
-<style>
+<style lang="scss">
 .login-container {
   display: flex;
   height: 100vh;
@@ -351,19 +360,34 @@ export default {
   max-width: 800px;
 }
 
-.login-outros-links {
+.login-others-links {
   width: 80%;
   margin: 2px auto;
   font-family: "Nunito", sans-serif;
   color: #667998;
   user-select: none;
+  a {
+    font-family: "Nunito", sans-serif;
+    color: #667998;
+    font-weight: bold;
+    cursor: pointer;
+  }
 }
 
-.login-outros-links a {
+.login-forgot-pass {
+  width: 80%;
+  margin: 2px auto;
   font-family: "Nunito", sans-serif;
+  font-size: 0.7rem;
   color: #667998;
-  font-weight: bold;
-  cursor: pointer;
+  user-select: none;
+
+  a {
+    font-family: "Nunito", sans-serif;
+    color: #667998;
+    font-weight: bold;
+    cursor: pointer;
+  }
 }
 
 .login-form-signin-in {

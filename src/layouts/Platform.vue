@@ -7,7 +7,7 @@
       class="shadow-2 rounded-borders"
     >
       <Toolbar class="platform-toolbar" />
-      <SideNavMenu class="platform-side-nav-menu" :drawer="drawer" />
+      <SideNavMenu class="platform-side-nav-menu" :sideNavMenuComponent="sideNavMenuComponent"/>
       <q-page-container>
         <router-view name="content" class="platform-content" />
       </q-page-container>
@@ -20,10 +20,12 @@ import SideNavMenu from "../components/platform/navMenu/SideNavMenu.vue";
 import Toolbar from "../components/platform/toolbar/Toolbar.vue";
 import { refreshToken } from "src/utils/refreshToken";
 
+import Vue from "vue"
+
 export default {
   data() {
     return {
-      drawer: false,
+      sideNavMenuComponent: new Vue(),
     };
   },
   async beforeCreate() {
@@ -31,22 +33,21 @@ export default {
       const loggedUser = await refreshToken().then((token) => {
         return token.status === 200;
       });
-  
+
       if (!loggedUser) {
         this.$router.push({ path: "/login" });
       }
-    } catch (err) {
-    }
+    } catch (err) {}
   },
   methods: {
     toogleMenu: function () {
-      this.drawer = !this.drawer;
+      this.sideNavMenuComponent.$emit('toogleMenu')
     },
   },
   components: {
     SideNavMenu,
     Toolbar,
-  },
+  }
 };
 </script>
 

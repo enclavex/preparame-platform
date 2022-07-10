@@ -14,6 +14,8 @@ export default ({
             if(user) {
                 localStorage.setItem('token', user.token);
                 localStorage.setItem('refresh_token', user.refresh_token);
+                localStorage.setItem('userAvatarUrl', user.user.avatarUrl);
+                localStorage.setItem('userName', user.user.name);
             } else {
                 delete axios.defaults.headers.common["Authorization"]
             }
