@@ -3,8 +3,16 @@
     <div class="text-h6 crud-title">{{ title }}</div>
     <q-space></q-space>
     <q-btn
-      color="secondary"
+      color="negative"
       flat
+      label="Excluir"
+      icon="mdi-minus-circle"
+      class="crud-new-button q-mr-sm"
+      no-caps
+      @click="removeSelected()"
+    ></q-btn>
+    <q-btn
+      color="primary"
       label="Novo"
       icon="mdi-plus-circle"
       class="crud-new-button"
@@ -22,6 +30,9 @@ export default {
       const actualUrl = this.$router.history.current.path
 
       this.$router.push({ path: `${actualUrl}/new` });
+    },
+    removeSelected: function() {
+      this.$parent.$parent.removeSelected()
     }
   }
 };

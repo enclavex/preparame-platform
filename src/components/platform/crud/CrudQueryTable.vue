@@ -8,12 +8,19 @@
     table-header-class="text-white bg-secondary"
     title-class="text-white bg-secondary"
     no-data-label="Sem dados para mostrar"
+    selection="multiple"
+    :selected.sync="selecteds"
   ></q-table>
 </template>
 
 <script>
 export default {
   props: ["result"],
+  data() {
+    return {
+      selecteds: [],
+    };
+  },
 };
 </script>
 

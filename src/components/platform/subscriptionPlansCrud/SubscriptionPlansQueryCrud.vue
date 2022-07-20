@@ -24,6 +24,31 @@ export default {
     this.filter();
   },
   methods: {
+    removeSelected: async function (selecteds) {
+      let url = "/subscriptionPlans";
+
+      selecteds.forEach(async (selected) => {
+        const config = {
+          method: "delete",
+          headers: { authorization: `Bearer ${localStorage.getItem("token")}` },
+          url: `${baseApiUrl}${url}/${selected.id}`,
+        };
+
+        await axios(config)
+          .then(() => {
+            const indexDeleted = this.data.findIndex((value) => {
+              return value.id === selected.id;
+            });
+
+            if (indexDeleted > -1) {
+              this.data.splice(indexDeleted, 1);
+            }
+          })
+          .catch(showError);
+      });
+
+      return true;
+    },
     filter: async function (filters) {
       let queryString = "";
       let url = "/subscriptionPlans";

@@ -3,9 +3,9 @@
     <q-page>
       <Breadcrumbs :breadcrumbs="breadcrumbs" />
       <div class="crud-filter-content">
-        <CrudQueryTitle :title="title" />
+        <CrudQueryTitle  :title="title" />
         <CrudQueryFilter :rows="rows" />
-        <CrudQueryTable :result="{ columns, data }" />
+        <CrudQueryTable ref="table" :result="{ columns, data }" />
       </div>
     </q-page>
   </div>
@@ -31,8 +31,8 @@ export default {
     };
   },
   methods: {
-    createNew: function () {
-      this.$parent.createNew()
+    removeSelected: async function( ) {
+      return await this.$parent.removeSelected(this.$refs.table.selecteds)
     },
     filter: function (filters) {
       this.$parent.filter(filters)
