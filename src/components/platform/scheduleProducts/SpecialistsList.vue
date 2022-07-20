@@ -1,10 +1,6 @@
 <template>
   <q-page>
-    <q-breadcrumbs class="q-pl-md q-pt-md">
-      <q-breadcrumbs-el label="Início" to="/platform" />
-      <q-breadcrumbs-el label="Serviços" to="/products" />
-      <q-breadcrumbs-el label="Agendamento" />
-    </q-breadcrumbs>
+    <Breacrumbs :breadcrumbs="breadcrumbs"/>
     <div class="col q-ml-md q-mt-md text-h5 ellipsis">Agendamento</div>
     <div class="col q-ml-md text-h6 ellipsis text-grey-7">
       {{ product.name }}
@@ -23,6 +19,7 @@
 import axios from "axios";
 import { baseApiUrl, showError } from "../../../global.js";
 import SpecialistCard from "./SpecialistCard.vue";
+import Breacrumbs from "./../../general/Breacrumbs.vue"
 import {
   organizeSpecialistScheduleData,
   getDayOfWeek,
@@ -34,10 +31,22 @@ export default {
       productId: "",
       specialists: [],
       product: {},
+      breadcrumbs: [
+        {
+          title: "Serviços",
+          to: "/products"
+        },
+        {
+          title: "Agendamento",
+          to: ""
+        },
+
+      ]
     };
   },
   components: {
     SpecialistCard,
+    Breacrumbs
   },
   async created() {
     this.productId = this.$route.params.productId;

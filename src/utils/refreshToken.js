@@ -21,7 +21,7 @@ async function refreshToken(error) {
                     body
                 )
                 .then(async (res) => {
-                    localStorage.setItem("token", res.data.access_token);
+                    localStorage.setItem("token", res.data.token);
                     localStorage.setItem("refresh_token", res.data.refresh_token);
 
                     return resolve(res);

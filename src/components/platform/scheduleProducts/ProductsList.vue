@@ -1,9 +1,6 @@
 <template>
   <q-page>
-    <q-breadcrumbs class="q-pl-md q-pt-md">
-      <q-breadcrumbs-el label="Início" to="/platform" />
-      <q-breadcrumbs-el label="Serviços" />
-    </q-breadcrumbs>
+    <Breacrumbs :breadcrumbs="breadcrumbs"/>
     <div class="col q-ml-md q-mt-md text-h5 ellipsis">
       Agende Nossos Serviços
     </div>
@@ -24,15 +21,21 @@ import axios from "axios";
 import { baseApiUrl, showError } from "../../../global.js";
 
 import ProductCard from "./ProductCard";
+import Breacrumbs from "./../../general/Breacrumbs.vue"
 
 export default {
   data() {
     return {
       products: [],
+      breadcrumbs: [{
+        title: "Serviços",
+        to: ""
+      }]
     };
   },
   components: {
     ProductCard,
+    Breacrumbs,
   },
   async mounted() {
     const products = await axios.get(`${baseApiUrl}/products`).catch(showError);

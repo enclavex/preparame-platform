@@ -14,8 +14,8 @@ const error = err => {
 }
 
 const config = config => {
-    axios.defaults.headers.common["Authorization"] = `bearer ${localStorage.getItem('token')}`
-    axios.defaults.headers.common["Reauthorization"] = `${localStorage.getItem("refresh_token")}`
+    axios.defaults.headers.common["authorization"] = `Bearer ${localStorage.getItem('token')}`
+    axios.defaults.headers.common["reauthorization"] = `${localStorage.getItem("refresh_token")}`
 
     return config
 }

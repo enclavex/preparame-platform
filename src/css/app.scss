@@ -1,3 +1,5 @@
+@import url("https://fonts.googleapis.com/css2?family=Manrope:wght@200;300;400;500;600;700;800&display=swap");
+
 @font-face {
     font-family: "Mitr";
     src: url("../../src/assets/fonts/Mitr-Regular.ttf") format("truetype");
@@ -43,7 +45,7 @@
 }
 
 .icon {
-    color: #1D1D1D;
+    color: #1d1d1d;
 }
 
 * {
@@ -51,6 +53,10 @@
     margin: 0;
     padding: 0;
     // border: 1px solid black;
+}
+
+.bg-prepara-me {
+    background-color: #1a27b7;
 }
 
 input:focus,
@@ -74,6 +80,10 @@ a {
     color: #1d1d1d;
 }
 
+.bg-background {
+    background-color: #f6f6fe
+}
+
 .contain {
     position: absolute;
     top: 0px;
@@ -81,10 +91,9 @@ a {
 
 .fade-enter-active,
 .fade-leave-active {
-    transition: opacity 1s ease;
+    transition: opacity 0.5s;
 }
-
-.fade-enter-from,
+.fade-enter,
 .fade-leave-to {
     opacity: 0;
 }

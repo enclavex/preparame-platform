@@ -2,6 +2,7 @@ import HomePage from "../layouts/HomePage.vue"
 import Login from "../layouts/Login.vue"
 import ResetPassword from "../layouts/ResetPassword.vue"
 import ProductDetails from "../layouts/ProductDetails.vue"
+import CrudQuery from "../components/platform/crud/CrudQuery.vue"
 import ProductList from "../layouts/ProductList.vue"
 import PlatformProductList from "../components/platform/scheduleProducts/ProductsList.vue"
 import ProductSchedule from "../layouts/ProductSchedule.vue"
@@ -14,7 +15,8 @@ import PrivacyTerms from "../layouts/PrivacyTerms.vue"
 import UseTerms from "../layouts/UseTerms.vue"
 import SpecialistsList from "../components/platform/scheduleProducts/SpecialistsList.vue"
 import HomeUser from "../components/platform/home/HomeUser.vue"
-
+import SubscriptionPlansQueryCrud from "../components/platform/subscriptionPlansCrud/SubscriptionPlansQueryCrud.vue"
+import SubscriptionPlansRegisterCrud from "../components/platform/subscriptionPlansCrud/SubscriptionPlansRegisterCrud.vue"
 
 const routes = [
   {
@@ -50,6 +52,42 @@ const routes = [
       path: "/",
       components: {
         content: PlatformProductList
+      }
+    }]
+  },
+  {
+    path: "/companies",
+    components: {
+      site: Platform
+    },
+    children: [{
+      path: "/",
+      components: {
+        content: CrudQuery
+      }
+    }]
+  },
+  {
+    path: "/subscriptionPlans",
+    components: {
+      site: Platform
+    },
+    children: [{
+      path: "/",
+      components: {
+        content: SubscriptionPlansQueryCrud
+      }
+    }]
+  },
+  {
+    path: "/subscriptionPlans/new",
+    components: {
+      site: Platform
+    },
+    children: [{
+      path: "/",
+      components: {
+        content: SubscriptionPlansRegisterCrud
       }
     }]
   },

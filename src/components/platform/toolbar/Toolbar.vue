@@ -18,12 +18,12 @@
               </q-item-section>
             </q-item>
             <q-separator></q-separator>
-            <q-item clickable v-close-popup tabindex="0">
+            <q-item @click="logout()" clickable v-close-popup tabindex="0">
               <q-item-section avatar>
                 <q-icon color="icon" name="mdi-logout-variant"></q-icon>
               </q-item-section>
               <q-item-section>
-                <q-item-label @click="logout()">Sair</q-item-label>
+                <q-item-label >Sair</q-item-label>
               </q-item-section>
             </q-item>
           </q-list>
@@ -50,6 +50,7 @@ export default {
       localStorage.removeItem("refresh_token");
       localStorage.removeItem("userAvatarUrl");
       localStorage.removeItem("userName");
+      localStorage.removeItem("userType");
 
       this.$router.push({ path: "/login" });
     },

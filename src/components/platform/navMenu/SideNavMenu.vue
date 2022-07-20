@@ -38,19 +38,39 @@
 </template>
 
 <script>
-const menuList = [
-  {
-    icon: "schedule",
-    label: "Agendar Serviço",
-    separator: true,
-    url: "products",
+const menu = {
+  ADMIN: {
+    menuList: [
+      {
+        icon: "mdi-domain",
+        label: "Empresas",
+        separator: false,
+        url: "companies",
+      },
+      {
+        icon: "mdi-file-document-edit-outline",
+        label: "Planos de Assinaturas",
+        separator: false,
+        url: "subscriptionPlans",
+      },
+    ],
   },
-];
+  USER: {
+    menuList: [
+      {
+        icon: "schedule",
+        label: "Agendar Serviço",
+        separator: true,
+        url: "products",
+      },
+    ],
+  },
+};
 
 export default {
   data() {
     return {
-      menuList,
+      menuList: [],
       drawerController: false,
     };
   },
@@ -67,6 +87,11 @@ export default {
   },
   mounted() {
     this.sideNavMenuComponent.$on("toogleMenu", this.toogleMenu);
+  },
+  created() {
+    const userType = localStorage.getItem("userType");
+
+    this.menuList = menu[userType].menuList;
   },
 };
 </script>
