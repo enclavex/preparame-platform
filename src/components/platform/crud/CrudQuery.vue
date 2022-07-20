@@ -3,7 +3,7 @@
     <q-page>
       <Breadcrumbs :breadcrumbs="breadcrumbs" />
       <div class="crud-filter-content">
-        <CrudQueryTitle  :title="title" />
+        <CrudQueryTitle :title="title" />
         <CrudQueryFilter :rows="rows" />
         <CrudQueryTable ref="table" :result="{ columns, data }" />
       </div>
@@ -24,19 +24,30 @@ export default {
     CrudQueryTitle,
     Breadcrumbs,
   },
-  props: ["title", "filters", "breadcrumbs", "columns", "data", ],
+  props: ["title", "filters", "breadcrumbs", "columns", "data"],
   data() {
     return {
       rows: [],
     };
   },
   methods: {
-    removeSelected: async function( ) {
-      return await this.$parent.removeSelected(this.$refs.table.selecteds)
+    removeSelected: async function (id) {
+      if (!this.$refs.table.selecteds.length > 0 && !id) {
+        this.$q.notify({
+          type: "error",
+          message: "Nenhum registro selecionado para ser excluído.",
+        });
+
+        return false;
+      } else {
+        const selecteds = id ? [id] : this.$refs.table.selecteds;
+
+        return await this.$parent.removeSelected(selecteds);
+      }
     },
     filter: function (filters) {
-      this.$parent.filter(filters)
-    }
+      this.$parent.filter(filters);
+    },
   },
   created() {
     const dateRule = [

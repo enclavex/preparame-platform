@@ -10,7 +10,17 @@
     no-data-label="Sem dados para mostrar"
     selection="multiple"
     :selected.sync="selecteds"
-  ></q-table>
+    :selected-rows-label="getSelectedString"
+  >
+    <template v-slot:body-cell-actions="props">
+      <q-td auto-width :props="props">
+        <q-btn-group>
+          <q-btn color="negative" icon="mdi-delete" @click="removeSelected({id: props.row.id})"></q-btn>
+          <q-btn color="grey-8" icon="mdi-pencil"></q-btn>
+        </q-btn-group>
+      </q-td>
+    </template>
+  </q-table>
 </template>
 
 <script>
@@ -20,6 +30,14 @@ export default {
     return {
       selecteds: [],
     };
+  },
+  methods: {
+    getSelectedString() {
+      return "";
+    },
+    removeSelected: function (id) {
+      this.$parent.$parent.removeSelected(id);
+    },
   },
 };
 </script>

@@ -5,7 +5,7 @@
     <q-btn
       color="negative"
       flat
-      label="Excluir"
+      label="Excluir Selecionados"
       icon="mdi-minus-circle"
       class="crud-new-button q-mr-sm"
       no-caps

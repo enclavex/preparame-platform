@@ -163,14 +163,24 @@ export default {
         {
           name: "status",
           label: "Situação",
+          align: "left",
           field: "status",
           sortable: true,
         },
         {
           name: "type",
           label: "Tipo",
+          align: "left",
           field: "type",
           sortable: true,
+        },
+        {
+          name: "actions",
+          label: "Ações",
+          align: "center",
+          field: "actions",
+          sortable: false,
+          style: "width: 10px;"
         },
       ],
       data: [],
