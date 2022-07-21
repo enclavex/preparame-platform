@@ -16,7 +16,7 @@
       <q-td auto-width :props="props">
         <q-btn-group>
           <q-btn color="negative" icon="mdi-delete" @click="removeSelected({id: props.row.id})"></q-btn>
-          <q-btn color="grey-8" icon="mdi-pencil"></q-btn>
+          <q-btn color="grey-8" icon="mdi-pencil" @click="editSelected({id: props.row.id})"></q-btn>
         </q-btn-group>
       </q-td>
     </template>
@@ -37,6 +37,11 @@ export default {
     },
     removeSelected: function (id) {
       this.$parent.$parent.removeSelected(id);
+    },
+    editSelected: function (id) {
+      const actualUrl = this.$router.history.current.path
+
+      this.$router.push({ path: `${actualUrl}/${id.id}` });
     },
   },
 };

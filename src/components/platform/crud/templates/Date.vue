@@ -3,7 +3,7 @@
     :key="col.name"
     filled
     color="secondary"
-    v-model="col.model"
+    v-model="model"
     :label="col.label"
     :mask="col.mask"
     :rules="col.rules"
@@ -44,15 +44,25 @@
 import localeDateStrings from "./../../../../utils/localeDateStrings.js";
 
 export default {
+  props: ["col", "oldValue"],
   data() {
     return {
-      date: new Date(),
+      model: new Date(),
       localeDateStrings,
     };
   },
-  methods: {
-    save: function () {
-      this.$parent.alterData(this.date);
+  created() {
+    this.model = this.oldValue;
+  },
+  watch: {
+    col: {
+      handler(val) {
+        this.model = val.model;
+      },
+      deep: true,
+    },
+    model(newQuestion, oldQuestion) {
+      this.$parent.alterData(this.col.name, newQuestion);
     },
   },
 };

@@ -4,7 +4,7 @@
       <Breadcrumbs :breadcrumbs="breadcrumbs" />
       <div class="crud-register-content">
         <CrudRegisterTitle :title="title" />
-        <CrudRegisterForm :rows="rows" />
+        <CrudRegisterForm :rows="rows"/>
       </div>
     </q-page>
   </div>

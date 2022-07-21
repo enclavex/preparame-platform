@@ -57,10 +57,6 @@ export default {
               label: "Inativo",
               value: "INACTIVE",
             },
-            {
-              label: "Todos",
-              value: "",
-            },
           ],
         },
         type: {
@@ -80,10 +76,6 @@ export default {
               label: "Empresa",
               value: "COMPANY",
             },
-            {
-              label: "Todos",
-              value: "",
-            },
           ],
         },
       },
@@ -97,12 +89,37 @@ export default {
           to: "",
         },
       ],
-      rows: [],
     };
+  },
+  async created() {
+    const url = "/subscriptionPlans";
+    const id = this.$router.history.current.params.id;
+
+    if (id) {
+      const config = {
+        method: "get",
+        headers: { authorization: `Bearer ${localStorage.getItem("token")}` },
+        url: `${baseApiUrl}${url}/${id}`,
+      };
+
+      const subscriptionPlan = await axios(config)
+        .then((subscriptionPlan) => {
+          return subscriptionPlan.data;
+        })
+        .catch(showError);
+
+      Object.entries(subscriptionPlan).forEach((values) => {
+        if (this.cols[values[0]]) {
+          this.cols[values[0]].model = values[1];
+        }
+      });
+    }
   },
   methods: {
     save: async function (data) {
       let url = "/subscriptionPlans";
+
+      Object.assign(data, { id: this.$router.history.current.params.id });
 
       const config = {
         method: "post",
@@ -111,13 +128,13 @@ export default {
         url: `${baseApiUrl}${url}`,
       };
 
-      const result = await axios(config)
-        .then(subscriptionPlan => {
-          return subscriptionPlan
+      const subscriptionPlanCreated = await axios(config)
+        .then((subscriptionPlan) => {
+          return subscriptionPlan;
         })
         .catch(showError);
 
-      return result;
+      return subscriptionPlanCreated;
     },
   },
 };

@@ -92,6 +92,18 @@ const routes = [
     }]
   },
   {
+    path: "/subscriptionPlans/:id",
+    components: {
+      site: Platform
+    },
+    children: [{
+      path: "/",
+      components: {
+        content: SubscriptionPlansRegisterCrud
+      }
+    }]
+  },
+  {
     path: "/schedule/:productId",
     components: {
       site: Platform

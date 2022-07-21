@@ -43,16 +43,16 @@ export default {
           values.push({
             name: col.name,
             model: col.model,
-            type: col.type
+            type: col.type,
           });
-        })
+        });
       });
 
-      values.map(value => {
+      values.map((value) => {
         if (value.type === "select" && value.model && value.model.value) {
-          value.model = value.model.value
-        }      
-      })
+          value.model = value.model.value;
+        }
+      });
 
       const data = values.reduce(
         (array, value) => ({ ...array, [value.name]: value.model }),
@@ -66,15 +66,15 @@ export default {
           type: "success",
           message: "Cadastrado com sucesso.",
         });
-
-        this.onReset()
       }
+
+      this.onReset()
     },
     onReset: function () {
       this.rows.forEach((row) => {
-        row.cols.forEach(col => {
-          col.model = null
-        })
+        row.cols.forEach((col) => {
+          col.model = null;
+        });
       });
     },
     startListen: function () {

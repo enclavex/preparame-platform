@@ -1,5 +1,10 @@
 <template>
-  <component :is="component" :col="col" v-if="component" />
+  <component
+    :is="component"
+    :col="col"
+    :oldValue="col.model"
+    v-if="component"
+  />
 </template>
 
 <script>
@@ -24,7 +29,7 @@ export default {
   },
   methods: {
     alterData: function (name, data) {
-      this.$root.$emit("alterData", { data, name });
+      this.$parent.$parent.$parent.$parent.alterData(name, data);
     },
   },
   mounted() {

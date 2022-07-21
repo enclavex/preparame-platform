@@ -13,11 +13,14 @@
 
 <script>
 export default {
-  props: ["col"],
+  props: ["col", "oldValue"],
   data() {
     return {
       model: "",
     };
+  },
+  created() {
+    this.model = this.oldValue
   },
   watch: {
     col: {

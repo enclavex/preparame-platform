@@ -5,6 +5,7 @@
     filled
     color="secondary"
     :label="col.label"
+    map-options
     dense
     :class="`col-${col.size} q-mb-sm q-mr-sm`"
   ></q-select>
@@ -12,12 +13,15 @@
 
 <script>
 export default {
-  props: ["col"],
+  props: ["col", "oldValue"],
   data() {
     return {
       model: "",
       altered: false
     };
+  },
+  created() {
+    this.model = this.oldValue
   },
   watch: {
     col: {
