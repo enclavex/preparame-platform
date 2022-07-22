@@ -5,83 +5,24 @@
       :breadcrumbs="breadcrumbs"
       :filters="filters"
       :columns="columns"
-      :data="data"
+      :url="url"
     />
   </div>
 </template>
 
 <script>
-import axios from "axios";
-import { baseApiUrl, showError } from "../../../global.js";
-
 import CrudQuery from "../crud/CrudQuery.vue";
 
 export default {
   components: {
     CrudQuery,
   },
-  created() {
-    this.filter();
-  },
   methods: {
-    removeSelected: async function (selecteds) {
-      let url = "/subscriptionPlans";
-
-      selecteds.forEach(async (selected) => {
-        const config = {
-          method: "delete",
-          headers: { authorization: `Bearer ${localStorage.getItem("token")}` },
-          url: `${baseApiUrl}${url}/${selected.id}`,
-        };
-
-        await axios(config)
-          .then(() => {
-            const indexDeleted = this.data.findIndex((value) => {
-              return value.id === selected.id;
-            });
-
-            if (indexDeleted > -1) {
-              this.data.splice(indexDeleted, 1);
-            }
-          })
-          .catch(showError);
-      });
-
-      return true;
-    },
-    filter: async function (filters) {
-      let queryString = "";
-      let url = "/subscriptionPlans";
-
-      if (filters) {
-        filters.forEach((filter) => {
-          if (filter.model) {
-            if (queryString) {
-              queryString += "&";
-            }
-            queryString += `${filter.name}=${filter.model}`;
-          }
-        });
-
-        if (queryString) {
-          url += `?${queryString}`;
-        }
-      }
-
-      const config = {
-        headers: { authorization: `Bearer ${localStorage.getItem("token")}` },
-      };
-
-      const subscriptionPlans = await axios
-        .get(`${baseApiUrl}${url}`, config)
-        .catch(showError);
-
-      this.data = subscriptionPlans.data;
-    },
   },
   data() {
     return {
       title: "Planos de Assinaturas",
+      url: "subscriptionPlans",
       breadcrumbs: [
         {
           title: "Planos de Assinaturas",
@@ -180,10 +121,9 @@ export default {
           align: "center",
           field: "actions",
           sortable: false,
-          style: "width: 10px;"
+          style: "width: 10px;",
         },
       ],
-      data: [],
     };
   },
 };

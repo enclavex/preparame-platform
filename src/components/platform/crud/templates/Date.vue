@@ -5,12 +5,12 @@
     color="secondary"
     v-model="model"
     :label="col.label"
-    :mask="col.mask"
-    :rules="col.rules"
+    :mask="mask"
+    :rules="rules"
     dense
     :class="`col-${col.size} q-mb-sm q-mr-sm`"
   >
-    <template v-if="col.slotType" v-slot:append>
+    <template v-slot:append>
       <q-icon name="event" class="cursor-pointer">
         <q-popup-proxy
           ref="qDateProxy"
@@ -49,10 +49,28 @@ export default {
     return {
       model: new Date(),
       localeDateStrings,
+      mask: "##/##/####",
+      rules: ""
     };
   },
   created() {
     this.model = this.oldValue;
+
+    const dateRule = [
+      ((value) => {
+        if (!value) {
+          return true;
+        }
+
+        const dateParts = value.split("/");
+
+        value = new Date(`${dateParts[2]}-${dateParts[1]}-${dateParts[0]}`);
+
+        return value instanceof Date && !isNaN(value.valueOf());
+      }) || "Data Inválida",
+    ];
+
+    this.rules = dateRule;
   },
   watch: {
     col: {

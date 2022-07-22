@@ -67,7 +67,7 @@ export default {
           if (filter.model.value) {
             filter.model = filter.model.value;
           } else {
-            filter.model  = null
+            filter.model = null;
           }
         }
       });
@@ -76,18 +76,10 @@ export default {
     },
     onReset: function () {
       this.rows.forEach((row) => {
-        row.cols.forEach(col => {
-          col.model = null
-        })
+        row.cols.forEach((col) => {
+          col.model = null;
+        });
       });
-    },
-    startListen: function () {
-      this.$root.$on("alterData", (data) => {
-        this.alterData(data.name, data.data);
-      });
-    },
-    stopListen: function () {
-      this.$root.$off("alterData");
     },
     alterData: function (name, data) {
       this.rows.forEach((row) => {
@@ -98,12 +90,6 @@ export default {
         });
       });
     },
-  },
-  created() {
-    this.startListen();
-  },
-  beforeDestroy() {
-    this.stopListen();
   },
 };
 </script>

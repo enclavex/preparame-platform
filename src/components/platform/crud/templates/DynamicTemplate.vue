@@ -29,7 +29,16 @@ export default {
   },
   methods: {
     alterData: function (name, data) {
-      this.$parent.$parent.$parent.$parent.alterData(name, data);
+      if (this.$parent.$parent.$parent.$parent.alterData) {
+        this.$parent.$parent.$parent.$parent.alterData(name, data);
+      } else if (
+        this.$parent.$parent.$parent.$parent.$parent.$parent.alterData
+      ) {
+        this.$parent.$parent.$parent.$parent.$parent.$parent.alterData(
+          name,
+          data
+        );
+      }
     },
   },
   mounted() {

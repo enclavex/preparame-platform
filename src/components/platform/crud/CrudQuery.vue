@@ -17,6 +17,9 @@ import CrudQueryTable from "./CrudQueryTable.vue";
 import CrudQueryTitle from "./CrudQueryTitle.vue";
 import Breadcrumbs from "../../general/Breacrumbs.vue";
 
+import { filterCrud } from "./../crud/utils/filterCrud.js";
+import { removeCrud } from "./../crud/utils/removeCrud.js";
+
 export default {
   components: {
     CrudQueryFilter,
@@ -24,10 +27,11 @@ export default {
     CrudQueryTitle,
     Breadcrumbs,
   },
-  props: ["title", "filters", "breadcrumbs", "columns", "data"],
+  props: ["title", "filters", "breadcrumbs", "columns", "url"],
   data() {
     return {
       rows: [],
+      data: [],
     };
   },
   methods: {
@@ -42,35 +46,17 @@ export default {
       } else {
         const selecteds = id ? [id] : this.$refs.table.selecteds;
 
-        return await this.$parent.removeSelected(selecteds);
+        await removeCrud(selecteds, this.url, this.data);
+
+        return true;
       }
     },
-    filter: function (filters) {
-      this.$parent.filter(filters);
+    filter: async function (filters) {
+      this.data = await filterCrud(filters, this.url);
     },
   },
   created() {
-    const dateRule = [
-      ((value) => {
-        if (!value) {
-          return true;
-        }
-
-        const dateParts = value.split("/");
-
-        value = new Date(`${dateParts[2]}-${dateParts[1]}-${dateParts[0]}`);
-
-        return value instanceof Date && !isNaN(value.valueOf());
-      }) || "Data Inválida",
-    ];
-
-    Object.values(this.filters).forEach((filter) => {
-      if (filter.type === "date") {
-        filter.mask = "##/##/####";
-        filter.rules = dateRule;
-        filter.slotType = "date";
-      }
-    });
+    this.filter();
 
     const rows = Object.values(this.filters)
       .map((filter) => {

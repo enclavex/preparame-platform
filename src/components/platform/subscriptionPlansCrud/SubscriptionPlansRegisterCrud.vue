@@ -1,18 +1,13 @@
 <template>
   <div class="subscription-plan-crud">
-    <CrudRegister
-      :breadcrumbs="breadcrumbs"
-      :title="'Cadastro de Plano de Assinatura'"
-      :columns="cols"
-    />
+    <CrudRegister :breadcrumbs="breadcrumbs" :title="title" :columns="cols" />
   </div>
 </template>
 
 <script>
-import axios from "axios";
-import { baseApiUrl, showError } from "../../../global.js";
-
 import CrudRegister from "./../crud/CrudRegister.vue";
+import { openEditCrud } from "./../crud/utils/openEditCrud.js";
+import { saveCrud } from "./../crud/utils/saveCrud.js";
 
 export default {
   components: {
@@ -20,6 +15,8 @@ export default {
   },
   data: () => {
     return {
+      apiUrl: "/subscriptionPlans",
+      id: null,
       cols: {
         name: {
           label: "Nome",
@@ -89,52 +86,17 @@ export default {
           to: "",
         },
       ],
+      title: "Cadastro de Plano de Assinatura",
     };
   },
   async created() {
-    const url = "/subscriptionPlans";
-    const id = this.$router.history.current.params.id;
+    this.id = this.$router.history.current.params.id;
 
-    if (id) {
-      const config = {
-        method: "get",
-        headers: { authorization: `Bearer ${localStorage.getItem("token")}` },
-        url: `${baseApiUrl}${url}/${id}`,
-      };
-
-      const subscriptionPlan = await axios(config)
-        .then((subscriptionPlan) => {
-          return subscriptionPlan.data;
-        })
-        .catch(showError);
-
-      Object.entries(subscriptionPlan).forEach((values) => {
-        if (this.cols[values[0]]) {
-          this.cols[values[0]].model = values[1];
-        }
-      });
-    }
+    openEditCrud(this.id, this.apiUrl, this.cols);
   },
   methods: {
     save: async function (data) {
-      let url = "/subscriptionPlans";
-
-      Object.assign(data, { id: this.$router.history.current.params.id });
-
-      const config = {
-        method: "post",
-        headers: { authorization: `Bearer ${localStorage.getItem("token")}` },
-        data: data,
-        url: `${baseApiUrl}${url}`,
-      };
-
-      const subscriptionPlanCreated = await axios(config)
-        .then((subscriptionPlan) => {
-          return subscriptionPlan;
-        })
-        .catch(showError);
-
-      return subscriptionPlanCreated;
+      return await saveCrud(this.id, this.apiUrl, data);
     },
   },
 };

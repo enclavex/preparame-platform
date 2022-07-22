@@ -17,6 +17,8 @@ import SpecialistsList from "../components/platform/scheduleProducts/Specialists
 import HomeUser from "../components/platform/home/HomeUser.vue"
 import SubscriptionPlansQueryCrud from "../components/platform/subscriptionPlansCrud/SubscriptionPlansQueryCrud.vue"
 import SubscriptionPlansRegisterCrud from "../components/platform/subscriptionPlansCrud/SubscriptionPlansRegisterCrud.vue"
+import CompaniesQueryCrud from "../components/platform/companiesCrud/CompaniesQueryCrud.vue"
+import CompaniesRegisterCrud from "../components/platform/companiesCrud/CompaniesRegisterCrud.vue"
 
 const routes = [
   {
@@ -63,7 +65,31 @@ const routes = [
     children: [{
       path: "/",
       components: {
-        content: CrudQuery
+        content: CompaniesQueryCrud
+      }
+    }]
+  },
+  {
+    path: "/companies/new",
+    components: {
+      site: Platform
+    },
+    children: [{
+      path: "/",
+      components: {
+        content: CompaniesRegisterCrud
+      }
+    }]
+  },
+  {
+    path: "/companies/:id",
+    components: {
+      site: Platform
+    },
+    children: [{
+      path: "/",
+      components: {
+        content: CompaniesRegisterCrud
       }
     }]
   },

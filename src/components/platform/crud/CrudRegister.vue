@@ -28,28 +28,6 @@ export default {
     };
   },
   created() {
-    const dateRule = [
-      ((value) => {
-        if (!value) {
-          return true;
-        }
-
-        const dateParts = value.split("/");
-
-        value = new Date(`${dateParts[2]}-${dateParts[1]}-${dateParts[0]}`);
-
-        return value instanceof Date && !isNaN(value.valueOf());
-      }) || "Data Inválida",
-    ];
-
-    Object.values(this.columns).forEach((column) => {
-      if (column.type === "date") {
-        column.mask = "##/##/####";
-        column.rules = dateRule;
-        column.slotType = "date";
-      }
-    });
-
     const rows = Object.values(this.columns)
       .map((column) => {
         return column.row;
