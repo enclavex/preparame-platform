@@ -25,7 +25,7 @@ export default {
           row: 1,
           col: 1,
           model: "",
-          type: "input",
+          type: "Input",
         },
       },
       breadcrumbs: [

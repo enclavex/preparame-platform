@@ -25,7 +25,7 @@ export default {
           row: 1,
           col: 1,
           model: "",
-          type: "input",
+          type: "Input",
         },
         price: {
           label: "Preço",
@@ -35,7 +35,7 @@ export default {
           row: 1,
           col: 2,
           model: "",
-          type: "decimal",
+          type: "Decimal",
         },
         status: {
           label: "Situação",
@@ -44,7 +44,7 @@ export default {
           row: 2,
           col: 1,
           model: "",
-          type: "select",
+          type: "Select",
           options: [
             {
               label: "Ativo",
@@ -63,7 +63,7 @@ export default {
           row: 2,
           col: 2,
           model: "",
-          type: "select",
+          type: "Select",
           options: [
             {
               label: "Site",

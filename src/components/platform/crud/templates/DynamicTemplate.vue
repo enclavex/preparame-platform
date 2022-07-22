@@ -22,9 +22,7 @@ export default {
         return null;
       }
 
-      const type = this.col.type.replace(/\b\w/g, (l) => l.toUpperCase());
-
-      return () => import(`./${type}`);
+      return () => import(`./${this.col.type}`);
     },
   },
   methods: {

@@ -37,7 +37,7 @@ export default {
           row: 1,
           col: 1,
           model: "",
-          type: "input",
+          type: "Input",
         },
         status: {
           label: "Situação",
@@ -46,7 +46,7 @@ export default {
           row: 1,
           col: 2,
           model: "",
-          type: "select",
+          type: "Select",
           options: [
             {
               label: "Ativo",
@@ -69,7 +69,7 @@ export default {
           row: 1,
           col: 3,
           model: "",
-          type: "select",
+          type: "Select",
           options: [
             {
               label: "Site",
