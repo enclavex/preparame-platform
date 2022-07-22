@@ -1,12 +1,12 @@
 <template>
-  <div id="q-app">
+  <div id="q-app" class="platform-toolbar">
     <q-header elevated class="bg-primary">
       <q-toolbar>
         <q-btn flat @click="toogleMenu()" round dense icon="menu"></q-btn>
         <q-toolbar-title>Prepara.me</q-toolbar-title>
         <q-space></q-space>
         <q-btn-dropdown stretch flat label="Perfil">
-          <q-list bordered>
+          <q-list class="toolbar-perfil">
             <q-item>
               <q-item-section avatar>
                 <q-avatar>
@@ -62,4 +62,9 @@ export default {
 };
 </script>
 
-<style></style>
+<style>
+ .q-menu {
+  border-top-left-radius: 0;
+  border-top-right-radius: 0;
+}
+</style>

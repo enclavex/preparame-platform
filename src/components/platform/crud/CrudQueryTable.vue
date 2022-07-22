@@ -6,7 +6,8 @@
     row-key="id"
     table-class="bg-background"
     table-header-class="text-white bg-secondary"
-    no-data-label="Sem dados para mostrar"
+    no-data-label="Sem dados para mostrar."
+    no-results-label="Não foi encontrado nenhum dado a partir de sua pesquisa."
     :filter="filter"
     selection="multiple"
     dense
@@ -70,15 +71,14 @@ export default {
     },
   },
   mounted() {
-    const searchField = document.getElementsByClassName('q-field__native q-placeholder');
+    const searchField = document.getElementsByClassName(
+      "q-field__native q-placeholder"
+    );
 
-    if (searchField[0].placeholder = 'Search') {
-      searchField[0].placeholder = 'Pesquisar'
+    if ((searchField[0].placeholder = "Search")) {
+      searchField[0].placeholder = "Pesquisar";
     }
-    
-
-    
-  }
+  },
 };
 </script>
 
