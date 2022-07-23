@@ -59,6 +59,12 @@ const menu = {
         separator: false,
         url: "specialists",
       },
+      {
+        icon: "mdi-briefcase",
+        label: "Produtos",
+        separator: false,
+        url: "products",
+      },
     ],
   },
   USER: {

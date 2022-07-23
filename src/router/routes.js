@@ -20,6 +20,8 @@ import CompaniesQueryCrud from "../components/platform/companiesCrud/CompaniesQu
 import CompaniesRegisterCrud from "../components/platform/companiesCrud/CompaniesRegisterCrud.vue"
 import SpecialistsQueryCrud from "../components/platform/specialistsCrud/SpecialistsQueryCrud.vue"
 import SpecialistsRegisterCrud from "../components/platform/specialistsCrud/SpecialistsRegisterCrud.vue"
+import ProductsQueryCrud from "../components/platform/productsCrud/ProductsQueryCrud.vue"
+import ProductsRegisterCrud from "../components/platform/productsCrud/ProductsRegisterCrud.vue"
 
 const routes = [
   {
@@ -54,7 +56,31 @@ const routes = [
     children: [{
       path: "/",
       components: {
-        content: PlatformProductList
+        content: ProductsQueryCrud
+      }
+    }]
+  },
+  {
+    path: "/products/new",
+    components: {
+      site: Platform
+    },
+    children: [{
+      path: "/",
+      components: {
+        content: ProductsRegisterCrud
+      }
+    }]
+  },
+  {
+    path: "/products/:id",
+    components: {
+      site: Platform
+    },
+    children: [{
+      path: "/",
+      components: {
+        content: ProductsRegisterCrud
       }
     }]
   },

@@ -4,7 +4,7 @@
     color="secondary"
     v-model="model"
     :label="col.label"
-    :mask="col.mask"
+    :mask="'###.##'"
     :rules="col.rules"
     dense
     :class="`col-${col.size} q-mb-sm q-mr-sm`"
