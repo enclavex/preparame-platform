@@ -9,7 +9,12 @@ function urlQueryBuilder(url, cols) {
                 if (queryString) {
                     queryString += "&";
                 }
-                queryString += `${filter.name}=${filter.model}`;
+
+                if (filter.model.label) {
+                    queryString += `${filter.name}=${filter.model.value}`;
+                } else {
+                    queryString += `${filter.name}=${filter.model}`;
+                }
             }
         });
 

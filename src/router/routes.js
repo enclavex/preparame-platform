@@ -2,7 +2,6 @@ import HomePage from "../layouts/HomePage.vue"
 import Login from "../layouts/Login.vue"
 import ResetPassword from "../layouts/ResetPassword.vue"
 import ProductDetails from "../layouts/ProductDetails.vue"
-import CrudQuery from "../components/platform/crud/CrudQuery.vue"
 import ProductList from "../layouts/ProductList.vue"
 import PlatformProductList from "../components/platform/scheduleProducts/ProductsList.vue"
 import ProductSchedule from "../layouts/ProductSchedule.vue"
@@ -19,6 +18,8 @@ import SubscriptionPlansQueryCrud from "../components/platform/subscriptionPlans
 import SubscriptionPlansRegisterCrud from "../components/platform/subscriptionPlansCrud/SubscriptionPlansRegisterCrud.vue"
 import CompaniesQueryCrud from "../components/platform/companiesCrud/CompaniesQueryCrud.vue"
 import CompaniesRegisterCrud from "../components/platform/companiesCrud/CompaniesRegisterCrud.vue"
+import SpecialistsQueryCrud from "../components/platform/specialistsCrud/SpecialistsQueryCrud.vue"
+import SpecialistsRegisterCrud from "../components/platform/specialistsCrud/SpecialistsRegisterCrud.vue"
 
 const routes = [
   {
@@ -54,6 +55,42 @@ const routes = [
       path: "/",
       components: {
         content: PlatformProductList
+      }
+    }]
+  },
+  {
+    path: "/specialists",
+    components: {
+      site: Platform
+    },
+    children: [{
+      path: "/",
+      components: {
+        content: SpecialistsQueryCrud
+      }
+    }]
+  },
+  {
+    path: "/specialists/new",
+    components: {
+      site: Platform
+    },
+    children: [{
+      path: "/",
+      components: {
+        content: SpecialistsRegisterCrud
+      }
+    }]
+  },
+  {
+    path: "/specialists/:id",
+    components: {
+      site: Platform
+    },
+    children: [{
+      path: "/",
+      components: {
+        content: SpecialistsRegisterCrud
       }
     }]
   },

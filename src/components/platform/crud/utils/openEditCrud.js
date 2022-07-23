@@ -16,9 +16,19 @@ async function openEditCrud(id, url, fields) {
             })
             .catch(showError);
 
-        Object.entries(dataObject).forEach((values) => {
+        const object = Array.isArray(dataObject) ? dataObject[0] : dataObject
+
+        Object.entries(object).forEach((values) => {
             if (fields[values[0]]) {
-                fields[values[0]].model = values[1];
+                if (fields[values[0]].type === "DialogSelect") {
+                    fields[values[0]].model = {
+                        label: values[1][fields[values[0]].options.label],
+                        value: values[1][fields[values[0]].options.value]
+                    }
+                } else {
+                    fields[values[0]].model = values[1];
+                }
+
             }
         });
     }

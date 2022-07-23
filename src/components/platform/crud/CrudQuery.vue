@@ -53,6 +53,17 @@ export default {
     },
     filter: async function (filters) {
       this.data = await filterCrud(filters, this.url);
+
+      this.columns.forEach((column) => {
+        if (column.field.indexOf(".") > 0) {
+          const key = column.field.substr(0, column.field.indexOf("."));
+          const value = column.field.substr(column.field.indexOf(".") + 1);
+
+          this.data.map((values) => {
+            values[column.field] = values[key][value]
+          });
+        }
+      });
     },
   },
   created() {

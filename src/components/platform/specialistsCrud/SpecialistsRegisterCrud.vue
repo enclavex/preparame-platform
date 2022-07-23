@@ -1,5 +1,5 @@
 <template>
-  <div class="subscription-plan-crud">
+  <div class="specialist-crud">
     <CrudRegister :breadcrumbs="breadcrumbs" :title="title" :columns="cols" />
   </div>
 </template>
@@ -15,33 +15,33 @@ export default {
   },
   data: () => {
     return {
-      apiUrl: "/subscriptionPlans",
+      apiUrl: "/specialists",
       id: null,
       cols: {
         name: {
           label: "Nome",
           name: "name",
-          size: "5",
+          size: "6",
           row: 1,
           col: 1,
           model: "",
           type: "Input",
         },
-        price: {
-          label: "Preço",
-          name: "price",
-          size: "5",
-          row: 1,
-          col: 2,
+        bio: {
+          label: "Bio",
+          name: "bio",
+          size: "12",
+          row: 2,
+          col: 1,
           model: "",
-          type: "Decimal",
+          type: "Input",
         },
         status: {
           label: "Situação",
           name: "status",
-          size: "5",
+          size: "4",
           row: 2,
-          col: 1,
+          col: 2,
           model: "",
           type: "Select",
           options: [
@@ -55,43 +55,47 @@ export default {
             },
           ],
         },
-        type: {
-          label: "Tipo",
-          name: "type",
+        linkedinUrl: {
+          label: "LinkedIn",
+          name: "linkedinUrl",
           size: "5",
-          row: 2,
+          row: 1,
           col: 2,
           model: "",
-          type: "Select",
-          options: [
-            {
-              label: "Site",
-              value: "SITE",
-            },
-            {
-              label: "Empresa",
-              value: "COMPANY",
-            },
-          ],
+          type: "Input",
+        },
+        user: {
+          label: "Usuário",
+          name: "userId",
+          size: "7",
+          row: 2,
+          col: 1,
+          model: "",
+          type: "DialogSelect",
+          options: {
+            table: "users",
+            value: "id",
+            label: "name",
+          },
         },
       },
       breadcrumbs: [
         {
-          title: "Planos de Assinaturas",
-          to: "/subscriptionPlans",
+          title: "Especialistas",
+          to: "/specialists",
         },
         {
-          title: "Cadastro de Planos de Assinaturas",
+          title: "Cadastro de Especialistas",
           to: "",
         },
       ],
-      title: "Cadastro de Plano de Assinatura",
+      title: "Cadastro de Especialistas",
     };
   },
   async created() {
     this.id = this.$router.history.current.params.id;
 
-    openEditCrud(this.id, this.apiUrl, this.cols);
+    await openEditCrud(this.id, this.apiUrl, this.cols);
   },
   methods: {
     save: async function (data) {

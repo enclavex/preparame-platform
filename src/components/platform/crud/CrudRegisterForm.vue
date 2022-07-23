@@ -49,7 +49,7 @@ export default {
       });
 
       values.map((value) => {
-        if (value.type === "select" && value.model && value.model.value) {
+        if ((value.type === "Select"|| value.type === "DialogSelect") && value.model && value.model.value) {
           value.model = value.model.value;
         }
       });

@@ -53,6 +53,12 @@ const menu = {
         separator: false,
         url: "subscriptionPlans",
       },
+      {
+        icon: "mdi-account-check",
+        label: "Especialistas",
+        separator: false,
+        url: "specialists",
+      },
     ],
   },
   USER: {

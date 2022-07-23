@@ -295,7 +295,7 @@ export default {
         email: this.user.email,
         password: this.user.password,
         documentId: this.user.documentId,
-        type: "C",
+        type: "USER",
       };
 
       axios

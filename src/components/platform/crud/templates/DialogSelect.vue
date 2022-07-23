@@ -38,11 +38,13 @@
                 <q-item
                   clickable
                   v-ripple
-                  v-for="option in col.options"
-                  :key="option.value"
-                  @click=selectValue(option)
+                  v-for="option in options"
+                  :key="option[col.options.value]"
+                  @click="selectValue(option)"
                 >
-                  <q-item-section>{{ option.label }}</q-item-section>
+                  <q-item-section>{{
+                    option[col.options.label]
+                  }}</q-item-section>
                 </q-item>
               </q-list>
             </q-page>
@@ -54,6 +56,8 @@
 </template>
 
 <script>
+import { filterCrud } from "./../../crud/utils/filterCrud.js";
+
 export default {
   props: ["col", "oldValue"],
   data() {
@@ -61,11 +65,14 @@ export default {
       model: "",
       altered: false,
       filteredOptions: [],
+      options: [],
       openDialog: false,
     };
   },
-  created() {
+  async created() {
     this.model = this.oldValue;
+
+    this.options = await filterCrud("", this.col.options.table);
   },
   watch: {
     col: {
@@ -88,13 +95,16 @@ export default {
     },
   },
   methods: {
-    selectValue: function(selected) {
-      this.model = selected
-      this.openDialog = false
-    }
-  }
+    selectValue: function (selected) {
+      this.model = {
+        value: selected[this.col.options.value],
+        label: selected[this.col.options.label],
+      };
+      
+      this.openDialog = false;
+    },
+  },
 };
 </script>
 
-<style lang="scss">
-</style>
+<style lang="scss"></style>
