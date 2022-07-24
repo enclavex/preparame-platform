@@ -42,7 +42,7 @@ export default {
         status: {
           label: "Situação",
           name: "status",
-          size: "2",
+          size: "3",
           row: 1,
           col: 2,
           model: "",

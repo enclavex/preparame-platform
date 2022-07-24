@@ -21,7 +21,7 @@ export default {
         name: {
           label: "Nome",
           name: "name",
-          size: "5",
+          size: "6",
           row: 1,
           col: 1,
           model: "",
@@ -30,7 +30,7 @@ export default {
         price: {
           label: "Preço",
           name: "price",
-          size: "5",
+          size: "6",
           row: 1,
           col: 2,
           model: "",
@@ -39,7 +39,7 @@ export default {
         status: {
           label: "Situação",
           name: "status",
-          size: "5",
+          size: "6",
           row: 2,
           col: 1,
           model: "",
@@ -58,7 +58,7 @@ export default {
         type: {
           label: "Tipo",
           name: "type",
-          size: "5",
+          size: "6",
           row: 2,
           col: 2,
           model: "",

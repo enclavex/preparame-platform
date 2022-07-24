@@ -50,3 +50,10 @@ export default {
   },
 };
 </script>
+
+<style scoped>
+.crud-filter .q-mr-sm, .crud-register .q-mr-sm {
+  margin-right: unset;
+  padding-right: 8px;
+}
+</style>

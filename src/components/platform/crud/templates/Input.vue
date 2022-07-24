@@ -20,14 +20,14 @@ export default {
     };
   },
   created() {
-    this.model = this.oldValue
+    this.model = this.oldValue;
   },
   watch: {
     col: {
-      handler(val){
-       this.model = val.model
-     },
-     deep: true
+      handler(val) {
+        this.model = val.model;
+      },
+      deep: true,
     },
     model(newQuestion, oldQuestion) {
       this.$parent.alterData(this.col.name, newQuestion);

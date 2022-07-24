@@ -41,7 +41,7 @@ export default {
         shortName: {
           label: "Nome Resumido",
           name: "shortName",
-          size: "5",
+          size: "6",
           row: 1,
           col: 2,
           model: "",
@@ -50,7 +50,7 @@ export default {
         status: {
           label: "Situação",
           name: "status",
-          size: "4",
+          size: "3",
           row: 2,
           col: 1,
           model: "",
@@ -73,7 +73,7 @@ export default {
         type: {
           label: "Tipo",
           name: "type",
-          size: "2",
+          size: "3",
           row: 2,
           col: 2,
           model: "",
@@ -96,7 +96,7 @@ export default {
         bestSeller: {
           label: "Mais Vendidos",
           name: "bestSeller",
-          size: "5",
+          size: "6",
           row: 2,
           col: 3,
           model: "",

@@ -32,7 +32,7 @@ export default {
         name: {
           label: "Nome",
           name: "name",
-          size: "4",
+          size: "5",
           row: 1,
           col: 1,
           model: "",

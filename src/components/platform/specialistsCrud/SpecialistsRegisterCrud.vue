@@ -39,7 +39,7 @@ export default {
         status: {
           label: "Situação",
           name: "status",
-          size: "4",
+          size: "6",
           row: 2,
           col: 2,
           model: "",
@@ -58,7 +58,7 @@ export default {
         linkedinUrl: {
           label: "LinkedIn",
           name: "linkedinUrl",
-          size: "5",
+          size: "6",
           row: 1,
           col: 2,
           model: "",
@@ -67,7 +67,7 @@ export default {
         user: {
           label: "Usuário",
           name: "userId",
-          size: "7",
+          size: "6",
           row: 2,
           col: 1,
           model: "",

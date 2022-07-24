@@ -30,7 +30,7 @@ export default {
         shortName: {
           label: "Nome Resumido",
           name: "shortName",
-          size: "5",
+          size: "6",
           row: 1,
           col: 2,
           model: "",
@@ -96,7 +96,7 @@ export default {
         price: {
           label: "Preço",
           name: "price",
-          size: "2",
+          size: "3",
           row: 2,
           col: 4,
           model: "",
