@@ -38,6 +38,7 @@ export default {
           col: 1,
           model: "",
           type: "Input",
+          visible: true
         },
         status: {
           label: "Situação",
@@ -61,6 +62,7 @@ export default {
               value: "",
             },
           ],
+          visible: true
         },
         type: {
           label: "Tipo",
@@ -84,6 +86,7 @@ export default {
               value: "",
             },
           ],
+          visible: true
         },
       },
       columns: [
@@ -93,6 +96,7 @@ export default {
           align: "left",
           field: "name",
           sortable: true,
+          visible: true
         },
         {
           name: "price",
@@ -100,6 +104,7 @@ export default {
           label: "Preço",
           field: "price",
           sortable: true,
+          visible: true
         },
         {
           name: "status",
@@ -107,6 +112,7 @@ export default {
           align: "left",
           field: "status",
           sortable: true,
+          visible: true
         },
         {
           name: "type",
@@ -114,6 +120,7 @@ export default {
           align: "left",
           field: "type",
           sortable: true,
+          visible: true
         },
         {
           name: "actions",
@@ -122,6 +129,7 @@ export default {
           field: "actions",
           sortable: false,
           style: "width: 10px;",
+          visible: true
         },
       ],
     };

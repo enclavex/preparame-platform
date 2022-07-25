@@ -3,8 +3,11 @@
     <q-page>
       <Breadcrumbs :breadcrumbs="breadcrumbs" />
       <div class="crud-register-content">
-        <CrudRegisterTitle :title="title" />
-        <CrudRegisterForm :rows="rows"/>
+        <CrudRegisterTitle :title="title.mainTable" />
+        <CrudRegisterForm ref="mainTable" :table="forms.mainTable" />
+        <CrudRegisterTitle v-if="registerType==='parentChild'" :title="title.childTable" />
+        <CrudRegisterFormRow v-if="registerType==='parentChild'" ref="childTable" :data="forms.childTable" />
+        <CrudRegisterButtons />
       </div>
     </q-page>
   </div>
@@ -13,39 +16,50 @@
 <script>
 import CrudRegisterTitle from "./CrudRegisterTitle.vue";
 import CrudRegisterForm from "./CrudRegisterForm.vue";
+import CrudRegisterFormRow from "./CrudRegisterFormRow.vue";
+import CrudRegisterButtons from "./CrudRegisterButtons.vue";
 import Breadcrumbs from "../../general/Breacrumbs.vue";
+
+import { adjustColumnsAndRowsRegister } from "./utils/adjustColumnsAndRowsRegister.js";
 
 export default {
   components: {
     CrudRegisterTitle,
     CrudRegisterForm,
+    CrudRegisterFormRow,
+    CrudRegisterButtons,
     Breadcrumbs,
   },
-  props: ["title", "breadcrumbs", "columns"],
+  props: ["title", "breadcrumbs", "registerType", "tables"],
   data() {
     return {
-      rows: [],
+      forms: {},
     };
   },
   created() {
-    const rows = Object.values(this.columns)
-      .map((column) => {
-        return column.row;
-      })
-      .filter((row, index, self) => {
-        return self.indexOf(row) === index;
-      });
+    this.forms.mainTable = {
+      registerColumns: [],
+    };
 
-    rows.forEach((row) => {
-      const cols = Object.values(this.columns).filter((column) => {
-        return column.row === row;
-      });
+    adjustColumnsAndRowsRegister(
+      this.tables["mainTable"],
+      this.forms.mainTable.registerColumns
+    );
 
-      this.rows.push({
-        row: row,
-        cols: cols,
-      });
-    });
+    if (this.registerType === "parentChild") {
+      this.forms.childTable = {
+        registerColumns: [],
+      };
+
+      adjustColumnsAndRowsRegister(
+        this.tables["childTable"],
+        this.forms.childTable.registerColumns
+      );
+
+      this.forms.childTable.tableColumns =
+        this.tables["childTable"].tableColumns;
+      this.forms.childTable.tableData = this.tables["childTable"].tableData;
+    }
   },
 };
 </script>

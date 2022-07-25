@@ -35,8 +35,8 @@ export default {
     };
   },
   methods: {
-    removeSelected: async function (id) {
-      if (!this.$refs.table.selecteds.length > 0 && !id) {
+    removeSelected: async function (row) {
+      if (!this.$refs.table.selecteds.length > 0 && !row.id) {
         this.$q.notify({
           type: "error",
           message: "Nenhum registro selecionado para ser excluído.",
@@ -44,9 +44,34 @@ export default {
 
         return false;
       } else {
-        const selecteds = id ? [id] : this.$refs.table.selecteds;
+        const selecteds = this.$refs.table.selecteds;
 
-        await removeCrud(selecteds, this.url, this.data);
+        if (row) {
+          selecteds.push({ id: row.id });
+        }
+
+        let resultsRemove = await Promise.all(
+          selecteds.map(async (selected) => {
+            const resultsRemove = await removeCrud(selected, this.url);
+
+            if (resultsRemove) {
+              this.data = this.data.filter((data) => {
+                return data.id !== selected.id;
+              });
+            }
+          })
+        );
+
+        resultsRemove = resultsRemove.find((result) => {
+          return result.data !== 200;
+        });
+
+        if (resultsRemove) {
+          this.$q.notify({
+            type: "success",
+            message: "Removido com sucesso.",
+          });
+        }
 
         return true;
       }
@@ -60,7 +85,7 @@ export default {
           const value = column.field.substr(column.field.indexOf(".") + 1);
 
           this.data.map((values) => {
-            values[column.field] = values[key][value]
+            values[column.field] = values[key][value];
           });
         }
       });

@@ -36,6 +36,7 @@ export default {
           col: 1,
           model: "",
           type: "Input",
+          visible: true
         },
       },
       columns: [
@@ -45,6 +46,7 @@ export default {
           align: "left",
           field: "name",
           sortable: true,
+          visible: true
         },
         {
           name: "actions",
@@ -53,6 +55,7 @@ export default {
           field: "actions",
           sortable: false,
           style: "width: 10px;",
+          visible: true
         },
       ],
     };

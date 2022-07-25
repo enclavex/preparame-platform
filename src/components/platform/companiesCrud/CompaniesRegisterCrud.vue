@@ -1,6 +1,11 @@
 <template>
   <div class="company-crud">
-    <CrudRegister :breadcrumbs="breadcrumbs" :title="title" :columns="cols" />
+    <CrudRegister
+      :breadcrumbs="breadcrumbs"
+      :title="title"
+      :tables="tables"
+      :registerType="registerType"
+    />
   </div>
 </template>
 
@@ -15,17 +20,34 @@ export default {
   },
   data: () => {
     return {
-      apiUrl: "/companies",
-      id: null,
-      cols: {
-        name: {
-          label: "Nome",
-          name: "name",
-          size: "12",
-          row: 1,
-          col: 1,
-          model: "",
-          type: "Input",
+      registerType: "unique",
+      editUrl: "/companies",
+      tables: {
+        mainTable: {
+          id: null,
+          apiUrl: "/companies",
+          registerColumns: {
+            id: {
+              label: "Id",
+              name: "id",
+              size: "12",
+              row: 1,
+              col: 1,
+              model: "",
+              type: "Input",
+              visible: false,
+            },
+            name: {
+              label: "Nome",
+              name: "name",
+              size: "12",
+              row: 1,
+              col: 1,
+              model: "",
+              type: "Input",
+              visible: true,
+            },
+          },
         },
       },
       breadcrumbs: [
@@ -41,14 +63,25 @@ export default {
       title: "Cadastro de Empresas",
     };
   },
-  async created() {
+  created() {
     this.id = this.$router.history.current.params.id;
 
-    openEditCrud(this.id, this.apiUrl, this.cols);
+    openEditCrud(this.id, this.editUrl, this.tables);
   },
   methods: {
     save: async function (data) {
-      return await saveCrud(this.id, this.apiUrl, data);
+      try {
+        const companyCreated = await saveCrud(
+          this.tables.mainTable.apiUrl,
+          data.mainTable
+        );
+
+        return companyCreated;
+      } catch (err) {
+        showError(err);
+
+        return false;
+      }
     },
   },
 };

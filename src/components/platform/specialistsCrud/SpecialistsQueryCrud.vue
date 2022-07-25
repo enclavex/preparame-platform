@@ -37,6 +37,7 @@ export default {
           col: 1,
           model: "",
           type: "Input",
+          visible: true,
         },
         userId: {
           label: "Usuário",
@@ -46,6 +47,7 @@ export default {
           col: 3,
           model: "",
           type: "DialogSelect",
+          visible: true,
           options: {
             table: "users",
             value: "id",
@@ -60,6 +62,7 @@ export default {
           col: 2,
           model: "",
           type: "Select",
+          visible: true,
           options: [
             {
               label: "Ativo",
@@ -83,6 +86,7 @@ export default {
           align: "left",
           field: "name",
           sortable: true,
+          visible: true,
         },
         {
           name: "status",
@@ -90,6 +94,7 @@ export default {
           label: "Situação",
           field: "status.label",
           sortable: true,
+          visible: true,
         },
         {
           name: "userName",
@@ -97,6 +102,7 @@ export default {
           label: "Usuário",
           field: "user.name",
           sortable: true,
+          visible: true,
         },
         {
           name: "actions",
@@ -105,6 +111,7 @@ export default {
           field: "actions",
           sortable: false,
           style: "width: 10px;",
+          visible: true,
         },
       ],
     };

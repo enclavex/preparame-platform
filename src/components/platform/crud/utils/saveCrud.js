@@ -2,10 +2,15 @@
 import axios from "axios";
 import { baseApiUrl, showError } from "../../../../global";
 
-async function saveCrud(id, url, data) {
-    if (id) {
-        Object.assign(data, { id: id });
-    }
+async function saveCrud(url, data) {
+    Object.entries(data)
+    .forEach(values => {
+        if (values[0] === 'id') {
+            if (!values[1]) {
+                delete data.id
+            }
+        }
+    })
 
     const config = {
         method: "post",

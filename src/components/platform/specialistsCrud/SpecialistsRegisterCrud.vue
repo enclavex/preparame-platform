@@ -1,6 +1,11 @@
 <template>
   <div class="specialist-crud">
-    <CrudRegister :breadcrumbs="breadcrumbs" :title="title" :columns="cols" />
+    <CrudRegister
+      :breadcrumbs="breadcrumbs"
+      :title="title"
+      :tables="tables"
+      :registerType="registerType"
+    />
   </div>
 </template>
 
@@ -15,67 +20,88 @@ export default {
   },
   data: () => {
     return {
-      apiUrl: "/specialists",
-      id: null,
-      cols: {
-        name: {
-          label: "Nome",
-          name: "name",
-          size: "6",
-          row: 1,
-          col: 1,
-          model: "",
-          type: "Input",
-        },
-        bio: {
-          label: "Bio",
-          name: "bio",
-          size: "12",
-          row: 2,
-          col: 1,
-          model: "",
-          type: "Input",
-        },
-        status: {
-          label: "Situação",
-          name: "status",
-          size: "6",
-          row: 2,
-          col: 2,
-          model: "",
-          type: "Select",
-          options: [
-            {
-              label: "Ativo",
-              value: "ACTIVE",
+      registerType: "unique",
+      editUrl: "/specialists",
+      tables: {
+        mainTable: {
+          id: null,
+          apiUrl: "/specialists",
+          registerColumns: {
+            id: {
+              label: "Id",
+              name: "id",
+              size: "12",
+              row: 1,
+              col: 1,
+              model: "",
+              type: "Input",
+              visible: false,
             },
-            {
-              label: "Inativo",
-              value: "INACTIVE",
+            name: {
+              label: "Nome",
+              name: "name",
+              size: "6",
+              row: 1,
+              col: 1,
+              model: "",
+              type: "Input",
+              visible: true,
             },
-          ],
-        },
-        linkedinUrl: {
-          label: "LinkedIn",
-          name: "linkedinUrl",
-          size: "6",
-          row: 1,
-          col: 2,
-          model: "",
-          type: "Input",
-        },
-        user: {
-          label: "Usuário",
-          name: "userId",
-          size: "6",
-          row: 2,
-          col: 1,
-          model: "",
-          type: "DialogSelect",
-          options: {
-            table: "users",
-            value: "id",
-            label: "name",
+            bio: {
+              label: "Bio",
+              name: "bio",
+              size: "12",
+              row: 2,
+              col: 1,
+              model: "",
+              type: "Input",
+              visible: true,
+            },
+            status: {
+              label: "Situação",
+              name: "status",
+              size: "6",
+              row: 2,
+              col: 2,
+              model: "",
+              type: "Select",
+              visible: true,
+              options: [
+                {
+                  label: "Ativo",
+                  value: "ACTIVE",
+                },
+                {
+                  label: "Inativo",
+                  value: "INACTIVE",
+                },
+              ],
+            },
+            linkedinUrl: {
+              label: "LinkedIn",
+              name: "linkedinUrl",
+              size: "6",
+              row: 1,
+              col: 2,
+              model: "",
+              type: "Input",
+              visible: true,
+            },
+            user: {
+              label: "Usuário",
+              name: "userId",
+              size: "6",
+              row: 2,
+              col: 1,
+              model: "",
+              type: "DialogSelect",
+              visible: true,
+              options: {
+                table: "users",
+                value: "id",
+                label: "name",
+              },
+            },
           },
         },
       },
@@ -92,14 +118,25 @@ export default {
       title: "Cadastro de Especialistas",
     };
   },
-  async created() {
+  created() {
     this.id = this.$router.history.current.params.id;
 
-    await openEditCrud(this.id, this.apiUrl, this.cols);
+    openEditCrud(this.id, this.editUrl, this.tables);
   },
   methods: {
     save: async function (data) {
-      return await saveCrud(this.id, this.apiUrl, data);
+      try {
+        const companyCreated = await saveCrud(
+          this.tables.mainTable.apiUrl,
+          data.mainTable
+        );
+
+        return companyCreated;
+      } catch (err) {
+        showError(err);
+
+        return false;
+      }
     },
   },
 };

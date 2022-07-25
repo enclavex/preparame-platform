@@ -3,7 +3,7 @@
     :is="component"
     :col="col"
     :oldValue="col.model"
-    v-if="component"
+    v-if="component && col.visible"
   />
 </template>
 

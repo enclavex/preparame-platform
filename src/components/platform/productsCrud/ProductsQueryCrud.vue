@@ -37,6 +37,7 @@ export default {
           col: 1,
           model: "",
           type: "Input",
+          visible: true
         },
         shortName: {
           label: "Nome Resumido",
@@ -46,6 +47,7 @@ export default {
           col: 2,
           model: "",
           type: "Input",
+          visible: true
         },
         status: {
           label: "Situação",
@@ -69,6 +71,7 @@ export default {
               value: "",
             },
           ],
+          visible: true
         },
         type: {
           label: "Tipo",
@@ -92,6 +95,7 @@ export default {
               value: "",
             },
           ],
+          visible: true
         },
         bestSeller: {
           label: "Mais Vendidos",
@@ -115,15 +119,25 @@ export default {
               value: "",
             },
           ],
+          visible: true
         }
       },
       columns: [
+        {
+          name: "id",
+          label: "Id",
+          align: "left",
+          field: "id",
+          sortable: true,
+          visible: false
+        },
         {
           name: "name",
           label: "Nome",
           align: "left",
           field: "name",
           sortable: true,
+          visible: true
         },
         {
           name: "shortName",
@@ -131,6 +145,7 @@ export default {
           align: "left",
           field: "shortName",
           sortable: true,
+          visible: true
         },
         {
           name: "status",
@@ -138,6 +153,7 @@ export default {
           label: "Situação",
           field: "status.label",
           sortable: true,
+          visible: true
         },
         {
           name: "type",
@@ -145,6 +161,7 @@ export default {
           label: "Tipo",
           field: "type.label",
           sortable: true,
+          visible: true
         },
         {
           name: "bestSeller",
@@ -152,6 +169,7 @@ export default {
           label: "Mais Vendidos",
           field: "bestSeller.label",
           sortable: true,
+          visible: true
         },
         {
           name: "price",
@@ -159,6 +177,7 @@ export default {
           label: "Preço",
           field: "price",
           sortable: true,
+          visible: true
         },
         {
           name: "actions",
@@ -167,6 +186,7 @@ export default {
           field: "actions",
           sortable: false,
           style: "width: 10px;",
+          visible: true
         },
       ],
     };

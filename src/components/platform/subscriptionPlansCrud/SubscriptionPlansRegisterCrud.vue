@@ -1,6 +1,11 @@
 <template>
   <div class="subscription-plan-crud">
-    <CrudRegister :breadcrumbs="breadcrumbs" :title="title" :columns="cols" />
+    <CrudRegister
+      :breadcrumbs="breadcrumbs"
+      :title="title"
+      :tables="tables"
+      :registerType="registerType"
+    />
   </div>
 </template>
 
@@ -15,64 +20,84 @@ export default {
   },
   data: () => {
     return {
-      apiUrl: "/subscriptionPlans",
-      id: null,
-      cols: {
-        name: {
-          label: "Nome",
-          name: "name",
-          size: "6",
-          row: 1,
-          col: 1,
-          model: "",
-          type: "Input",
-        },
-        price: {
-          label: "Preço",
-          name: "price",
-          size: "6",
-          row: 1,
-          col: 2,
-          model: "",
-          type: "Decimal",
-        },
-        status: {
-          label: "Situação",
-          name: "status",
-          size: "6",
-          row: 2,
-          col: 1,
-          model: "",
-          type: "Select",
-          options: [
-            {
-              label: "Ativo",
-              value: "ACTIVE",
+      registerType: "unique",
+      editUrl: "/subscriptionPlans",
+      tables: {
+        mainTable: {
+          id: null,
+          apiUrl: "/subscriptionPlans",
+          registerColumns: {
+            id: {
+              label: "Id",
+              name: "id",
+              size: "12",
+              row: 1,
+              col: 1,
+              model: "",
+              type: "Input",
+              visible: false,
             },
-            {
-              label: "Inativo",
-              value: "INACTIVE",
+            name: {
+              label: "Nome",
+              name: "name",
+              size: "6",
+              row: 1,
+              col: 1,
+              model: "",
+              type: "Input",
+              visible: true,
             },
-          ],
-        },
-        type: {
-          label: "Tipo",
-          name: "type",
-          size: "6",
-          row: 2,
-          col: 2,
-          model: "",
-          type: "Select",
-          options: [
-            {
-              label: "Site",
-              value: "SITE",
+            price: {
+              label: "Preço",
+              name: "price",
+              size: "6",
+              row: 1,
+              col: 2,
+              model: "",
+              type: "Decimal",
+              visible: true,
             },
-            {
-              label: "Empresa",
-              value: "COMPANY",
+            status: {
+              label: "Situação",
+              name: "status",
+              size: "6",
+              row: 2,
+              col: 1,
+              model: "",
+              type: "Select",
+              visible: true,
+              options: [
+                {
+                  label: "Ativo",
+                  value: "ACTIVE",
+                },
+                {
+                  label: "Inativo",
+                  value: "INACTIVE",
+                },
+              ],
             },
-          ],
+            type: {
+              label: "Tipo",
+              name: "type",
+              size: "6",
+              row: 2,
+              col: 2,
+              model: "",
+              type: "Select",
+              visible: true,
+              options: [
+                {
+                  label: "Site",
+                  value: "SITE",
+                },
+                {
+                  label: "Empresa",
+                  value: "COMPANY",
+                },
+              ],
+            },
+          },
         },
       },
       breadcrumbs: [
@@ -91,11 +116,22 @@ export default {
   async created() {
     this.id = this.$router.history.current.params.id;
 
-    openEditCrud(this.id, this.apiUrl, this.cols);
+    openEditCrud(this.id, this.editUrl, this.tables);
   },
   methods: {
     save: async function (data) {
-      return await saveCrud(this.id, this.apiUrl, data);
+      try {
+        const companyCreated = await saveCrud(
+          this.tables.mainTable.apiUrl,
+          data.mainTable
+        );
+
+        return companyCreated;
+      } catch (err) {
+        showError(err);
+
+        return false;
+      }
     },
   },
 };

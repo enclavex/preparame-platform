@@ -1,5 +1,5 @@
 <template>
-  <div class="row crud-title-container q-mb-sm">
+  <div class="row crud-title-container q-mb-sm q-mt-sm">
     <div class="text-h6 crud-title">{{ title }}</div>
   </div>
 </template>
