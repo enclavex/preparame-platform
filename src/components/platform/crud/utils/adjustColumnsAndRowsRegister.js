@@ -1,5 +1,7 @@
 function adjustColumnsAndRowsRegister(fields, fieldsAdjusted) {
-    const rowsCount = Object.values(fields.registerColumns)
+    const columns = fields.registerColumns ? fields.registerColumns : fields
+
+    const rowsCount = Object.values(columns)
         .map((column) => {
             return column.row;
         })
@@ -8,7 +10,7 @@ function adjustColumnsAndRowsRegister(fields, fieldsAdjusted) {
         });
 
     rowsCount.forEach((rowNumber) => {
-        const cols = Object.values(fields.registerColumns).filter((column) => {
+        const cols = Object.values(columns).filter((column) => {
             return column.row === rowNumber;
         });
 

@@ -86,11 +86,24 @@ export default {
         const values = [];
 
         table.cols.forEach((field) => {
-          values.push({
-            name: field.name,
-            model: field.model,
-            type: field.type,
-          });
+          if (field.type === "DialogSelect") {
+            values.push({
+              name: field.options.editFieldLabel,
+              model: field.model.label,
+              type: field.type,
+            });
+            values.push({
+              name: field.name,
+              model: field.model.value,
+              type: field.type,
+            });
+          } else {
+            values.push({
+              name: field.name,
+              model: field.model,
+              type: field.type,
+            });
+          }
         });
 
         const indexRef = values.findIndex((value) => {
@@ -168,7 +181,14 @@ export default {
     editRow: async function (row) {
       this.data.registerColumns.forEach((field) => {
         field.cols.forEach((col) => {
-          col.model = row[col.name];
+          if (col.type === "DialogSelect") {
+            col.model = {
+              label: row[col.options.editFieldLabel],
+              value: row[col.options.editFieldValue],
+            };
+          } else {
+            col.model = row[col.name];
+          }
         });
       });
     },

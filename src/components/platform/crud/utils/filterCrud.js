@@ -1,9 +1,9 @@
 
 import axios from "axios";
 import { baseApiUrl, showError } from "../../../../global";
-import {urlQueryBuilder} from "./../../../../utils/urlQueryBuilder.js"
+import { urlQueryBuilder } from "./../../../../utils/urlQueryBuilder.js"
 
-async function filterCrud(filters, url) {
+async function filterCrud(filters, url, columns) {
     url = urlQueryBuilder(url, filters)
 
     const config = {
@@ -13,6 +13,19 @@ async function filterCrud(filters, url) {
     const result = await axios
         .get(`${baseApiUrl}${url}`, config)
         .catch(showError);
+
+    if (columns) {
+        columns.forEach((column) => {
+            if (column.field.indexOf(".") > 0) {
+                const key = column.field.substr(0, column.field.indexOf("."));
+                const value = column.field.substr(column.field.indexOf(".") + 1);
+    
+                result.data.map((values) => {
+                    values[column.field] = values[key][value];
+                });
+            }
+        });
+    }
 
     return result.data
 }

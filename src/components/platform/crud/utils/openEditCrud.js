@@ -2,6 +2,8 @@
 import axios from "axios";
 import { baseApiUrl, showError } from "../../../../global";
 
+import {formatDateToString} from "./../../../../utils/formatDate.js"
+
 async function openEditCrud(id, url, fields) {
     if (id) {
         const mainConfig = {
@@ -37,8 +39,31 @@ async function openEditCrud(id, url, fields) {
                 }
             });
 
-            if (fields.childTable) {
-                mainDataObject[0][fields.childTable.content].forEach(field => {
+            if (fields.childTable.tableColumns) {
+                fields.childTable.tableColumns.forEach(tableColumn => {
+                    if (tableColumn.field.indexOf(".") > 0) {
+                        const key = tableColumn.field.substr(0, tableColumn.field.indexOf("."));
+                        const value = tableColumn.field.substr(tableColumn.field.indexOf(".") + 1);
+
+                        tableColumn.field = key
+
+                        object[fields.childTable.content].map((values) => {
+                            values[key] = values[key][value];
+                        });
+                    }
+                })
+            }
+
+            const dateColumns = fields.childTable.tableColumns.filter(column => {
+                return column.type === 'date'
+            })
+
+            if (object[fields.childTable.content]) {
+                object[fields.childTable.content].forEach(field => {
+                    dateColumns.forEach(col => {
+                        field[col.name] = formatDateToString(field[col.name])
+                    })
+
                     fields.childTable.tableData.push(field)
                 })
             }

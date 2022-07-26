@@ -20,6 +20,8 @@ import Breadcrumbs from "../../general/Breacrumbs.vue";
 import { filterCrud } from "./../crud/utils/filterCrud.js";
 import { removeCrud } from "./../crud/utils/removeCrud.js";
 
+import { adjustColumnsAndRowsRegister } from "./../crud/utils/adjustColumnsAndRowsRegister";
+
 export default {
   components: {
     CrudQueryFilter,
@@ -77,41 +79,13 @@ export default {
       }
     },
     filter: async function (filters) {
-      this.data = await filterCrud(filters, this.url);
-
-      this.columns.forEach((column) => {
-        if (column.field.indexOf(".") > 0) {
-          const key = column.field.substr(0, column.field.indexOf("."));
-          const value = column.field.substr(column.field.indexOf(".") + 1);
-
-          this.data.map((values) => {
-            values[column.field] = values[key][value];
-          });
-        }
-      });
+      this.data = await filterCrud(filters, this.url, this.columns);
     },
   },
   created() {
     this.filter();
 
-    const rows = Object.values(this.filters)
-      .map((filter) => {
-        return filter.row;
-      })
-      .filter((row, index, self) => {
-        return self.indexOf(row) === index;
-      });
-
-    rows.forEach((row) => {
-      const cols = Object.values(this.filters).filter((filter) => {
-        return filter.row === row;
-      });
-
-      this.rows.push({
-        row: row,
-        cols: cols,
-      });
-    });
+    adjustColumnsAndRowsRegister(this.filters, this.rows);
   },
 };
 </script>

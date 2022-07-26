@@ -19,7 +19,7 @@
         >
           <q-date
             mask="DD-MM-YYYY"
-            v-model="date"
+            v-model="selectedDate"
             setToday
             :locale="localeDateStrings"
           >
@@ -28,8 +28,8 @@
               <q-btn
                 label="Selecionar"
                 color="primary"
+                @click="model = selectedDate"
                 flat
-                @click="save"
                 v-close-popup
               ></q-btn>
             </div>
@@ -48,6 +48,7 @@ export default {
   data() {
     return {
       model: new Date(),
+      selectedDate: new Date(),
       localeDateStrings,
       mask: "##/##/####",
       rules: ""
@@ -79,9 +80,9 @@ export default {
       },
       deep: true,
     },
-    model(newQuestion, oldQuestion) {
-      this.$parent.alterData(this.col.name, newQuestion);
-    },
+    model(newValue, oldValue) {
+      this.$parent.alterData(this.col.name, newValue);
+    }
   },
 };
 </script>
