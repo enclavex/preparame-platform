@@ -18,11 +18,9 @@ async function openEditCrud(id, url, fields) {
             })
             .catch(showError);
 
-
         const object = Array.isArray(mainDataObject) ? mainDataObject[0] : mainDataObject
 
         if (object.id) {
-
             const mainTableFields = fields.mainTable.registerColumns
 
             Object.entries(object).forEach((values) => {
@@ -35,16 +33,16 @@ async function openEditCrud(id, url, fields) {
                     } else {
                         mainTableFields[values[0]].model = values[1];
                     }
-
+                    
                 }
             });
-
+            
             if (fields.childTable.tableColumns) {
                 fields.childTable.tableColumns.forEach(tableColumn => {
                     if (tableColumn.field.indexOf(".") > 0) {
                         const key = tableColumn.field.substr(0, tableColumn.field.indexOf("."));
                         const value = tableColumn.field.substr(tableColumn.field.indexOf(".") + 1);
-
+                        
                         tableColumn.field = key
 
                         object[fields.childTable.content].map((values) => {
@@ -60,13 +58,16 @@ async function openEditCrud(id, url, fields) {
 
             if (object[fields.childTable.content]) {
                 object[fields.childTable.content].forEach(field => {
-                    dateColumns.forEach(col => {
-                        field[col.name] = formatDateToString(field[col.name])
-                    })
+                    if (dateColumns) {
+                        dateColumns.forEach(col => {
+                            field[col.name] = formatDateToString(field[col.name])
+                        })
+                    }
 
                     fields.childTable.tableData.push(field)
                 })
             }
+
         }
     }
 }

@@ -20,7 +20,7 @@ export default {
   },
   data: () => {
     return {
-      registerType: "unique",
+      registerType: "parentChild",
       editUrl: "/subscriptionPlans",
       tables: {
         mainTable: {
@@ -99,6 +99,97 @@ export default {
             },
           },
         },
+        childTable: {
+          content: "subscriptionPlanProduct",
+          apiUrl: "/subscriptionPlans/:id/products",
+          removeUrl: "subscriptionPlans/products",
+          registerColumns: {
+            id: {
+              label: "Id",
+              name: "id",
+              size: "12",
+              col: 1,
+              row: 1,
+              model: "",
+              type: "Input",
+              visible: false,
+            },
+            ref: {
+              label: "Ref",
+              name: "ref",
+              size: "12",
+              col: 1,
+              row: 1,
+              model: "",
+              type: "Input",
+              visible: false,
+            },
+            productId: {
+              label: "Produto",
+              name: "productId",
+              size: "8",
+              col: 1,
+              row: 1,
+              model: "",
+              type: "DialogSelect",
+              visible: true,
+              options: {
+                table: "products",
+                value: "id",
+                label: "name",
+                editFieldLabel: "product",
+                editFieldValue: "productId",
+              },
+            },
+            availableQuantity: {
+              label: "Quantidade Disponível",
+              name: "availableQuantity",
+              size: "4",
+              col: 2,
+              row: 1,
+              model: "",
+              type: "Integer",
+              visible: true,
+            },
+          },
+          tableColumns: [
+            {
+              name: "id",
+              label: "Id",
+              align: "left",
+              field: "id",
+              sortable: false,
+              visible: false,
+            },
+            {
+              name: "productName",
+              label: "Produto",
+              align: "left",
+              field: "product.name",
+              sortable: false,
+              visible: true,
+            },
+            {
+              name: "productId",
+              label: "Produto Id",
+              align: "left",
+              field: "productId",
+              type: "DialogSelect",
+              labelColumn: "productName",
+              sortable: false,
+              visible: false,
+            },
+            {
+              name: "availableQuantity",
+              label: "Quantidade Disponivel",
+              align: "right",
+              field: "availableQuantity",
+              sortable: false,
+              visible: true,
+            },
+          ],
+          tableData: [],
+        },
       },
       breadcrumbs: [
         {
@@ -121,12 +212,23 @@ export default {
   methods: {
     save: async function (data) {
       try {
-        const companyCreated = await saveCrud(
+        const subscriptionPlanCreated = await saveCrud(
           this.tables.mainTable.apiUrl,
           data.mainTable
         );
 
-        return companyCreated;
+        if (subscriptionPlanCreated.status === 201) {
+          this.tables.childTable.apiUrl = this.tables.childTable.apiUrl.replace(
+            ":id",
+            subscriptionPlanCreated.data.id
+          );
+
+          data.childTable.forEach(async (values) => {
+            await saveCrud(this.tables.childTable.apiUrl, values);
+          });
+        }
+
+        return subscriptionPlanCreated;
       } catch (err) {
         showError(err);
 

@@ -134,7 +134,7 @@ export default {
             },
             {
               name: "subscriptionPlanName",
-              label: "Plano de Assinatura Nome",
+              label: "Plano de Assinatura",
               align: "left",
               field: "subscriptionPlan.name",
               sortable: false,
