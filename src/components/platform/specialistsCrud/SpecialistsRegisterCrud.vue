@@ -20,7 +20,7 @@ export default {
   },
   data: () => {
     return {
-      registerType: "unique",
+      registerType: "parentChild",
       editUrl: "/specialists",
       tables: {
         mainTable: {
@@ -104,6 +104,79 @@ export default {
             },
           },
         },
+        childTable: {
+          content: "productSpecialist",
+          apiUrl: "/specialists/:id/products",
+          removeUrl: "specialists/products",
+          registerColumns: {
+            id: {
+              label: "Id",
+              name: "id",
+              size: "12",
+              col: 1,
+              row: 1,
+              model: "",
+              type: "Input",
+              visible: false,
+            },
+            ref: {
+              label: "Ref",
+              name: "ref",
+              size: "12",
+              col: 1,
+              row: 1,
+              model: "",
+              type: "Input",
+              visible: false,
+            },
+            productId: {
+              label: "Produto",
+              name: "productId",
+              size: "12",
+              col: 1,
+              row: 1,
+              model: "",
+              type: "DialogSelect",
+              visible: true,
+              options: {
+                table: "products",
+                value: "id",
+                label: "name",
+                editFieldLabel: "product",
+                editFieldValue: "productId",
+              },
+            },
+          },
+          tableColumns: [
+            {
+              name: "id",
+              label: "Id",
+              align: "left",
+              field: "id",
+              sortable: false,
+              visible: false,
+            },
+            {
+              name: "productName",
+              label: "Produto",
+              align: "left",
+              field: "product.name",
+              sortable: false,
+              visible: true,
+            },
+            {
+              name: "productId",
+              label: "Produto Id",
+              align: "left",
+              field: "productId",
+              type: "DialogSelect",
+              labelColumn: "productName",
+              sortable: false,
+              visible: false,
+            },
+          ],
+          tableData: [],
+        },
       },
       breadcrumbs: [
         {
@@ -126,12 +199,23 @@ export default {
   methods: {
     save: async function (data) {
       try {
-        const companyCreated = await saveCrud(
+        const specialistCreated = await saveCrud(
           this.tables.mainTable.apiUrl,
           data.mainTable
         );
 
-        return companyCreated;
+        if (specialistCreated.status === 201) {
+          this.tables.childTable.apiUrl = this.tables.childTable.apiUrl.replace(
+            ":id",
+            specialistCreated.data.id
+          );
+
+          data.childTable.forEach(async (values) => {
+            await saveCrud(this.tables.childTable.apiUrl, values);
+          });
+        }
+
+        return specialistCreated;
       } catch (err) {
         showError(err);
 
