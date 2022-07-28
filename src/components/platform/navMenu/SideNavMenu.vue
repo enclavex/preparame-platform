@@ -48,6 +48,12 @@ const menu = {
         url: "companies",
       },
       {
+        icon: "mdi-domain",
+        label: "Funcionários",
+        separator: false,
+        url: "companies/employees",
+      },
+      {
         icon: "mdi-file-document-edit-outline",
         label: "Planos de Assinaturas",
         separator: false,
@@ -73,7 +79,17 @@ const menu = {
         icon: "schedule",
         label: "Agendar Serviço",
         separator: true,
-        url: "products",
+        url: "products/list",
+      },
+    ],
+  },
+  SPECIALIST: {
+    menuList: [
+      {
+        icon: "mdi-calendar",
+        label: "Disponibilizar Horários",
+        separator: true,
+        url: "providesTimetables",
       },
     ],
   },

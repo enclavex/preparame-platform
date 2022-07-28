@@ -1,0 +1,163 @@
+<template>
+  <div class="company-employee-crud">
+    <CrudRegister
+      :breadcrumbs="breadcrumbs"
+      :title="title"
+      :tables="tables"
+      :registerType="registerType"
+    />
+  </div>
+</template>
+
+<script>
+import CrudRegister from "../crud/CrudRegister.vue";
+import { openEditCrud } from "../crud/utils/openEditCrud.js";
+import { saveCrud } from "../crud/utils/saveCrud.js";
+import { showError } from "../../../global.js";
+
+export default {
+  components: {
+    CrudRegister,
+  },
+  data: () => {
+    return {
+      registerType: "unique",
+      editUrl: "/companies/employees",
+      tables: {
+        mainTable: {
+          id: null,
+          apiUrl: "/companies/:companyId/employees",
+          registerColumns: {
+            id: {
+              label: "Id",
+              name: "id",
+              size: "12",
+              row: 1,
+              col: 1,
+              model: "",
+              type: "Input",
+              visible: false,
+            },
+            name: {
+              label: "Nome",
+              name: "name",
+              size: "6",
+              row: 1,
+              col: 1,
+              model: "",
+              type: "Input",
+              visible: true,
+            },
+            company: {
+              label: "Empresa",
+              name: "companyId",
+              size: "6",
+              row: 1,
+              col: 2,
+              model: "",
+              type: "DialogSelect",
+              visible: true,
+              options: {
+                table: "companies",
+                value: "id",
+                label: "name",
+              },
+            },
+            documentId: {
+              label: "Documento",
+              name: "documentId",
+              size: "6",
+              row: 2,
+              col: 1,
+              model: "",
+              type: "Input",
+              visible: true,
+            },
+            subscribeToken: {
+              label: "Token",
+              name: "subscribeToken",
+              size: "6",
+              row: 2,
+              col: 2,
+              model: "",
+              type: "Input",
+              visible: true,
+            },
+            phone: {
+              label: "Telefone",
+              name: "phone",
+              size: "6",
+              row: 3,
+              col: 1,
+              model: "",
+              type: "Input",
+              visible: true,
+            },
+            email: {
+              label: "E-Mail",
+              name: "email",
+              size: "6",
+              row: 3,
+              col: 2,
+              model: "",
+              type: "Input",
+              visible: true,
+            },
+            user: {
+              label: "Usuário",
+              name: "userId",
+              size: "6",
+              row: 4,
+              col: 1,
+              model: null,
+              type: "DialogSelect",
+              visible: true,
+              options: {
+                table: "users",
+                value: "id",
+                label: "name",
+              },
+            },
+          },
+        },
+      },
+      breadcrumbs: [
+        {
+          title: "Funcionarios",
+          to: "/companies/employees",
+        },
+        {
+          title: "Cadastro de Funcionários",
+          to: "",
+        },
+      ],
+      title: "Cadastro de Funcionários",
+    };
+  },
+  created() {
+    this.id = this.$router.history.current.params.id;
+
+    openEditCrud(this.id, this.editUrl, this.tables);
+  },
+  methods: {
+    save: async function (data) {
+      try {
+        const url = this.tables.mainTable.apiUrl.replace(":companyId", data.mainTable.companyId)
+
+        const companyEmployeeCreated = await saveCrud(
+          url,
+          data.mainTable
+        );
+
+        return companyEmployeeCreated;
+      } catch (err) {
+        showError(err);
+
+        return false;
+      }
+    },
+  },
+};
+</script>
+
+<style></style>

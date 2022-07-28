@@ -1,5 +1,5 @@
 <template>
-  <q-card class="product-card q-ma-md">
+  <q-card class="product-card q-mr-sm q-mb-sm">
     <q-card-section>
       <div class="row no-wrap items-center">
         <div class="col text-h6 ellipsis">{{ shortName }}</div>
@@ -7,7 +7,7 @@
           class="q-ma-sm q-pa-xs"
           rounded
           color="primary"
-          label="2 Disponíveis"
+          :label="`2 Disponíveis`"
         ></q-badge>
       </div>
     </q-card-section>

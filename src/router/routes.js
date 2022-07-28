@@ -17,9 +17,12 @@ import HomeUser from "../components/platform/home/HomeUser.vue"
 import SubscriptionPlansQueryCrud from "../components/platform/subscriptionPlansCrud/SubscriptionPlansQueryCrud.vue"
 import SubscriptionPlansRegisterCrud from "../components/platform/subscriptionPlansCrud/SubscriptionPlansRegisterCrud.vue"
 import CompaniesQueryCrud from "../components/platform/companiesCrud/CompaniesQueryCrud.vue"
+import CompanyEmployeesQueryCrud from "../components/platform/companyEmployeesCrud/CompanyEmployeesQueryCrud.vue"
+import CompanyEmployeesRegisterCrud from "../components/platform/companyEmployeesCrud/CompanyEmployeesRegisterCrud.vue"
 import CompaniesRegisterCrud from "../components/platform/companiesCrud/CompaniesRegisterCrud.vue"
 import SpecialistsQueryCrud from "../components/platform/specialistsCrud/SpecialistsQueryCrud.vue"
 import SpecialistsRegisterCrud from "../components/platform/specialistsCrud/SpecialistsRegisterCrud.vue"
+import SpecialistProvidesTimetables from "../components/platform/specialistProvidesTimetables/SpecialistProvidesTimetables"
 import ProductsQueryCrud from "../components/platform/productsCrud/ProductsQueryCrud.vue"
 import ProductsRegisterCrud from "../components/platform/productsCrud/ProductsRegisterCrud.vue"
 
@@ -73,6 +76,18 @@ const routes = [
     }]
   },
   {
+    path: "/products/list",
+    components: {
+      site: Platform
+    },
+    children: [{
+      path: "/",
+      components: {
+        content: PlatformProductList
+      }
+    }]
+  },
+  {
     path: "/products/:id",
     components: {
       site: Platform
@@ -117,6 +132,54 @@ const routes = [
       path: "/",
       components: {
         content: SpecialistsRegisterCrud
+      }
+    }]
+  },
+  {
+    path: "/providesTimetables",
+    components: {
+      site: Platform
+    },
+    children: [{
+      path: "/",
+      components: {
+        content: SpecialistProvidesTimetables
+      }
+    }]
+  },
+  {
+    path: "/companies/employees",
+    components: {
+      site: Platform
+    },
+    children: [{
+      path: "/",
+      components: {
+        content: CompanyEmployeesQueryCrud
+      }
+    }]
+  },
+  {
+    path: "/companies/employees/new",
+    components: {
+      site: Platform
+    },
+    children: [{
+      path: "/",
+      components: {
+        content: CompanyEmployeesRegisterCrud
+      }
+    }]
+  },
+  {
+    path: "/companies/employees/:id",
+    components: {
+      site: Platform
+    },
+    children: [{
+      path: "/",
+      components: {
+        content: CompanyEmployeesRegisterCrud
       }
     }]
   },

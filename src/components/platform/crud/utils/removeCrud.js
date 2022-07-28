@@ -4,10 +4,12 @@ import { baseApiUrl, showError } from "../../../../global";
 async function removeCrud(selected, url) {
     url = `/${url}`;
 
+    const removeId = selected.id ? selected.id : selected
+
     const config = {
         method: "delete",
         headers: { authorization: `Bearer ${localStorage.getItem("token")}` },
-        url: `${baseApiUrl}${url}/${selected.id}`,
+        url: `${baseApiUrl}${url}/${removeId}`,
     };
 
     return await axios(config)

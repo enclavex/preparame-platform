@@ -21,7 +21,9 @@ async function filterCrud(filters, url, columns) {
                 const value = column.field.substr(column.field.indexOf(".") + 1);
     
                 result.data.map((values) => {
-                    values[column.field] = values[key][value];
+                    if (values[key]) {
+                        values[column.field] = values[key][value];
+                    }
                 });
             }
         });
