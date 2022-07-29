@@ -138,6 +138,19 @@
             </template>
           </q-input>
 
+          <q-input
+            id="token"
+            class="login-form-signin-container"
+            v-model="user.subscribeToken"
+            name="token"
+            label="Cupom"
+            v-if="!token"
+          >
+            <template v-slot:prepend>
+              <q-icon name="mdi-ticket" />
+            </template>
+          </q-input>
+
           <div class="login-form-signin-in" @click="signUp()">Cadastrar</div>
           <div class="login-others-links">
             Já tem cadastro?
@@ -169,6 +182,7 @@ export default {
       resetPasswordDialog: false,
       emailAddress: "",
       eyePassIco: "eye-off",
+      token: null,
       user: {},
     };
   },
@@ -180,6 +194,12 @@ export default {
 
       if (loggedUser) {
         this.$router.push({ path: "/platform" });
+      }
+
+      this.token = this.$router.history.current.query.token;
+
+      if (this.token) {
+        this.loggingIn = false
       }
     } catch (err) {
       //
@@ -198,7 +218,7 @@ export default {
         this.eyePassIco = "eye-off";
       }
     },
-    login: function () {
+    login: async function () {
       if (!this.user.email) {
         showError("E-mail do usuário deve ser preenchido.");
         document.getElementById("loginEmail").focus();
@@ -222,7 +242,7 @@ export default {
         password: this.user.password,
       };
 
-      axios
+      await axios
         .post(`${baseApiUrl}/sessions`, userData)
         .then(async (user) => {
           this.$q.notify({
@@ -240,7 +260,7 @@ export default {
 
       this.user = {};
     },
-    signUp: function () {
+    signUp: async function () {
       if (!this.user.name) {
         showError("Nome do usuário deve ser preenchido.");
         document.getElementById("name").focus();
@@ -295,10 +315,11 @@ export default {
         email: this.user.email,
         password: this.user.password,
         documentId: this.user.documentId,
+        subscribeToken: this.token || this.user.subscribeToken,
         type: "USER",
       };
 
-      axios
+      await axios
         .post(`${baseApiUrl}/users`, userData)
         .then(() => {
           this.$q.notify({
@@ -313,13 +334,13 @@ export default {
       this.user = {};
     },
     openResetPasswordDialog: function () {
-      this.resetPasswordDialog = true
+      this.resetPasswordDialog = true;
     },
     resetPassword: async function () {
       this.$q.loading.show();
       await axios
         .post(`${baseApiUrl}/password/forgot`, {
-          email: this.emailAddress
+          email: this.emailAddress,
         })
         .then(() => {
           this.$q.notify({
@@ -329,8 +350,10 @@ export default {
 
           this.resetPasswordDialog = false;
         })
-        .catch(err => {
-          showError("Não foi possível localizar este e-mail em nossa base de dados.")
+        .catch((err) => {
+          showError(
+            `Não foi possível localizar este e-mail em nossa base de dados. ${err}` 
+          );
         });
       this.$q.loading.hide();
     },
