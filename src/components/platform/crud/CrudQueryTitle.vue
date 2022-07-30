@@ -10,6 +10,7 @@
       class="crud-new-button q-mr-sm"
       no-caps
       @click="removeSelected()"
+      :disable="blockRemove"
     ></q-btn>
     <q-btn
       color="primary"
@@ -18,13 +19,14 @@
       class="crud-new-button"
       no-caps
       @click="createNew()"
+      :disable="blockCreateNew"
     ></q-btn>
   </div>
 </template>
 
 <script>
 export default {
-  props: ["title"],
+  props: ["title", "blockCreateNew", "blockRemove"],
   methods: {
     createNew: function () {
       const actualUrl = this.$router.history.current.path

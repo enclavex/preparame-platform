@@ -25,6 +25,8 @@ import SpecialistsRegisterCrud from "../components/platform/specialistsCrud/Spec
 import SpecialistProvidesTimetables from "../components/platform/specialistProvidesTimetables/SpecialistProvidesTimetables"
 import ProductsQueryCrud from "../components/platform/productsCrud/ProductsQueryCrud.vue"
 import ProductsRegisterCrud from "../components/platform/productsCrud/ProductsRegisterCrud.vue"
+import UsersQueryCrud from "../components/platform/usersCrud/UsersQueryCrud.vue"
+import UsersRegisterCrud from "../components/platform/usersCrud/UsersRegisterCrud.vue"
 
 const routes = [
   {
@@ -132,6 +134,30 @@ const routes = [
       path: "/",
       components: {
         content: SpecialistsRegisterCrud
+      }
+    }]
+  },
+  {
+    path: "/users",
+    components: {
+      site: Platform
+    },
+    children: [{
+      path: "/",
+      components: {
+        content: UsersQueryCrud
+      }
+    }]
+  },
+  {
+    path: "/users/:id",
+    components: {
+      site: Platform
+    },
+    children: [{
+      path: "/",
+      components: {
+        content: UsersRegisterCrud
       }
     }]
   },

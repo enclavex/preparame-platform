@@ -48,7 +48,13 @@ const menu = {
         url: "companies",
       },
       {
-        icon: "mdi-domain",
+        icon: "mdi-account-multiple-plus-outline",
+        label: "Usuários",
+        separator: false,
+        url: "users",
+      },
+      {
+        icon: "mdi-account-multiple",
         label: "Funcionários",
         separator: false,
         url: "companies/employees",

@@ -1,11 +1,13 @@
 <template>
-  <div class="company-employee-crud">
+  <div class="user-crud">
     <CrudQuery
       :title="title"
       :breadcrumbs="breadcrumbs"
       :filters="filters"
       :columns="columns"
       :url="url"
+      :blockCreateNew="blockCreateNew"
+      :blockRemove="blockRemove"
     />
   </div>
 </template>
@@ -19,11 +21,13 @@ export default {
   },
   data() {
     return {
-      title: "Funcionários",
-      url: "companies/employees",
+      title: "Usuários",
+      url: "users",
+      blockCreateNew: true,
+      blockRemove: true,
       breadcrumbs: [
         {
-          title: "Funcionários",
+          title: "Usuários",
           to: "",
         },
       ],
@@ -38,37 +42,12 @@ export default {
           type: "Input",
           visible: true,
         },
-        companyId: {
-          label: "Empresa",
-          name: "companyId",
-          size: "6",
-          row: 1,
-          col: 2,
-          model: "",
-          type: "DialogSelect",
-          visible: true,
-          options: {
-            table: "companies",
-            value: "id",
-            label: "name",
-          },
-        },
-        phone: {
-          label: "Telefone",
-          name: "phone",
-          size: "3",
-          row: 2,
-          col: 2,
-          model: "",
-          type: "Input",
-          visible: true,
-        },
         email: {
           label: "E-Mail",
           name: "email",
           size: "6",
-          row: 2,
-          col: 3,
+          row: 1,
+          col: 2,
           model: "",
           type: "Input",
           visible: true,
@@ -83,20 +62,61 @@ export default {
           type: "Input",
           visible: true,
         },
-        userId: {
-          label: "Usuário",
-          name: "userId",
-          size: "6",
-          row: 3,
-          col: 1,
+        status: {
+          label: "Situação",
+          name: "status",
+          size: "3",
+          row: 2,
+          col: 2,
           model: "",
-          type: "DialogSelect",
+          type: "Select",
           visible: true,
-          options: {
-            table: "users",
-            value: "id",
-            label: "name",
-          },
+          options: [
+            {
+              label: "Ativo",
+              value: "ACTIVE",
+            },
+            {
+              label: "Inativo",
+              value: "INACTIVE",
+            },
+            {
+              label: "Todos",
+              value: "",
+            },
+          ],
+        },
+        type: {
+          label: "Tipo",
+          name: "type",
+          size: "3",
+          row: 2,
+          col: 3,
+          model: "",
+          type: "Select",
+          visible: true,
+          options: [
+            {
+              label: "Administrador",
+              value: "ADMIN",
+            },
+            {
+              label: "Especialista",
+              value: "SPECIALIST",
+            },
+            {
+              label: "Usuário",
+              value: "USER",
+            },
+            {
+              label: "Empresa",
+              value: "COMPANY_ADMIN",
+            },
+            {
+              label: "Todos",
+              value: "",
+            },
+          ],
         },
       },
       columns: [
@@ -109,10 +129,10 @@ export default {
           visible: true,
         },
         {
-          name: "companyName",
+          name: "email",
           align: "left",
-          label: "Empresa",
-          field: "company.name",
+          label: "E-Mail",
+          field: "email",
           sortable: true,
           visible: true,
         },
@@ -125,34 +145,18 @@ export default {
           visible: true,
         },
         {
-          name: "subscribeToken",
-          label: "Token",
+          name: "type",
           align: "left",
-          field: "subscribeToken",
+          label: "Tipo",
+          field: "type.label",
           sortable: true,
           visible: true,
         },
         {
-          name: "phone",
-          label: "Telefone",
+          name: "status",
           align: "left",
-          field: "phone",
-          sortable: true,
-          visible: true,
-        },
-        {
-          name: "email",
-          label: "E-Mail",
-          align: "left",
-          field: "email",
-          sortable: true,
-          visible: true,
-        },
-        {
-          name: "userName",
-          align: "left",
-          label: "Usuário",
-          field: "user.name",
+          label: "Situação",
+          field: "status.label",
           sortable: true,
           visible: true,
         },

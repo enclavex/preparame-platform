@@ -37,6 +37,7 @@
             color="negative"
             icon="mdi-delete"
             @click="removeSelected({ id: props.row.id })"
+            :disable="blockRemove"
           ></q-btn>
           <q-btn
             color="grey-8"
@@ -51,7 +52,7 @@
 
 <script>
 export default {
-  props: ["result"],
+  props: ["result", "blockRemove"],
   data() {
     return {
       selecteds: [],

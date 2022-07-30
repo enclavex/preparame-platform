@@ -3,9 +3,9 @@
     <q-page>
       <Breadcrumbs :breadcrumbs="breadcrumbs" />
       <div class="crud-filter-content">
-        <CrudQueryTitle :title="title" />
+        <CrudQueryTitle :title="title" :blockCreateNew="blockCreateNew" :blockRemove="blockRemove" />
         <CrudQueryFilter :rows="rows" />
-        <CrudQueryTable ref="table" :result="{ columns, data }" />
+        <CrudQueryTable ref="table" :result="{ columns, data }" :blockRemove="blockRemove"/>
       </div>
     </q-page>
   </div>
@@ -29,7 +29,7 @@ export default {
     CrudQueryTitle,
     Breadcrumbs,
   },
-  props: ["title", "filters", "breadcrumbs", "columns", "url"],
+  props: ["title", "filters", "breadcrumbs", "columns", "url", "blockCreateNew", "blockRemove"],
   data() {
     return {
       rows: [],

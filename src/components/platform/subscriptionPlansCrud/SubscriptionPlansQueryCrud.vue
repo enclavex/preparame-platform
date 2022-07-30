@@ -110,7 +110,7 @@ export default {
           name: "status",
           label: "Situação",
           align: "left",
-          field: "status",
+          field: "status.label",
           sortable: true,
           visible: true
         },
@@ -118,7 +118,7 @@ export default {
           name: "type",
           label: "Tipo",
           align: "left",
-          field: "type",
+          field: "type.label",
           sortable: true,
           visible: true
         },

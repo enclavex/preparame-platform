@@ -6,6 +6,8 @@ async function saveCrud(url, data, method = "post") {
     if (url.slice(0, 1) !== "/") {
         url = `/${url}`
     }
+
+    console.log('save', data)
     
     Object.entries(data)
         .forEach(values => {
