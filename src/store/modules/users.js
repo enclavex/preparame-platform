@@ -17,7 +17,7 @@ export default ({
                 localStorage.setItem('userAvatarUrl', user.user.avatarUrl);
                 localStorage.setItem('userName', user.user.name);
                 localStorage.setItem('userId', user.user.id);
-                localStorage.setItem('userType', user.user.type);
+                localStorage.setItem('userType', user.user.type.value);
             } else {
                 delete axios.defaults.headers.common["Authorization"]
             }

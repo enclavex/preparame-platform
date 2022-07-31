@@ -37,8 +37,8 @@
 </template>
 
 <script>
-import axios from "axios";
-import { baseApiUrl, showError } from "../../../global.js";
+import { saveCrud } from "./../crud/utils/saveCrud.js";
+
 export default {
   data() {
     return {
@@ -79,18 +79,23 @@ export default {
       })} horas.`;
     },
     scheduleConfirmation: async function () {
-      await axios
-        .put(`${baseApiUrl}/specialists/dateSchedule/${this.hourSchedule.id}`)
-        .then(() => {
-          this.$q.notify({
-            type: "success",
-            message: "Agendado com sucesso",
-          });
-          setTimeout(() => {
-            this.$router.push({ path: "/platform" });
-          }, 2000);
-        })
-        .catch(showError);
+      const specialistSchedule = this.hourSchedule.specialistSchedule;
+
+      specialistSchedule.productId = this.product.id;
+      specialistSchedule.userId = localStorage.getItem("userId");
+      specialistSchedule.status = "UNAVAILABLE";
+
+      await saveCrud(
+        `specialists/schedule/${this.hourSchedule.id}`,
+        specialistSchedule,
+        "put"
+      ).then(() => {
+        this.$q.notify({
+          type: "success",
+          message: "Agendado com sucesso",
+        });
+        this.$router.push({ path: "/platform" });
+      });
     },
   },
 };

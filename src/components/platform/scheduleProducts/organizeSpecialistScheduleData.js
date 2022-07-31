@@ -35,20 +35,21 @@ function fillScheduleHeader(specialistSchedules, dateBegin, dateEnd) {
 }
 
 function organizeSpecialistScheduleData(specialistSchedules, dateBegin, dateEnd) {
-    const specialistScheduleAvailables = specialistSchedules.map((specialistScheduleAvailable) => {
-        const dateSchedule = new Date(specialistScheduleAvailable.dateSchedule)
-
+    const specialistScheduleAvailables = specialistSchedules.map((specialistSchedule) => {
+        const dateSchedule = new Date(specialistSchedule.dateSchedule)
+        
         return {
-            id: specialistScheduleAvailable.id,
-            available: specialistScheduleAvailable.status === "AVAILABLE",
+            id: specialistSchedule.id,
+            available: specialistSchedule.status === "AVAILABLE",
             weekDay: dateSchedule.toLocaleDateString('pt-BR', { weekday: 'long' }).toLowerCase().slice(0, 3),
             monthDay: dateSchedule.getDate(),
             monthAbbr: dateSchedule.toLocaleDateString('pt-BR', { month: 'long' }).toLowerCase().slice(0, 3),
             month: dateSchedule.getMonth(),
             year: dateSchedule.getFullYear(),
             hour: dateSchedule.toLocaleTimeString('pt-BR', { hour: 'numeric', minute: 'numeric' }),
-            userId: specialistScheduleAvailable.userId,
-            dateSchedule
+            userId: specialistSchedule.userId,
+            dateSchedule,
+            specialistSchedule
         }
     })
 
@@ -59,7 +60,6 @@ function organizeSpecialistScheduleData(specialistSchedules, dateBegin, dateEnd)
             return specialistSchedule.header.monthDay === specialistScheduleAvailable.monthDay &&
                 specialistSchedule.header.year === specialistScheduleAvailable.year
         })
-
 
         specialistScheduleAvailable.available = specialistScheduleAvailable.available &&
             specialistScheduleAvailable.dateSchedule >= new Date()
@@ -79,7 +79,8 @@ function organizeSpecialistScheduleData(specialistSchedules, dateBegin, dateEnd)
                     available: specialistScheduleAvailable.available,
                     userId: specialistScheduleAvailable.userId,
                     dateSchedule: specialistScheduleAvailable.dateSchedule,
-                    id: specialistScheduleAvailable.id
+                    id: specialistScheduleAvailable.id,
+                    specialistSchedule: specialistScheduleAvailable.specialistSchedule
                 }]
             })
         } else {
@@ -88,7 +89,8 @@ function organizeSpecialistScheduleData(specialistSchedules, dateBegin, dateEnd)
                 available: specialistScheduleAvailable.available,
                 userId: specialistScheduleAvailable.userId,
                 dateSchedule: specialistScheduleAvailable.dateSchedule,
-                id: specialistScheduleAvailable.id
+                id: specialistScheduleAvailable.id,
+                specialistSchedule: specialistScheduleAvailable.specialistSchedule
             })
         }
     })

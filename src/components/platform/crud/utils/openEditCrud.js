@@ -23,8 +23,6 @@ async function openEditCrud(id, url, fields) {
         if (object.id) {
             const mainTableFields = fields.mainTable.registerColumns
             
-            console.log(mainDataObject, mainTableFields)
-
             Object.entries(object).forEach((values) => {
                 if (mainTableFields[values[0]]) {
                     if (mainTableFields[values[0]].type === "DialogSelect") {

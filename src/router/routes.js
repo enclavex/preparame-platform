@@ -3,7 +3,7 @@ import Login from "../layouts/Login.vue"
 import ResetPassword from "../layouts/ResetPassword.vue"
 import ProductDetails from "../layouts/ProductDetails.vue"
 import ProductList from "../layouts/ProductList.vue"
-import PlatformProductList from "../components/platform/scheduleProducts/ProductsList.vue"
+import ScheduleProductsList from "../components/platform/scheduleProducts/ScheduleProductsList.vue"
 import ProductSchedule from "../layouts/ProductSchedule.vue"
 import ShoppingCart from "../layouts/ShoppingCart.vue"
 import Site from "../layouts/Site.vue"
@@ -12,7 +12,7 @@ import CompanyDetails from "../layouts/CompanyDetails.vue"
 import FAQ from "../layouts/FAQ.vue"
 import PrivacyTerms from "../layouts/PrivacyTerms.vue"
 import UseTerms from "../layouts/UseTerms.vue"
-import SpecialistsList from "../components/platform/scheduleProducts/SpecialistsList.vue"
+import ScheduleSpecialistsList from "../components/platform/scheduleProducts/ScheduleSpecialistsList.vue"
 import HomeUser from "../components/platform/home/HomeUser.vue"
 import SubscriptionPlansQueryCrud from "../components/platform/subscriptionPlansCrud/SubscriptionPlansQueryCrud.vue"
 import SubscriptionPlansRegisterCrud from "../components/platform/subscriptionPlansCrud/SubscriptionPlansRegisterCrud.vue"
@@ -85,7 +85,7 @@ const routes = [
     children: [{
       path: "/",
       components: {
-        content: PlatformProductList
+        content: ScheduleProductsList
       }
     }]
   },
@@ -282,14 +282,14 @@ const routes = [
     }]
   },
   {
-    path: "/schedule/:productId",
+    path: "/products/schedule/:productId",
     components: {
       site: Platform
     },
     children: [{
       path: "/",
       components: {
-        content: SpecialistsList
+        content: ScheduleSpecialistsList
       }
     }]
   },

@@ -72,15 +72,13 @@
 </template>
 
 <script>
-import axios from "axios";
-import { baseApiUrl, showError } from "../../../global.js";
 import {
   organizeSpecialistScheduleData,
   getDayOfNextWeek,
   getDayOfWeek,
 } from "./organizeSpecialistScheduleData.js";
-
 import ConfirmSchedule from "./ConfirmSchedule.vue";
+import { filterCrud } from "./../crud/utils/filterCrud.js";
 
 import Vue from "vue";
 
@@ -172,29 +170,34 @@ export default {
       await this.loadWeekSchedules(dateBegin, dateEnd);
     },
     async loadWeekSchedules(dateBegin, dateEnd) {
-      dateBegin.setHours(0,0,0)
-      dateEnd.setHours(23,59,59)
+      dateBegin.setHours(0, 0, 0);
+      dateEnd.setHours(23, 59, 59);
 
-      const config = {
-        headers: {
-          datebegin: dateBegin,
-          dateend: dateEnd,
+      const filtersSpecialistSchedule = [
+        {
+          name: "specialistId",
+          model: this.specialist.id,
         },
-      };
+        {
+          name: "dateBegin",
+          model: dateBegin,
+        },
+        {
+          name: "dateEnd",
+          model: dateEnd,
+        },
+      ];
 
-      await axios
-        .get(
-          `${baseApiUrl}/specialists/scheduleSpecialistAvailable/${this.specialist.id}`,
-          config
-        )
-        .then(async (specialistsSchedule) => {
-          this.specialistScheduleData = organizeSpecialistScheduleData(
-            specialistsSchedule.data,
-            dateBegin,
-            dateEnd
-          );
-        })
-        .catch(showError);
+      const specialistsSchedule = await filterCrud(
+        filtersSpecialistSchedule,
+        `specialists/schedule`
+      );
+
+      this.specialistScheduleData = organizeSpecialistScheduleData(
+        specialistsSchedule,
+        dateBegin,
+        dateEnd
+      );
     },
   },
 };

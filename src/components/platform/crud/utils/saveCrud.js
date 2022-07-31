@@ -7,8 +7,6 @@ async function saveCrud(url, data, method = "post") {
         url = `/${url}`
     }
 
-    console.log('save', data)
-    
     Object.entries(data)
         .forEach(values => {
             if (values[0] === 'id') {
