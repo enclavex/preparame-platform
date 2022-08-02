@@ -1,7 +1,6 @@
 
 import axios from "axios";
 import { baseApiUrl, showError } from "../../../../global";
-
 import { formatDateToString } from "../../../../utils/formatDate.js"
 
 async function openEditCrud(id, url, fields) {
@@ -22,7 +21,7 @@ async function openEditCrud(id, url, fields) {
 
         if (object.id) {
             const mainTableFields = fields.mainTable.registerColumns
-            
+
             Object.entries(object).forEach((values) => {
                 if (mainTableFields[values[0]]) {
                     if (mainTableFields[values[0]].type === "DialogSelect") {
@@ -73,6 +72,16 @@ async function openEditCrud(id, url, fields) {
                     })
                 }
             }
+        }
+    } else {
+        if (fields.childTable && fields.childTable.tableColumns) {
+            fields.childTable.tableColumns.forEach(tableColumn => {
+                if (tableColumn.field.indexOf(".") > 0) {
+                    const key = tableColumn.field.substr(0, tableColumn.field.indexOf("."));
+
+                    tableColumn.field = key
+                }
+            })
         }
     }
 }

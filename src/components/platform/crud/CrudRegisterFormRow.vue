@@ -30,6 +30,9 @@
           class="q-ma-sm"
         />
       </div>
+      <!-- {{data.tableColumns}}<br><br>
+      {{tableData}} -->
+
       <CrudRegisterChildTable
         :result="{ columns: data.tableColumns, data: tableData }"
       />
@@ -136,7 +139,10 @@ export default {
         );
 
         const indexRow = this.tableData.findIndex((data) => {
-          return data.id === newRegister.id || data.ref === newRegister.ref;
+          return (
+            (newRegister.id && data.id === newRegister.id) ||
+            (newRegister.ref && data.ref === newRegister.ref)
+          );
         });
 
         if (indexRow > -1) {
@@ -163,13 +169,23 @@ export default {
           this.$parent.$parent.$parent.tables.childTable.removeUrl;
 
         var resultRemove = await removeCrud({ id: row.id }, removeUrl);
+
+        if ((resultRemove.status = 200)) {
+          this.$q.notify({
+            type: "success",
+            message: "Removido com sucesso",
+          });
+        }
       }
 
-      if ((resultRemove.status = 200)) {
-        this.$q.notify({
-          type: "success",
-          message: "Removido com sucesso",
-        });
+      const indexRow = this.tableData.findIndex((data) => {
+        return (
+          (row.id && data.id === row.id) || (row.ref && data.ref === row.ref)
+        );
+      });
+
+      if (indexRow > -1) {
+        this.tableData.splice(indexRow, 1);
       }
 
       this.tableData = this.tableData.filter((data) => {

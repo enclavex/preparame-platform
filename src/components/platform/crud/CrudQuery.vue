@@ -3,9 +3,17 @@
     <q-page>
       <Breadcrumbs :breadcrumbs="breadcrumbs" />
       <div class="crud-filter-content">
-        <CrudQueryTitle :title="title" :blockCreateNew="blockCreateNew" :blockRemove="blockRemove" />
+        <CrudQueryTitle
+          :title="title"
+          :blockCreateNew="blockCreateNew"
+          :blockRemove="blockRemove"
+        />
         <CrudQueryFilter :rows="rows" />
-        <CrudQueryTable ref="table" :result="{ columns, data }" :blockRemove="blockRemove"/>
+        <CrudQueryTable
+          ref="table"
+          :result="{ columns, data }"
+          :blockRemove="blockRemove"
+        />
       </div>
     </q-page>
   </div>
@@ -29,7 +37,15 @@ export default {
     CrudQueryTitle,
     Breadcrumbs,
   },
-  props: ["title", "filters", "breadcrumbs", "columns", "url", "blockCreateNew", "blockRemove"],
+  props: [
+    "title",
+    "filters",
+    "breadcrumbs",
+    "columns",
+    "url",
+    "blockCreateNew",
+    "blockRemove",
+  ],
   data() {
     return {
       rows: [],
@@ -61,14 +77,16 @@ export default {
                 return data.id !== selected.id;
               });
             }
+
+            return resultsRemove;
           })
         );
 
         resultsRemove = resultsRemove.find((result) => {
-          return result.data !== 200;
+          return result.status == 200;
         });
 
-        if (resultsRemove) {
+        if (resultsRemove.status == 200) {
           this.$q.notify({
             type: "success",
             message: "Removido com sucesso.",
