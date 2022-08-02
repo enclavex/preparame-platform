@@ -36,11 +36,13 @@ function fillScheduleHeader(specialistSchedules, dateBegin, dateEnd) {
 
 function organizeSpecialistScheduleData(specialistSchedules, dateBegin, dateEnd) {
     const specialistScheduleAvailables = specialistSchedules.map((specialistSchedule) => {
-        const dateSchedule = new Date(specialistSchedule.dateSchedule)
+        let dateSchedule = new Date(specialistSchedule.dateSchedule)
+
+        dateSchedule = new Date(dateSchedule.setHours(dateSchedule.getHours() + (dateSchedule.getTimezoneOffset()/60)))
         
         return {
             id: specialistSchedule.id,
-            available: specialistSchedule.status === "AVAILABLE",
+            available: specialistSchedule.status.value === "AVAILABLE",
             weekDay: dateSchedule.toLocaleDateString('pt-BR', { weekday: 'long' }).toLowerCase().slice(0, 3),
             monthDay: dateSchedule.getDate(),
             monthAbbr: dateSchedule.toLocaleDateString('pt-BR', { month: 'long' }).toLowerCase().slice(0, 3),

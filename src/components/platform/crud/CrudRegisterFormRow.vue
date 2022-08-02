@@ -7,7 +7,7 @@
           :key="fields.row"
           class="row"
         >
-          <DynamicTemplate
+          <FieldCrudDynamicTemplate
             v-for="col in fields.cols"
             :key="col.name"
             :col="col"
@@ -38,7 +38,7 @@
 </template>
 
 <script>
-import DynamicTemplate from "./templates/DynamicTemplate.vue";
+import FieldCrudDynamicTemplate from "./templates/FieldCrudDynamicTemplate.vue";
 import CrudRegisterChildTable from "./CrudRegisterChildTable.vue";
 
 import { removeCrud } from "./utils/removeCrud.js";
@@ -47,7 +47,7 @@ import { v4 as uuidV4 } from "uuid";
 
 export default {
   components: {
-    DynamicTemplate,
+    FieldCrudDynamicTemplate,
     CrudRegisterChildTable,
   },
   props: ["data"],

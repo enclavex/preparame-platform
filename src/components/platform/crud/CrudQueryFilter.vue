@@ -11,7 +11,7 @@
       <q-card-section>
         <q-form @submit="onSubmit" @reset="onReset" class="col crud-filter">
           <div v-for="row in rows" :key="row.row" class="row">
-            <DynamicTemplate
+            <FieldCrudDynamicTemplate
               v-for="col in row.cols"
               :key="col.name"
               :col="col"
@@ -41,12 +41,12 @@
 </template>
 
 <script>
-import DynamicTemplate from "./templates/DynamicTemplate.vue";
+import FieldCrudDynamicTemplate from "./templates/FieldCrudDynamicTemplate.vue";
 
 export default {
   props: ["rows"],
   components: {
-    DynamicTemplate,
+    FieldCrudDynamicTemplate,
   },
   methods: {
     onSubmit: function () {

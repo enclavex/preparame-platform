@@ -5,7 +5,7 @@
         class="col crud-register q-pa-md"
       >
         <div v-for="fields in table.registerColumns" :key="fields.row" class="row">
-          <DynamicTemplate v-for="col in fields.cols" :key="col.name" :col="col" />
+          <FieldCrudDynamicTemplate v-for="col in fields.cols" :key="col.name" :col="col" />
         </div>
       </q-form>
     </q-card-section>
@@ -13,11 +13,11 @@
 </template>
 
 <script>
-import DynamicTemplate from "./templates/DynamicTemplate.vue";
+import FieldCrudDynamicTemplate from "./templates/FieldCrudDynamicTemplate.vue";
 
 export default {
   components: {
-    DynamicTemplate,
+    FieldCrudDynamicTemplate,
   },
   props: ["table"],
   methods: {

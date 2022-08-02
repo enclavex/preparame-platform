@@ -235,7 +235,7 @@ export default {
       const actualDate = new Date();
 
       this.hours.forEach((hour) => {
-        const refDate = new Date(date).setHours(hour.id)
+        const refDate = new Date(date).setHours(hour.id);
 
         const disable = actualDate > refDate;
 
@@ -275,6 +275,7 @@ export default {
         this.dateCalendar,
         "yyyy-mm-dd"
       );
+
       const filters = [
         { name: "specialistId", model: this.specialist.id },
         { name: "dateBegin", model: filterDate },
@@ -288,7 +289,15 @@ export default {
       const actualDate = new Date();
 
       specialistSchedules.forEach((specialistSchedule) => {
-        const dateSchedule = new Date(specialistSchedule.dateSchedule);
+        let dateSchedule = new Date(specialistSchedule.dateSchedule);
+
+        dateSchedule = new Date(
+          dateSchedule.setHours(
+            dateSchedule.getHours() + dateSchedule.getTimezoneOffset() / 60
+          )
+        );
+
+        specialistSchedule.dateSchedule = dateSchedule;
 
         const hourRef = dateSchedule.getHours();
 
@@ -304,7 +313,7 @@ export default {
           });
 
           if (
-            specialistSchedule.status === "AVAILABLE" &&
+            specialistSchedule.status.value === "AVAILABLE" &&
             actualDate < dateSchedule
           ) {
             hourFiltered.available = true;
@@ -322,11 +331,20 @@ export default {
     },
     providesHour: async function (hour) {
       if (hour.available) {
-        const url = `specialists/${this.specialist.id}/schedule`;
+        const url = `specialists/schedule`;
+
+        hour.dateSchedule = new Date(hour.dateSchedule)
+        hour.dateSchedule = new Date(
+          hour.dateSchedule.setHours(
+            hour.dateSchedule.getHours() -
+              hour.dateSchedule.getTimezoneOffset() / 60
+          )
+        );
 
         await saveCrud(url, {
           status: "AVAILABLE",
-          dateSchedule: new Date(hour.dateSchedule),
+          specialistId: this.specialist.id,
+          dateSchedule: hour.dateSchedule,
         });
       } else {
         const url = `specialists/schedule`;

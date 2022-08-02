@@ -84,6 +84,7 @@ export default {
       specialistSchedule.productId = this.product.id;
       specialistSchedule.userId = localStorage.getItem("userId");
       specialistSchedule.status = "UNAVAILABLE";
+      specialistSchedule.specialistId = specialistSchedule.specialist.id
 
       await saveCrud(
         `specialists/schedule/${this.hourSchedule.id}`,
