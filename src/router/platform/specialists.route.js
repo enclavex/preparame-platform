@@ -26,7 +26,12 @@ const specialistRoutes = [
             components: {
                 content: SpecialistsRegisterCrud
             }
-        }]
+        }],
+        props: {
+            userTypes: [
+                'ADMIN',
+            ]
+        }
     },
     {
         path: "/specialists/:id",
@@ -38,7 +43,12 @@ const specialistRoutes = [
             components: {
                 content: SpecialistsRegisterCrud
             }
-        }]
+        }],
+        props: {
+            userTypes: [
+                'ADMIN',
+            ]
+        }
     },
     {
         path: "/providesTimetables",
@@ -50,7 +60,13 @@ const specialistRoutes = [
             components: {
                 content: SpecialistProvidesTimetables
             }
-        }]
+        }],
+        props: {
+            userTypes: [
+                'ADMIN',
+                'SPECIALIST'
+            ]
+        }
     },
 ]
 

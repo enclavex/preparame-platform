@@ -13,7 +13,12 @@ const userRoutes = [
             components: {
                 content: UsersQueryCrud
             }
-        }]
+        }],
+        props: {
+            userTypes: [
+                'ADMIN',
+            ]
+        }
     },
     {
         path: "/users/:id",
@@ -25,7 +30,12 @@ const userRoutes = [
             components: {
                 content: UsersRegisterCrud
             }
-        }]
+        }],
+        props: {
+            userTypes: [
+                'ADMIN',
+            ]
+        }
     },
 ]
 

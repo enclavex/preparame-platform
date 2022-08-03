@@ -27,19 +27,12 @@ const productRoutes = [
             components: {
                 content: ProductsRegisterCrud
             }
-        }]
-    },
-    {
-        path: "/products/list",
-        components: {
-            site: Platform
-        },
-        children: [{
-            path: "/",
-            components: {
-                content: ScheduleProductsList
-            }
-        }]
+        }],
+        props: {
+            userTypes: [
+                'ADMIN',
+            ]
+        }
     },
     {
         path: "/products/:id",
@@ -50,6 +43,23 @@ const productRoutes = [
             path: "/",
             components: {
                 content: ProductsRegisterCrud
+            }
+        }],
+        props: {
+            userTypes: [
+                'ADMIN',
+            ]
+        }
+    },
+    {
+        path: "/products/list",
+        components: {
+            site: Platform
+        },
+        children: [{
+            path: "/",
+            components: {
+                content: ScheduleProductsList
             }
         }]
     },

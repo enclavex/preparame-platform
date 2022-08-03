@@ -15,7 +15,13 @@ const companyRoutes = [
             components: {
                 content: CompanyEmployeesQueryCrud
             }
-        }]
+        }],
+        props: {
+            userTypes: [
+                'ADMIN',
+                'COMPANY_ADMIN'
+            ]
+        }
     },
     {
         path: "/companies/employees/new",
@@ -27,7 +33,13 @@ const companyRoutes = [
             components: {
                 content: CompanyEmployeesRegisterCrud
             }
-        }]
+        }],
+        props: {
+            userTypes: [
+                'ADMIN',
+                'COMPANY_ADMIN'
+            ]
+        }
     },
     {
         path: "/companies/employees/:id",
@@ -39,7 +51,13 @@ const companyRoutes = [
             components: {
                 content: CompanyEmployeesRegisterCrud
             }
-        }]
+        }],
+        props: {
+            userTypes: [
+                'ADMIN',
+                'COMPANY_ADMIN'
+            ]
+        }
     },
     {
         path: "/companies",
@@ -51,7 +69,12 @@ const companyRoutes = [
             components: {
                 content: CompaniesQueryCrud
             }
-        }]
+        }],
+        props: {
+            userTypes: [
+                'ADMIN'
+            ]
+        }
     },
     {
         path: "/companies/new",
@@ -63,7 +86,12 @@ const companyRoutes = [
             components: {
                 content: CompaniesRegisterCrud
             }
-        }]
+        }],
+        props: {
+            userTypes: [
+                'ADMIN'
+            ]
+        }
     },
     {
         path: "/companies/:id",
@@ -75,7 +103,12 @@ const companyRoutes = [
             components: {
                 content: CompaniesRegisterCrud
             }
-        }]
+        }],
+        props: {
+            userTypes: [
+                'ADMIN'
+            ]
+        }
     },
 ]
 

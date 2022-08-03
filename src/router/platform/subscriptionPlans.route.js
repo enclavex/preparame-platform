@@ -25,7 +25,12 @@ const subscriptionPlanRoutes = [
             components: {
                 content: SubscriptionPlansRegisterCrud
             }
-        }]
+        }],
+        props: {
+            userTypes: [
+                'ADMIN',
+            ]
+        }
     },
     {
         path: "/subscriptionPlans/:id",
@@ -37,7 +42,12 @@ const subscriptionPlanRoutes = [
             components: {
                 content: SubscriptionPlansRegisterCrud
             }
-        }]
+        }],
+        props: {
+            userTypes: [
+                'ADMIN',
+            ]
+        }
     },
 ]
 

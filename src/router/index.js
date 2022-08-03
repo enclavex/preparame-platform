@@ -26,5 +26,23 @@ export default function (/* { store, ssrContext } */) {
     base: process.env.VUE_ROUTER_BASE
   })
 
+  Router.beforeEach((to, from, next) => {
+    const userType = localStorage.getItem('userType')
+
+    if (userType) {
+      const userTypesValid = to.matched[0].props.userTypes ? to.matched[0].props.userTypes : []
+
+      if (userTypesValid.length > 0) {
+        if (userTypesValid.includes(userType)) {
+          return next()
+        }
+      } else {
+        return next()
+      }
+    }
+
+    return false
+  })
+
   return Router
 }
