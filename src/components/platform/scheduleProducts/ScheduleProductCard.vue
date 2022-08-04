@@ -6,8 +6,14 @@
         <q-badge
           class="q-pa-sm q-mr-sm"
           rounded
-          :color="userProducts.availableQuantity > 0 ? 'secondary' : 'negative'"
-          :label="`${userProducts.availableQuantity || 0} Disponível(eis)`"
+          :color="
+            userProducts && userProducts.availableQuantity > 0
+              ? 'secondary'
+              : 'negative'
+          "
+          :label="`${
+            (userProducts && userProducts.availableQuantity) || 0
+          } Disponível(eis)`"
         ></q-badge>
       </div>
     </q-card-section>
@@ -16,7 +22,12 @@
     </q-card-section>
     <q-separator />
     <q-card-actions class="row no-wrap justify-end">
-      <q-btn class="col-4" color="secondary" @click="goUrl('schedule')" :disable="!userProducts.availableQuantity > 0">
+      <q-btn
+        class="col-4"
+        color="secondary"
+        @click="goUrl('schedule')"
+        :disable="userProducts && !userProducts.availableQuantity > 0"
+      >
         Agendar
       </q-btn>
     </q-card-actions>
@@ -27,10 +38,10 @@
 import { filterCrud } from "./../crud/utils/filterCrud";
 
 export default {
-  data(){
+  data() {
     return {
-      userProducts: {}
-    }
+      userProducts: {},
+    };
   },
   props: ["product"],
   computed: {
@@ -51,14 +62,14 @@ export default {
       },
       {
         name: "userId",
-        model: localStorage.getItem('userId'),
+        model: localStorage.getItem("userId"),
       },
     ];
 
     const userProducts = await filterCrud(filters, "users/products");
 
-    this.userProducts = userProducts[0]
-  }
+    this.userProducts = userProducts[0];
+  },
 };
 </script>
 

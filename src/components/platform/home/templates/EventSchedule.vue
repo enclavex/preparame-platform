@@ -5,8 +5,9 @@
       'event-schedule': true,
       'q-ma-sm': true,
       'text-white': true,
-      'bg-negative': valid,
-      'bg-secondary': !valid,
+      'bg-grey': !eventValid,
+      'bg-secondary': eventValid && !lessThen1Hour,
+      'bg-primary': eventValid && lessThen1Hour,
     }"
   >
     <div class="row items-start items-center event-schedule">
@@ -19,7 +20,9 @@
       >
         <div class="event-schedule-product col items-center col-8">
           <div class="text-subtitle1">{{ productName }}</div>
-          <div class="text-caption text-weight-light">{{ specialistName }}</div>
+          <div class="text-caption text-weight-light">
+            {{ userType === "USER" ? specialistName : schedule.user.name }}
+          </div>
         </div>
         <div class="event-schedule-hour col-1">
           <div class="text-subtitle1 text-center">{{ hour }}</div>
@@ -27,24 +30,33 @@
         <div class="event-schedule-hour col-2">
           <div class="text-subtitle1 text-center">
             <q-btn
-              v-if="!valid"
+              v-if="eventValid"
               color="white"
               class="text-caption"
               flat
               @click="goMeet()"
+              :disable="!lessThen1Hour"
               >Ir para reunião</q-btn
             >
+            <div v-else class="text-caption" color="white">
+              Evento já terminou
+            </div>
           </div>
         </div>
         <div class="col-1 text-center">
-          <q-btn v-if="!valid" color="white" class="text-caption" flat>
+          <q-btn
+            v-if="eventValid"
+            color="white"
+            class="text-caption"
+            flat
+            @click="confirm = true"
+          >
+            <q-tooltip> Cancelar Agendamento </q-tooltip>
             <q-icon
-              v-if="!valid"
+              v-if="eventValid && !lessThen24Hours && userType === 'USER'"
               name="mdi-delete-outline"
               class="event-schedule-delete-icon text-h5"
-              @click="confirm = true"
-              ><q-tooltip> Cancelar Agendamento </q-tooltip></q-icon
-            >
+            ></q-icon>
           </q-btn>
         </div>
       </div>
@@ -68,7 +80,7 @@
             label="Sim"
             color="primary"
             v-close-popup
-            @click="removeSchedule()"
+            @click="cancelSchedule()"
           />
           <q-btn flat label="Não" color="primary" v-close-popup />
         </q-card-actions>
@@ -78,7 +90,7 @@
 </template>
 
 <script>
-import { removeCrud } from "./../../crud/utils/removeCrud.js";
+import { saveCrud } from "./../../crud/utils/saveCrud.js";
 
 export default {
   data() {
@@ -88,11 +100,13 @@ export default {
       specialistName: "",
       productName: "",
       hour: "",
-      valid: true,
+      eventValid: true,
+      lessThen24Hours: false,
+      lessThen1Hour: false,
       confirm: false,
     };
   },
-  props: ["schedule"],
+  props: ["schedule", "userType"],
   methods: {
     goMeet() {
       if (this.schedule.hangoutLink) {
@@ -104,19 +118,37 @@ export default {
         });
       }
     },
-    async removeSchedule() {
-      await removeCrud(this.schedule.id, "specialists/schedule");
+    async cancelSchedule() {
+      await saveCrud(
+        `specialists/schedule/${this.schedule.id}/cancel`,
+        {},
+        "post"
+      );
+
       document.location.reload(true);
     },
   },
   mounted() {
     let dateSchedule = new Date(this.schedule.dateSchedule);
 
-    dateSchedule = new Date(dateSchedule.setHours(dateSchedule.getHours() + (dateSchedule.getTimezoneOffset()/60)))
+    dateSchedule = new Date(
+      dateSchedule.setHours(
+        dateSchedule.getHours() + dateSchedule.getTimezoneOffset() / 60
+      )
+    );
 
     const actualDate = new Date();
 
-    this.valid = actualDate > dateSchedule;
+    const actualDateAddEventDuration = new Date(
+      actualDate.setHours(actualDate.getHours() + 1)
+    );
+
+    this.eventValid = !(actualDateAddEventDuration > dateSchedule);
+
+    const diffHours = Math.abs(actualDate - dateSchedule) / 36e5;
+
+    this.lessThen24Hours = diffHours < 24;
+    this.lessThen1Hour = diffHours < 1;
 
     this.scheduleDay = dateSchedule.getDate();
 

@@ -1,13 +1,17 @@
 <template>
   <div id="q-app" class="schedule">
     <q-page>
+      <Schedule :homeType="'SPECIALIST'"/>
     </q-page>
   </div>
 </template>
 
 <script>
+import Schedule from "./templates/Schedule.vue";
+
 export default {
   components: {
+    Schedule,
   },
 };
 </script>

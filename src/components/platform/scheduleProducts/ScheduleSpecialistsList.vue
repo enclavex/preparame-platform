@@ -1,18 +1,22 @@
 <template>
-  <q-page>
-    <Breacrumbs :breadcrumbs="breadcrumbs" />
-    <div class="col q-ml-md q-mt-md text-h5 ellipsis">Agendamento</div>
-    <div class="col q-ml-md text-h6 ellipsis text-grey-7">
-      {{ product.name }}
-    </div>
-    <ScheduleSpecialistCard
-      v-for="specialist in specialists"
-      :key="specialist.id"
-      :specialist="specialist"
-      :specialistSchedule="specialist.specialistSchedule"
-      :product="product"
-    />
-  </q-page>
+  <div class="schedule-specialist-list">
+    <q-page>
+      <Breacrumbs :breadcrumbs="breadcrumbs" />
+      <div class="schedule-specialist-list-content">
+        <div class="col q-ml-md q-mt-md text-h5 ellipsis">Agendamento</div>
+        <div class="col q-ml-md text-h6 ellipsis text-grey-7">
+          {{ product.name }}
+        </div>
+        <ScheduleSpecialistCard
+          v-for="specialist in specialists"
+          :key="specialist.id"
+          :specialist="specialist"
+          :specialistSchedule="specialist.specialistSchedule"
+          :product="product"
+        />
+      </div>
+    </q-page>
+  </div>
 </template>
 
 <script>
@@ -34,7 +38,7 @@ export default {
       breadcrumbs: [
         {
           title: "Serviços",
-          to: "/products",
+          to: "/products/list",
         },
         {
           title: "Agendamento",
@@ -123,5 +127,9 @@ export default {
 <style lang="scss">
 .specialist-list {
   width: 100%;
+}
+
+.schedule-specialist-list-content {
+  padding: 20px 50px;
 }
 </style>

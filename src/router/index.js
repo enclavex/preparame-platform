@@ -41,7 +41,7 @@ export default function (/* { store, ssrContext } */) {
       }
     }
 
-    return false
+    return next()
   })
 
   return Router

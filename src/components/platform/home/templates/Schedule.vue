@@ -7,25 +7,31 @@
     </q-card-section>
     <q-separator />
     <q-card-section>
-      <EventSchedule v-for="schedule in schedules" :key="schedule.id" :schedule="schedule"/>
+      <EventSchedule
+        v-for="schedule in schedules"
+        :key="schedule.id"
+        :schedule="schedule"
+        :userType="homeType"
+      />
     </q-card-section>
   </q-card>
 </template>
 
 <script>
-import EventSchedule from "./EventSchedule.vue";
-import { filterCrud } from "./../../crud/utils/filterCrud.js";
-import { formatDateToStringMasked } from "./../../../../utils/formatDate.js";
+import EventSchedule from "../templates/EventSchedule.vue";
+import { filterCrud } from "../../crud/utils/filterCrud.js";
+import { formatDateToStringMasked } from "../../../../utils/formatDate.js";
 
 export default {
   data() {
     return {
-      schedules: []
-    }
+      schedules: [],
+    };
   },
   components: {
     EventSchedule,
   },
+  props: ["homeType"],
   async mounted() {
     const dateBegin = new Date();
     const dateEnd = new Date();
@@ -35,8 +41,12 @@ export default {
 
     const filters = [
       {
-        name: "userId",
+        name: this.homeType === "USER" ? "userId" : "specialistUserId",
         model: localStorage.getItem("userId"),
+      },
+      {
+        name: 'status',
+        model: 'UNAVAILABLE',
       },
       {
         name: "dateBegin",

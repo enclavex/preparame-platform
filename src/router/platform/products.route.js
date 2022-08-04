@@ -35,6 +35,18 @@ const productRoutes = [
         }
     },
     {
+        path: "/products/list",
+        components: {
+            site: Platform
+        },
+        children: [{
+            path: "/",
+            components: {
+                content: ScheduleProductsList
+            }
+        }]
+    },
+    {
         path: "/products/:id",
         components: {
             site: Platform
@@ -50,18 +62,6 @@ const productRoutes = [
                 'ADMIN',
             ]
         }
-    },
-    {
-        path: "/products/list",
-        components: {
-            site: Platform
-        },
-        children: [{
-            path: "/",
-            components: {
-                content: ScheduleProductsList
-            }
-        }]
     },
     {
         path: "/products/schedule/:productId",
