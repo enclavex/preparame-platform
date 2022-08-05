@@ -3,47 +3,44 @@
     rounded
     :class="{
       'event-schedule': true,
-      'q-ma-sm': true,
+      'q-ma-xs': true,
       'text-white': true,
       'bg-grey': !eventValid,
       'bg-secondary': eventValid && !lessThen1Hour,
       'bg-primary': eventValid && lessThen1Hour,
     }"
   >
-    <div class="row items-start items-center event-schedule">
-      <div class="col event-schedule-day-info text-center text-h5 col-2">
-        <div class="event-schedule-day">{{ scheduleDay }}</div>
-        <div class="event-schedule-day text-caption">{{ month }}</div>
+    <div class="col items-start items-center">
+      <div class="col">
+        <div class="text-weight-regular text-left text-subtitle2">{{ scheduleDay }} de {{ month }} às {{ hour }} horas</div>
       </div>
-      <div class="row items-start items-center event-schedule-info col-10">
-        <div class="event-schedule-product col items-center col-8">
-          <div class="text-subtitle1">{{ productName }}</div>
+      <div class="col items-start items-center event-schedule-info">
+        <div class="event-schedule-product col items-center">
+          <div class="text-subtitle2 text-weight-regular">{{ productName }}</div>
           <div class="text-caption text-weight-light">
             {{ userType === "USER" ? specialistName : schedule.user.name }}
           </div>
         </div>
-        <div class="event-schedule-hour col-1">
-          <div class="text-subtitle1 text-center">{{ hour }}</div>
+        <div class="event-schedule-hour">
+          <div class="text-subtitle1 text-center"></div>
         </div>
-        <div class="event-schedule-hour col-2">
-          <div class="text-subtitle1 text-center">
+        <div class="event-schedule-hour">
+          <div class="text-subtitle1 text-left">
             <q-btn
-              v-if="eventValid"
+              v-if="eventValid && lessThen1Hour"
               color="white"
               class="text-caption"
               flat
               @click="goMeet()"
-              :disable="!lessThen1Hour"
               >Ir para reunião</q-btn
             >
-            <div v-else class="text-caption" color="white">
+            <div v-if="!eventValid" class="text-caption" color="white">
               Evento já terminou
             </div>
           </div>
         </div>
-        <div class="col-1 text-center">
+        <div v-if="eventValid && !lessThen24Hours">
           <q-btn
-            v-if="eventValid"
             color="white"
             class="text-caption"
             flat
@@ -88,7 +85,7 @@
 </template>
 
 <script>
-import { saveCrud } from "./../../crud/utils/saveCrud.js";
+import { saveCrud } from "../../crud/utils/saveCrud.js";
 
 export default {
   data() {

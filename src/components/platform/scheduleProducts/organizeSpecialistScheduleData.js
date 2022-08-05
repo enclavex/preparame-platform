@@ -1,3 +1,5 @@
+import { date } from "quasar"
+
 function fillScheduleHeader(specialistSchedules, dateBegin, dateEnd) {
     const headers = []
 
@@ -35,11 +37,17 @@ function fillScheduleHeader(specialistSchedules, dateBegin, dateEnd) {
 }
 
 function organizeSpecialistScheduleData(specialistSchedules, dateBegin, dateEnd) {
+    specialistSchedules = specialistSchedules.filter((specialistSchedule) => {
+        const dateSchedule = new Date(specialistSchedule.dateSchedule)
+
+        return !(dateSchedule.getDay() == 0 || dateSchedule.getDay() == 6)
+    })
+
     const specialistScheduleAvailables = specialistSchedules.map((specialistSchedule) => {
         let dateSchedule = new Date(specialistSchedule.dateSchedule)
 
-        dateSchedule = new Date(dateSchedule.setHours(dateSchedule.getHours() + (dateSchedule.getTimezoneOffset()/60)))
-        
+        dateSchedule = new Date(dateSchedule.setHours(dateSchedule.getHours() + (dateSchedule.getTimezoneOffset() / 60)))
+
         return {
             id: specialistSchedule.id,
             available: specialistSchedule.status.value === "AVAILABLE",

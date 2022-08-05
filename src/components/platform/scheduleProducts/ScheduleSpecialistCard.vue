@@ -1,21 +1,27 @@
 <template>
   <div>
-    <div class="q-pa-sm row items-start">
-      <q-card class="col-9 specialists-card" flat bordered>
+    <div class="row items-start">
+      <q-card class="row col-12 specialists-card" flat bordered>
         <q-card-section horizontal>
           <q-card-section class="col-2 flex flex-center">
-            <q-img class="rounded-borders" :src="specialist.user.avatarUrl"></q-img>
+            <q-img
+              class="rounded-borders specialists-card-avatar"
+              :img-style="{
+                'background-size': 'contain',
+              }"
+              :src="specialist.user.avatarUrl"
+            ></q-img>
           </q-card-section>
           <q-card-section class="col-6">
             <div class="text-h5 q-mt-sm q-mb-xs">{{ specialist.name }}</div>
-            <div class="text-caption text-grey">
+            <div class="specialists-card-bio q-pa-sm q-mb-sm text-caption text-grey-8">
               {{ specialist.bio }}
             </div>
             <a :href="specialist.linkedinUrl" target="_blank">
               <q-icon name="mdi-linkedin" size="36px" />
             </a>
           </q-card-section>
-          <q-card-section class="col-4">
+          <q-card-section class="col-4 q-pa-none">
             <Schedule
               :specialistSchedule="specialistSchedule"
               :specialist="specialist"
@@ -29,11 +35,9 @@
 </template>
 
 <script>
-import Schedule from "./Schedule.vue";
-
 export default {
   components: {
-    Schedule,
+    Schedule: () => import("./Schedule.vue"),
   },
   props: {
     specialist: {
@@ -55,5 +59,10 @@ export default {
 <style lang="scss">
 .specialists-card {
   max-height: 200px;
+}
+
+.specialists-card-bio {
+  min-height: 35%;
+  border-radius: 5px;
 }
 </style>

@@ -17,7 +17,6 @@
 </template>
 
 <script>
-import ScheduleProductCard from "./ScheduleProductCard.vue";
 import Breadcrumbs from "../../general/Breacrumbs.vue";
 import PageTitle from "../../general/PageTitle.vue";
 
@@ -37,7 +36,12 @@ export default {
     };
   },
   components: {
-    ScheduleProductCard,
+    ScheduleProductCard: () => {
+      const component = window.mobileAndTabletCheck()
+        ? import("./ScheduleProductCardMobile.vue")
+        : import("./ScheduleProductCard.vue");
+      return component;
+    },
     Breadcrumbs,
     PageTitle,
   },
@@ -60,11 +64,12 @@ export default {
 
 <style lang="scss">
 .schedule-product-list-content {
-  padding: 20px 50px;
+  padding: 20px 20px;
 }
 
 .schedule-product-list-container {
   display: flex;
   flex-direction: row;
+  flex-wrap: wrap;
 }
 </style>

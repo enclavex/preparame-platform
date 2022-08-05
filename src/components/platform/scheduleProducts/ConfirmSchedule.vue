@@ -4,7 +4,7 @@
       <q-card-section>
         <div class="col no-wrap items-center">
           <div class="col text-h4 ellipsis">Agendamento</div>
-          <div class="col text-h6 ellipsis text-grey-7">{{ product.name }}</div>
+          <div class="col text-h6 ellipsis text-grey-8">{{ product.name }}</div>
         </div>
       </q-card-section>
       <q-card-section class="q-pt-none">

@@ -3,8 +3,8 @@
     <q-page>
       <Breacrumbs :breadcrumbs="breadcrumbs" />
       <div class="schedule-specialist-list-content">
-        <div class="col q-ml-md q-mt-md text-h5 ellipsis">Agendamento</div>
-        <div class="col q-ml-md text-h6 ellipsis text-grey-7">
+        <PageTitle :title="title"></PageTitle>
+        <div class="col text-subtitle2 ellipsis text-grey-8 q-mb-sm">
           {{ product.name }}
         </div>
         <ScheduleSpecialistCard
@@ -20,7 +20,7 @@
 </template>
 
 <script>
-import ScheduleSpecialistCard from "./ScheduleSpecialistCard.vue";
+import PageTitle from "../../general/PageTitle.vue";
 import Breacrumbs from "../../general/Breacrumbs.vue";
 import { filterCrud } from "./../crud/utils/filterCrud";
 
@@ -32,6 +32,7 @@ import {
 export default {
   data() {
     return {
+      title: "Selecione o(a) especialista e a hora de seu agendamento",
       productId: "",
       specialists: [],
       product: {},
@@ -48,8 +49,14 @@ export default {
     };
   },
   components: {
-    ScheduleSpecialistCard,
+    ScheduleSpecialistCard: () => {
+      const component = window.mobileAndTabletCheck()
+        ? import("./ScheduleSpecialistCardMobile.vue")
+        : import("./ScheduleSpecialistCard.vue");
+      return component;
+    },
     Breacrumbs,
+    PageTitle,
   },
   async created() {
     this.productId = this.$route.params.productId;
@@ -130,6 +137,6 @@ export default {
 }
 
 .schedule-specialist-list-content {
-  padding: 20px 50px;
+  padding: 20px 20px;
 }
 </style>

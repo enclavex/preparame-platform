@@ -1,5 +1,5 @@
 <template>
-  <q-card class="schedule q-ml-md q-mt-md">
+  <q-card class="schedule q-ma-md">
     <q-card-section>
       <div class="row no-wrap items-center">
         <div class="col q-ml-md q-mt-md text-h5 ellipsis">Minha Agenda</div>
@@ -18,7 +18,6 @@
 </template>
 
 <script>
-import EventSchedule from "../templates/EventSchedule.vue";
 import { filterCrud } from "../../crud/utils/filterCrud.js";
 import { formatDateToStringMasked } from "../../../../utils/formatDate.js";
 
@@ -29,7 +28,12 @@ export default {
     };
   },
   components: {
-    EventSchedule,
+    EventSchedule: () => {
+      const component = window.mobileAndTabletCheck()
+        ? import("../templates/EventScheduleMobile.vue")
+        : import("../templates/EventSchedule.vue");
+      return component;
+    },
   },
   props: ["homeType"],
   async mounted() {
@@ -45,8 +49,8 @@ export default {
         model: localStorage.getItem("userId"),
       },
       {
-        name: 'status',
-        model: 'UNAVAILABLE',
+        name: "status",
+        model: "UNAVAILABLE",
       },
       {
         name: "dateBegin",

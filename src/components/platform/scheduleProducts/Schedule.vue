@@ -1,8 +1,8 @@
 <template>
   <div>
-    <q-card class="col-12" flat bordered>
+    <q-card class="q-ma-xs q-mt-md" flat bordered>
       <q-card-section class="schedule-card q-pa-none">
-        <div class="schedule-title col-3">
+        <div class="schedule-title q-mt-xs q-mb-xs text-weight-light col-3">
           Selecione um dia e horário disponível
         </div>
         <div class="schedule-header">
@@ -222,6 +222,7 @@ export default {
 .schedule-container {
   display: flex;
   flex-direction: column;
+  height: 90%;
 }
 
 .schedule-days {
