@@ -2,8 +2,8 @@
   <div>
     <div class="row items-start">
       <q-card class="row col-12 specialists-card" flat bordered>
-        <q-card-section horizontal>
-          <q-card-section class="col-2 flex flex-center">
+        <q-card-section horizontal class="col-12" >
+          <q-card-section class="col-1 flex flex-center">
             <q-img
               class="rounded-borders specialists-card-avatar"
               :img-style="{
@@ -22,7 +22,7 @@
             </a>
           </q-card-section>
           <q-card-section class="col-4 q-pa-none">
-            <Schedule
+            <Schedule class="col-12"
               :specialistSchedule="specialistSchedule"
               :specialist="specialist"
               :product="product"

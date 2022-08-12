@@ -138,7 +138,7 @@ export default {
     const actualDate = new Date();
 
     const actualDateAddEventDuration = new Date(
-      actualDate.setHours(actualDate.getHours() + 1)
+      actualDate.setHours(actualDate.getHours())
     );
 
     this.eventValid = !(actualDateAddEventDuration > dateSchedule);

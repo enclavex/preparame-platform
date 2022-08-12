@@ -13,7 +13,7 @@
         clickable
         v-close-popup
         tabindex="0"
-        v-for="(item, index) in menuItem.itens"
+        v-for="(item, index) in menuItem.items"
         :key="index"
         :to="item.to"
       >
