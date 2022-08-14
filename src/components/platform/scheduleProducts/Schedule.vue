@@ -91,7 +91,7 @@ export default {
   data() {
     return {
       weekCount: 1,
-      specialistScheduleData: {},
+      specialistScheduleData: [],
       specialistScheduleSelected: {},
       confirmScheduleFunctions: new Vue(),
     };
@@ -112,6 +112,18 @@ export default {
   },
   created() {
     this.specialistScheduleData = this.specialistSchedule;
+
+    this.specialistScheduleData.forEach(specialistSchedule => {
+      specialistSchedule.hours.forEach(hour => {
+        if (hour.dateSchedule) {
+          const diffHours = Math.abs(new Date() - hour.dateSchedule) / 36e5;
+
+          if (diffHours < 24) {
+            hour.available = false
+          }
+        }
+      })
+    })
   },
   methods: {
     confirmSchedule: function (daySchedule, hourSchedule, dayIndex, hourIndex) {
