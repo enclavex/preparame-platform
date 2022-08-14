@@ -37,11 +37,11 @@
             <div class="schedule-day-hours-container">
               <div
                 class="schedule-day-hours"
-                v-for="day in specialistScheduleData"
+                v-for="(day, dayIndex) in specialistScheduleData"
                 :key="day.monthDay"
               >
                 <q-btn
-                  v-for="hour in day.hours"
+                  v-for="(hour, hourIndex) in day.hours"
                   :key="hour.id"
                   :label="hour.hour ? hour.hour : 'N/A'"
                   class="q-pl-sm q-pr-sm schedule-day-hour text-weight-light"
@@ -50,7 +50,9 @@
                   dense
                   unelevated
                   :disable="hour.hour && hour.available ? false : true"
-                  @click="confirmSchedule(day.header, hour)"
+                  @click="
+                    confirmSchedule(day.header, hour, dayIndex, hourIndex)
+                  "
                 ></q-btn>
               </div>
             </div>
@@ -112,14 +114,59 @@ export default {
     this.specialistScheduleData = this.specialistSchedule;
   },
   methods: {
-    confirmSchedule: function (daySchedule, hourSchedule) {
-      this.confirmScheduleFunctions.$emit(
-        "showScheduleConfirmDialog",
-        daySchedule,
-        hourSchedule,
-        this.specialist,
-        this.product
-      );
+    confirmSchedule: function (daySchedule, hourSchedule, dayIndex, hourIndex) {
+      let rangeDuration = {
+        from: 0,
+        to: this.product.duration - 1,
+        [Symbol.iterator]() {
+          return {
+            current: this.from,
+            last: this.to,
+            next() {
+              if (this.current <= this.last) {
+                return { done: false, value: this.current++ };
+              } else {
+                return { done: true };
+              }
+            },
+          };
+        },
+      };
+
+      let allSchedulesAvailables = true;
+      let selectedSchedules = [];
+
+      for (let indexRangeDuration of rangeDuration) {
+        const validationHourIndex = hourIndex + indexRangeDuration;
+        if (
+          !this.specialistScheduleData[dayIndex].hours[validationHourIndex] ||
+          !this.specialistScheduleData[dayIndex].hours[validationHourIndex]
+            .available
+        ) {
+          allSchedulesAvailables = false;
+        } else {
+          selectedSchedules.push(
+            this.specialistScheduleData[dayIndex].hours[validationHourIndex]
+          );
+        }
+      }
+
+      if (!allSchedulesAvailables) {
+        this.$q.notify({
+          type: "error",
+          message: `São necessários ${this.product.duration} horários livres em sequência para poder agendar este produto. Por favor, escolha outro horário disponível.`,
+        });
+
+        return;
+      } else {
+        this.confirmScheduleFunctions.$emit(
+          "showScheduleConfirmDialog",
+          daySchedule,
+          selectedSchedules,
+          this.specialist,
+          this.product
+        );
+      }
     },
     priorWeek: function () {
       if (this.weekCount === 1) {

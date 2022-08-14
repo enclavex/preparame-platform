@@ -44,7 +44,7 @@ export default {
     return {
       confirmSchedule: false,
       daySchedule: {},
-      hourSchedule: {},
+      hourSchedule: [],
       product: {},
       dateSchedule: "",
       specialist: {},
@@ -60,43 +60,61 @@ export default {
   methods: {
     showScheduleConfirmDialog: function (
       daySchedule,
-      hourSchedule,
+      hourSchedules,
       specialist,
       product
     ) {
       this.confirmSchedule = true;
       this.daySchedule = daySchedule;
-      this.hourSchedule = hourSchedule;
+      this.hourSchedules = hourSchedules;
       this.specialist = specialist;
       this.product = product;
 
-      this.dateSchedule = `Dia ${this.hourSchedule.dateSchedule.toLocaleDateString(
+      let endHour = new Date(this.hourSchedules[0].dateSchedule);
+
+      endHour.setHours(
+        this.hourSchedules[0].dateSchedule.getHours() + this.product.duration
+      );
+
+      this.dateSchedule = `Dia ${this.hourSchedules[0].dateSchedule.toLocaleDateString(
         undefined,
         { day: "numeric", month: "long", year: "numeric" }
-      )} ás ${this.hourSchedule.dateSchedule.toLocaleTimeString(undefined, {
+      )} dás ${this.hourSchedules[0].dateSchedule.toLocaleTimeString(
+        undefined,
+        {
+          hour: "numeric",
+          minute: "numeric",
+        }
+      )} horas até ás ${endHour.toLocaleTimeString(undefined, {
         hour: "numeric",
         minute: "numeric",
-      })} horas.`;
+      })}.`;
     },
     scheduleConfirmation: async function () {
-      const specialistSchedule = this.hourSchedule.specialistSchedule;
+      for (const index in this.hourSchedules) {
+        const specialistSchedule = this.hourSchedules[index].specialistSchedule;
 
-      specialistSchedule.productId = this.product.id;
-      specialistSchedule.userId = localStorage.getItem("userId");
-      specialistSchedule.status = "UNAVAILABLE";
-      specialistSchedule.specialistId = specialistSchedule.specialist.id
+        specialistSchedule.productId = this.product.id;
+        specialistSchedule.userId = localStorage.getItem("userId");
+        specialistSchedule.status = "UNAVAILABLE";
+        specialistSchedule.specialistId = specialistSchedule.specialist.id;
+        specialistSchedule.createEvent = index == 0 ? true : false;
 
-      await saveCrud(
-        `specialists/schedule/${this.hourSchedule.id}`,
-        specialistSchedule,
-        "put"
-      ).then(() => {
-        this.$q.notify({
-          type: "success",
-          message: "Agendado com sucesso",
+        await saveCrud(
+          `specialists/schedule/${this.hourSchedules[index].id}`,
+          specialistSchedule,
+          "put"
+        ).then(() => {
+          if (index == this.hourSchedules.length - 1) {
+            this.$q.notify({
+              type: "success",
+              message: "Agendado com sucesso",
+            });
+
+            this.$router.push({ path: "/platform" });
+          }
         });
-        this.$router.push({ path: "/platform" });
-      });
+      }
     },
   },
 };

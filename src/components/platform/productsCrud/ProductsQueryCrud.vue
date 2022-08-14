@@ -180,6 +180,14 @@ export default {
           visible: true
         },
         {
+          name: "duration",
+          align: "right",
+          label: "Duração",
+          field: "duration",
+          sortable: true,
+          visible: true
+        },
+        {
           name: "actions",
           label: "Ações",
           align: "center",

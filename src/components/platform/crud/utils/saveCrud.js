@@ -16,7 +16,6 @@ async function saveCrud(url, data, method = "post") {
             }
         })
 
-    console.log(url, data, method)
     const config = {
         method: method,
         headers: { authorization: `Bearer ${localStorage.getItem("token")}` },

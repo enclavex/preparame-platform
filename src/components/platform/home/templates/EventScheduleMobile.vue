@@ -12,11 +12,15 @@
   >
     <div class="col items-start items-center">
       <div class="col">
-        <div class="text-weight-regular text-left text-subtitle2">{{ scheduleDay }} de {{ month }} às {{ hour }} horas</div>
+        <div class="text-weight-regular text-left text-subtitle2">
+          {{ scheduleDay }} de {{ month }} às {{ hour }} horas
+        </div>
       </div>
       <div class="col items-start items-center event-schedule-info">
         <div class="event-schedule-product col items-center">
-          <div class="text-subtitle2 text-weight-regular">{{ productName }}</div>
+          <div class="text-subtitle2 text-weight-regular">
+            {{ productName }}
+          </div>
           <div class="text-caption text-weight-light">
             {{ userType === "USER" ? specialistName : schedule.user.name }}
           </div>
@@ -99,13 +103,14 @@ export default {
       lessThen24Hours: false,
       lessThen1Hour: false,
       confirm: false,
+      eventSchedule: {},
     };
   },
-  props: ["schedule", "userType"],
+  props: ["schedulesGroup", "userType"],
   methods: {
     goMeet() {
-      if (this.schedule.hangoutLink) {
-        window.location.href = this.schedule.hangoutLink;
+      if (this.eventSchedule.schedules[0].hangoutLink) {
+        window.location.href = this.eventSchedule.schedules[0].hangoutLink;
       } else {
         this.$q.notify({
           type: "error",
@@ -114,17 +119,23 @@ export default {
       }
     },
     async cancelSchedule() {
-      await saveCrud(
-        `specialists/schedule/${this.schedule.id}/cancel`,
-        {},
-        "post"
-      );
+      for (const index in this.eventSchedule.schedules) {
+        const revertAvailableProduct = index == 0;
+
+        await saveCrud(
+          `specialists/schedule/${this.eventSchedule.schedules[index].id}/cancel`,
+          { revertAvailableProduct },
+          "post"
+        );
+      }
 
       document.location.reload(true);
     },
   },
   mounted() {
-    let dateSchedule = new Date(this.schedule.dateSchedule);
+    this.eventSchedule.schedules = Object.entries(this.schedulesGroup)[0][1];
+
+    let dateSchedule = new Date(this.eventSchedule.schedules[0].dateSchedule);
 
     dateSchedule = new Date(
       dateSchedule.setHours(
@@ -152,11 +163,12 @@ export default {
       year: "numeric",
     });
 
-    this.specialistName = this.schedule.specialist.name;
+    this.specialistName = this.eventSchedule.schedules[0].specialist.name;
 
     this.productName =
-      this.schedule.product && this.schedule.product.name
-        ? this.schedule.product.name
+      this.eventSchedule.schedules[0].product &&
+      this.eventSchedule.schedules[0].product.name
+        ? this.eventSchedule.schedules[0].product.name
         : "Serviço não identificado";
 
     let hour = `0${dateSchedule.getHours()}`;

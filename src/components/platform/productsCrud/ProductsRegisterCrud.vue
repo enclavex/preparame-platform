@@ -128,6 +128,16 @@ export default {
               type: "Decimal",
               visible: true
             },
+            duration: {
+              label: "Duração",
+              name: "duration",
+              size: "3",
+              row: 3,
+              col: 1,
+              model: "",
+              type: "Integer",
+              visible: true
+            },
           },
         },
         childTable: {

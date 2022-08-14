@@ -8,9 +8,9 @@
     <q-separator />
     <q-card-section>
       <EventSchedule
-        v-for="schedule in schedules"
-        :key="schedule.id"
-        :schedule="schedule"
+        v-for="(schedulesGroup, index) in groupSchedulesAdjusted"
+        :key="index"
+        :schedulesGroup="schedulesGroup"
         :userType="homeType"
       />
     </q-card-section>
@@ -24,6 +24,8 @@ import { formatDateToStringMasked } from "../../../../utils/formatDate.js";
 export default {
   data() {
     return {
+      groupSchedules: {},
+      groupSchedulesAdjusted: [],
       schedules: [],
     };
   },
@@ -36,7 +38,7 @@ export default {
     },
   },
   props: ["homeType"],
-  async mounted() {
+  async created() {
     const dateBegin = new Date();
     const dateEnd = new Date();
 
@@ -63,6 +65,26 @@ export default {
     ];
 
     this.schedules = await filterCrud(filters, "specialists/schedule");
+
+    this.schedules.forEach((schedule) => {
+      let groupKey = `${schedule["productId"]}${schedule["userId"]}${schedule["specialistId"]}${formatDateToStringMasked(new Date(schedule["dateSchedule"]), "yyyy-mm-dd")}` ;
+
+      if (!this.groupSchedules[groupKey]) {
+        this.groupSchedules[groupKey] = [];
+      }
+
+      this.groupSchedules[groupKey].push(schedule);
+
+      return schedule;
+    });
+
+    Object.entries(this.groupSchedules).map((schedule)=> {
+      const scheduleAdjusted = {}
+
+      scheduleAdjusted[schedule[0]] = schedule[1]
+
+      this.groupSchedulesAdjusted.push(scheduleAdjusted)
+    })    
   },
 };
 </script>
