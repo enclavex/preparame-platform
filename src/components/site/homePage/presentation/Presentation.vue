@@ -1,35 +1,43 @@
 <template>
-  <div id="home" :class="{ row: !mobile, column: mobile, presentation: true }">
-    <div class="col col-5 presentation-prepara-me">
+  <div id="home" :class="{ row: !mobile, presentation: true }">
+    <div :class="{ 'col-2': !mobile }" />
+    <div
+      :class="{
+        column: true,
+        'col-5': !mobile,
+        'col-12': mobile,
+        'presentation-prepara-me': true,
+      }"
+    >
       <div class="row">
-        <q-space />
-        <div class="q-ml-md presentation-prepara-me-title text-h3 col-9">
-          O que nos move...
+        <div
+          :class="{
+            'presentation-prepara-me-title': true,
+            'text-h3': !mobile,
+            'col-9': !mobile,
+          }"
+        >
+          Perca o medo e aumente sua confiança para fazer entrevistas de emprego
         </div>
       </div>
       <br />
       <div class="row">
-        <q-space />
-        <div class="presentation-prepara-me-text text-h6 text-grey-6 col-8">
-          ...é descomplicar e tornar a orientação de carreira acessível para
-          todos os brasileiros
+        <div class="presentation-prepara-me-text text-h6 text-grey-6 col-9">
+          Aumente suas chances de passar na entrevista. <br /><b
+            >É fácil. É rápido. É gratuito!</b
+          >
         </div>
       </div>
       <br />
-      <div class="row">
-        <q-space />
-        <q-btn
-          class="q-px-xl q-py-xs q-ml-md col-6"
-          color="purple"
-          label="Acesse nossa plataforma"
-          rounded
-          to="/login"
-        />
+      <div class="row justify-start">
+        <div class="presentation-obs">
+          Estamos em manutenção para melhor atender você.
+        </div>
       </div>
     </div>
-    <div class="row col-7">
+    <div v-if="!mobile" :class="{ row: true, 'col-5': !mobile }">
       <q-space class="col-1" />
-      <div class="column presentation-picture-container col-10">
+      <div class="column col-10">
         <div class="col-2" />
         <div class="col-8 presentation-picture" />
         <div class="col-2" />
@@ -44,8 +52,8 @@ export default {
   name: "Presentation",
   data() {
     return {
-      mobile: false
-    }
+      mobile: false,
+    };
   },
   components: {},
   setup() {},
@@ -57,13 +65,16 @@ export default {
 
 <style lang="scss">
 .presentation {
-  height: 90vh;
+  position: relative;
+  height: 100vh;
+  background-image: url("../../../../assets/imgs/homeGirl.png");
+  background-repeat: no-repeat;
+  background-size: contain;
+  background-position-x: 100%;
+  top: -8vh;
 }
 
 .presentation-picture {
-  background-image: url("../../../../assets/imgs/homePageGirl.png");
-  background-repeat: no-repeat;
-  background-size: contain;
   width: 80% !important;
   height: 100%;
   margin-right: auto;
@@ -75,11 +86,48 @@ export default {
 }
 
 .presentation-prepara-me-title {
-  font-family: "Anton", sans-serif;
-  letter-spacing: 3px;
+  font-family: "Nunito";
+  font-style: normal;
+  font-weight: 500;
+  font-size: 2.2rem;
+  text-transform: uppercase;
+  background: linear-gradient(90deg, #1a27b7 0%, #ff4690 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
 }
 
 .presentation-prepara-me-text {
-  letter-spacing: 1px;
+  font-family: "Nunito";
+  font-style: normal;
+  font-weight: 400;
+  font-size: 1rem;
+  line-height: 170%;
+  background: linear-gradient(90deg, #1a27b7 0%, #ff4690 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.presentation-obs {
+  color: #aaa;
+}
+
+@media (orientation: portrait) {
+  .presentation {
+    position: unset;
+    background-size: 150%;
+    background-position-y: 100%;
+    height: 90vh;
+  }
+
+  .presentation-prepara-me {
+    height: 100%;
+    padding: 10%;
+  }
+
+  .presentation-prepara-me-title {
+    font-size: 1.4rem;
+  }
 }
 </style>

@@ -1,153 +1,192 @@
 <template>
   <div id="contact" class="contact">
-    <a class="contact-prepara-me-logo" href="/#/">
-      <img src="../../../../assets/logos/logo_preparame_home.png">
-
-    </a>
-    <div class="contact-address">
-      <div class="contact-address-text">Entre em contato</div>
-      <div class="contact-address-email">contato@prepara.me</div>
-      <div class="contact-address-social">
-        <a href="https://www.instagram.com/prepara.me/" target="_blank">
-          <div class="contact-address-icon-container">
-            <q-icon name="mdi-instagram" class="presentation-icon"/>
-          </div>
-        </a>
-        <a href="https://www.linkedin.com/company/prepara-mebr/" target="_blank">
-          <div class="contact-address-icon-container">
-            <q-icon name="mdi-linkedin" />
-          </div>
-        </a>
-        <a href="https://www.facebook.com/prepara.mebr/" target="_blank">
-          <div class="contact-address-icon-container">
-            <q-icon name="mdi-facebook" />
-          </div>
-        </a>
+    <div
+      :class="{ 'contact-info-container': true, row: !mobile, column: mobile }"
+    >
+      <div
+        :class="{
+          'contact-info-preparame': true,
+          'col-3': !mobile,
+          column: true,
+        }"
+      >
+        <img
+          :src="imgURL(logoImg)"
+          :class="{ 'contact-info-preparame-logo': true }"
+        />
+        <div class="contact-info-preparame-text">
+          Um marketplace que conecta profissionais de RH com você, que precisa
+          se preparar para o próximo passo na carreira ou quer simplesmente
+          melhorar seu currículo e suas chances no mercado de trabalho.
+        </div>
       </div>
-      <div class="contact-address-use-terms">
-        <a href="/#/UseTerms">Termos de Uso</a>
+      <q-space />
+      <div class="contact-info col-2 column">
+        <div class="contact-info-title">Informações para contato</div>
+        <div class="contact-info-text">
+          <q-icon name="mdi-map-marker" />
+          São Paulo e todo Brasil
+        </div>
+        <div class="contact-info-text">
+          <q-icon name="mdi-email" />
+          contato@prepara.me
+        </div>
+        <div class="contact-info-text">
+          <q-icon name="mdi-whatsapp" />
+          +55 11 95339-9384
+        </div>
       </div>
+      <q-space />
+      <!-- <div class="contact-info col-2 column">
+        <div class="contact-info-title">Links Rápidos</div>
+        <div class="contact-info-text">Home</div>
+        <div class="contact-info-text">Sobre Nós</div>
+        <div class="contact-info-text">Serviços</div>
+        <div class="contact-info-text">Grátis</div>
+      </div> -->
+      <q-space />
+      <div class="contact-info col-2 column">
+        <div class="contact-info-title">Siga-nos</div>
+        <div class="contact-info-icons row">
+          <q-icon
+            name="mdi-facebook"
+            class="contact-info-icon q-mr-sm"
+            @click="goUrl('https://www.facebook.com/prepara.mebr')"
+          />
+          <q-icon
+            name="mdi-linkedin"
+            class="contact-info-icon q-mr-sm"
+            @click="goUrl('https://www.linkedin.com/company/prepara-mebr/')"
+          />
+          <q-icon
+            name="mdi-instagram"
+            class="contact-info-icon q-mr-sm"
+            @click="goUrl('https://www.instagram.com/prepara.me/')"
+          />
+        </div>
+      </div>
+      <q-space />
     </div>
-    <div class="contact-news">
-      <div class="contact-news-text">Receba nossas dicas!</div>
-      <input id="name" class="contact-news-input" type="text" name="name" placeholder="Digite seu nome...">
-      <input id="email" class="contact-news-input" type="email" name="email" placeholder="Digite seu e-mail...">
-      <button class="contact-news-send-btn">Enviar</button>
+    <div class="contact-reserved-rights">
+      {{ year }} | Todos os direitos reservados @prepara.me
     </div>
   </div>
 </template>
 
 <script>
-export default {};
+export default {
+  data() {
+    return {
+      year: 0,
+      logoImg: "logo_preparame_home.png",
+      mobile: false,
+    };
+  },
+  mounted() {
+    this.year = new Date().getFullYear();
+    this.mobile = window.mobileAndTabletCheck();
+  },
+  methods: {
+    goUrl: function (url) {
+      window.open(url, "_blank").focus();
+    },
+    imgURL: function (pathName) {
+      var images = require.context(
+        "../../../../assets/logos/",
+        false,
+        /\.png$/
+      );
+
+      return images("./" + pathName);
+    },
+  },
+};
 </script>
 
 <style>
 .contact {
-  height: 20vh;
-  width: 100vw;
-  display: grid;
-  grid-template-columns: 50% 25% 25%;
+  height: 40vh;
 }
 
-.contact-prepara-me-logo {
-  grid-column-start: 1;
-  margin: auto;
-  display: flex;
-  justify-items: space-around;
-  justify-content: space-around;
+.contact-info-container {
+  height: 30vh;
 }
 
-.contact-prepara-me-logo img {
+.contact-reserved-rights {
   height: 10vh;
-  margin: auto;
-}
-
-.contact-address {
-  grid-column-start: 2;
-  margin: auto;
-  font-family: "nunito", sans-serif;
-}
-
-.contact-address-email {
-  font-weight: 700;
-  color: #1a27b7;
-  cursor: pointer;
-}
-
-.contact-address-social {
   display: flex;
-  flex-direction: row;
-}
-
-.contact-address-icon-container {
-  color: #1a27b7;
-  margin: 2px;
-}
-
-.contact-address-use-terms a {
-  margin-top: 10px;
-  font-weight: 700;
-  color: #1a27b7;
-  cursor: pointer;
-}
-
-.contact-news {
-  display: flex;
-  grid-column-start: 3;
   flex-direction: column;
-  margin: auto 20px;
-  font-family: "nunito", sans-serif;
-}
-
-.contact-news-input {
-  border-radius: 5px;
-  height: 30px;
-  border: 1px solid #bbb;
-  padding-left: 10px;
-}
-
-.contact-news-input:nth-child(2) {
-  margin: 5px 0;
-}
-
-.contact-news-send-btn {
-  margin: 5px auto;
-  height: 30px;
-  width: 100px;
-  line-height: 30px;
-  text-align: center;
-  border: 1px solid #667998;
-  font-family: "nunito", sans-serif;
-  font-weight: 400;
-  cursor: pointer;
-  transition: all 0.25s ease;
-  background-color: rgb(249, 250, 255);
-}
-
-.contact-news-send-btn:hover {
-  border: 1px solid #fff;
+  justify-content: center;
+  align-items: center;
+  background: linear-gradient(90deg, #1a27b7 0%, #ff4690 100%);
   color: #fff;
-  background-color: #667998;
+  font-family: "Nunito";
+  font-weight: 300;
+  font-size: 0.8rem;
+  text-align: center;
+}
+
+.contact-info-preparame-logo {
+  width: 200px;
+  margin: 10% auto 5% auto;
+}
+
+.contact-info-preparame-text {
+  font-family: "Nunito";
+  font-weight: 300;
+  font-size: 0.8rem;
+  display: flex;
+  color: #6c6c6c;
+  width: 80%;
+  margin: 0 auto;
+}
+
+.contact-info-title {
+  font-family: "Nunito";
+  font-weight: 600;
+  font-size: 1rem;
+  display: flex;
+  align-items: center;
+  color: #000000;
+}
+
+.contact-info {
+  margin-top: 50px;
+}
+
+.contact-info-text {
+  font-family: "Nunito";
+  font-weight: 300;
+  font-size: 0.8rem;
+  color: #6c6c6c;
+}
+
+.contact-info-icons {
+  font-size: 1.5rem;
+}
+
+.contact-info-icon:hover {
+  font-family: "Nunito";
+  color: #000;
+  cursor: pointer;
+  transition: all 0.5s ease;
+}
+
+.contact-info-icon:hover {
+  color: #555;
 }
 
 @media (orientation: portrait) {
   .contact {
-    display: flex;
-    flex-direction: column;
+    height: auto;
   }
 
-  .contact-prepara-me-logo img {
-    height: 5vh;
-    margin: 10px auto auto 10px;
+  .contact-info-container {
+    height: auto;
   }
 
-  .contact-address {
-    margin: 10px auto auto 10px;
-  }
-
-  .contact-news {
-    margin: 10px auto auto auto;
-    width: 94vw;
+  .contact-info {
+    margin: 10px 0 10px 30px;
   }
 }
 </style>

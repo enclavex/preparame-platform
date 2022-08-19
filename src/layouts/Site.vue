@@ -11,6 +11,7 @@
         <router-view name="content" />
       </q-page-container>
       <Contact />
+      <WhatsApp />
     </q-layout>
   </div>
 </template>
@@ -19,12 +20,14 @@
 import NavMenu from "../components/site/navMenu/NavMenu.vue";
 import SideNavMenu from "../components/site/navMenu/SideNavMenu.vue";
 import Contact from "../components/site/homePage/contact/Contact.vue";
+import WhatsApp from "../components/site/general/WhatsApp.vue";
 
 export default {
   components: {
     Contact,
     NavMenu,
     SideNavMenu,
+    WhatsApp
   },
   data() {
     return {
@@ -33,3 +36,7 @@ export default {
   },
 };
 </script>
+
+<style>
+
+</style>

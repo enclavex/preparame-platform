@@ -3,28 +3,28 @@
     <div class="product-list-container">
       <h1 class="product-list-title">Selecione um ou mais de nossos produtos!</h1>
       <div class="product-list-cards-container">
-        <ProductCard
+        <!-- <ProductCard
           v-for="product in products"
           :key="product.id"
           :short-name="product.shortName"
           :name="product.name"
           :price="product.price"
           :product-content="product.productContent"
-        />
+        /> -->
       </div>
     </div>
   </div>
 </template>
 
 <script>
-  import ProductCard from "../components/site/homePage/bestSellers/BestSellersCard.vue";
+  // import ProductCard from "../components/site/homePage/bestSellers/BestSellersCard.vue";
 
   import axios from "axios";
   import { baseApiUrl, showError } from "../global.js";
 
   export default {
     components: {
-      ProductCard
+      // ProductCard
     },
     data() {
       return { products: [] };

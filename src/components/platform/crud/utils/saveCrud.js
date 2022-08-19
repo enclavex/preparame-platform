@@ -22,7 +22,7 @@ async function saveCrud(url, data, method = "post") {
         data: data,
         url: `${baseApiUrl}${url}`,
     };
-
+    
     const objectCreated = await axios(config)
         .then((created) => {
             return created;
