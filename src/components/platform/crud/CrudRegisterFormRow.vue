@@ -30,9 +30,6 @@
           class="q-ma-sm"
         />
       </div>
-      <!-- {{data.tableColumns}}<br><br>
-      {{tableData}} -->
-
       <CrudRegisterChildTable
         :result="{ columns: data.tableColumns, data: tableData }"
       />

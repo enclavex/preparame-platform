@@ -22,7 +22,7 @@
       :mobile="mobile"
     />
     <q-space v-if="!mobile" />
-    <!-- <q-btn
+    <q-btn
       v-if="!mobile"
       flat
       stretch
@@ -32,7 +32,7 @@
       to="/ShoppingCart"
       no-caps
       class="nav-menu-item-name"
-    /> -->
+    />
     <q-space v-if="!mobile" />
     <q-space v-if="!mobile" />
     <q-btn

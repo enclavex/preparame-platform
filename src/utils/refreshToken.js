@@ -29,7 +29,7 @@ async function refreshToken(error) {
                 .catch((err) => {
                     return reject(err);
                 });
-        } catch (err) {
+            } catch (err) {
             return reject(err);
         }
     });

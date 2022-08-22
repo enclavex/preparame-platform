@@ -3,15 +3,16 @@
     <div class="shopping-cart-title">
       <h1>Meu carrinho</h1>
     </div>
-    <div class="shopping-cart-container">
-      <div class="shopping-cart-itens">
-        <ShoppingCartItemCard />
-        <ShoppingCartItemCard />
-        <ShoppingCartItemCard />
-        <ShoppingCartItemCard />
+    <div class="shopping-cart-container row">
+      <div class="shopping-cart-itens col-8">
+        <ShoppingCartItemCard
+          v-for="(product, index) in productsAdjusted"
+          :key="index"
+          :product="product"
+        />
       </div>
-      <div class="shopping-cart-total">
-        <ShoppingCartTotalCard />
+      <div class="shopping-cart-total col-4">
+        <ShoppingCartTotalCard :products="productsAdjusted"/>
       </div>
     </div>
   </div>
@@ -24,11 +25,33 @@ import ShoppingCartTotalCard from "../components/site/shoppingCart/ShoppingCartT
 export default {
   components: {
     ShoppingCartItemCard,
-    ShoppingCartTotalCard
+    ShoppingCartTotalCard,
   },
-  created() {
+  data() {
+    return {
+      products: [],
+      productsAdjusted: [],
+    };
+  },
+  mounted() {
     window.scrollTo(0, 0);
-  }
+
+    this.products = JSON.parse(localStorage.getItem("cart") || "[]");
+
+    this.products.forEach(product => {
+      const indexProductAdjusted = this.productsAdjusted.findIndex(productAdjusted => {
+        return product.id == productAdjusted.id
+      })
+
+      if (indexProductAdjusted > -1) {
+        this.productsAdjusted[indexProductAdjusted].qnty += 1
+      } else {
+        Object.assign(product, {qnty: 1})
+
+        this.productsAdjusted.push(product)
+      }
+    })
+  },
 };
 </script>
 

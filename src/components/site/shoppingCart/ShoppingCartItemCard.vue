@@ -1,26 +1,21 @@
 <template>
-  <div class="shopping-cart-item-card">
-    <div class="shopping-cart-item-card-image-container">
-      <img
-        class="shopping-cart-item-card-image"
-        src="https://www.prepara.me/assets/img/lucy.png"
-        alt
-      >
-    </div>
+  <div class="shopping-cart-item-card column">
     <div class="shopping-cart-item-card-info-product">
       <div
         class="shopping-cart-item-card-info-product-title"
-      >Reconstrução e análise completa de currículo em português | Chamada de vídeo agendada</div>
-      <div class="shopping-cart-item-card-add-info">
-        <div class="shopping-cart-item-card-info-product-schedule-container">
+      >{{product.name}}</div>
+      <div
+        class="shopping-cart-item-card-info-product-schedule-label"
+      >{{product.shortName}}</div>
+      <div class="shopping-cart-item-card-add-info row">
+        <div class="shopping-cart-item-card-info-product-schedule-container col-9">
           <div
             class="shopping-cart-item-card-info-product-schedule-label"
-          >Data e Hora do Agendamento</div>
-          <div class="shopping-cart-item-card-info-product-schedule">26/05/2022 9:00:00</div>
+          >Quantidade: {{product.qnty}}</div>
         </div>
-        <div class="shopping-cart-item-card-info-product-value-container">
+        <div class="shopping-cart-item-card-info-product-value-container col-3">
           <div class="shopping-cart-item-card-info-product-value-label">Total</div>
-          <div class="shopping-cart-item-card-info-product-value">100,00R$</div>
+          <div class="shopping-cart-item-card-info-product-value">R$ {{price}}</div>
         </div>
       </div>
     </div>
@@ -28,13 +23,24 @@
 </template>
 
 <script>
-  export default {};
+  import { priceConvert } from "../../../utils/priceConvert.js";
+
+  export default {
+    props: ["product"],
+    data() {
+      return {
+        price: 0
+      }
+    },
+    mounted(){
+      this.price = priceConvert(this.product.price * this.product.qnty)
+    }
+
+  };
 </script>
 
 <style>
   .shopping-cart-item-card {
-    display: flex;
-    flex-direction: row;
     height: 200px;
     width: 80%;
     min-width: 740px;
@@ -71,7 +77,6 @@
     font-weight: bold;
     color: #000;
     font-size: 1.5rem;
-    margin-bottom: 2rem;
   }
 
   .shopping-cart-item-card-info-product-total {
@@ -88,6 +93,7 @@
     font-weight: bold;
     font-size: 0.9rem;
     color: #667998;
+    margin-bottom: 5vh;
   }
 
   .shopping-cart-item-card-info-product-schedule {

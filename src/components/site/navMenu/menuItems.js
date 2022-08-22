@@ -1,26 +1,26 @@
 const menuItems = [
-    // {
-    //     name: "Para Você",
-    //     items: [
-    //         {
-    //             name: "Nossas Trilhas",
-    //             to: "",
-    //         },
-    //         {
-    //             name: "Adquira Nossos Serviços",
-    //             to: "/ProductList",
-    //         },
-    //     ],
-    // },
-    // {
-    //     name: "Para Sua Empresa",
-    //     items: [
-    //         {
-    //             name: "Contrato Para Colaboradores",
-    //             to: "",
-    //         },
-    //     ],
-    // },
+    {
+        name: "Para Você",
+        items: [
+            // {
+            //     name: "Nossas Trilhas",
+            //     to: "",
+            // },
+            {
+                name: "Adquira Nossos Serviços",
+                to: "/ProductList",
+            },
+        ],
+    },
+    {
+        name: "Para Sua Empresa",
+        items: [
+            {
+                name: "Demissões Responsáveis",
+                to: "/toCompanies",
+            },
+        ],
+    },
     // {
     //     name: "Materiais Gratuitos",
     //     items: [
@@ -34,19 +34,19 @@ const menuItems = [
     //         },
     //     ],
     // },
-    // {
-    //     name: "Sobre Nós",
-    //     items: [
-    //         {
-    //             name: "Nossa Empresa",
-    //             to: "/CompanyDetails",
-    //         },
-    //         {
-    //             name: "Dúvidas Frequentes",
-    //             to: "/FAQ",
-    //         },
-    //     ],
-    // },
+    {
+        name: "Sobre Nós",
+        items: [
+            {
+                name: "Nossa Empresa",
+                to: "/CompanyDetails",
+            },
+            {
+                name: "Dúvidas Frequentes",
+                to: "/FAQ",
+            },
+        ],
+    },
 ]
 
 export { menuItems }

@@ -51,6 +51,7 @@ export default {
       localStorage.removeItem("userAvatarUrl");
       localStorage.removeItem("userName");
       localStorage.removeItem("userType");
+      localStorage.removeItem("userEmail");
 
       this.$router.push({ path: "/login" });
     },
