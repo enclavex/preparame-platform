@@ -56,7 +56,7 @@
 </template>
 
 <script>
-import { filterCrud } from "./../../crud/utils/filterCrud.js";
+import { filterCrud } from "./../../../general/crud/utils/filterCrud.js";
 
 export default {
   props: ["col", "oldValue"],

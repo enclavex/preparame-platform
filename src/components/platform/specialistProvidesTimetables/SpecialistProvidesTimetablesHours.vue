@@ -77,9 +77,9 @@
 
 <script>
 import { formatDateToStringMasked } from "../../../utils/formatDate.js";
-import { saveCrud } from "./../crud/utils/saveCrud.js";
-import { removeCrud } from "./../crud/utils/removeCrud.js";
-import { filterCrud } from "./../crud/utils/filterCrud.js";
+import { saveCrud } from "./../../general/crud/utils/saveCrud.js";
+import { removeCrud } from "./../../general/crud/utils/removeCrud.js";
+import { filterCrud } from "./../../general/crud/utils/filterCrud.js";
 
 export default {
   props: ["dateCalendar", "specialist"],

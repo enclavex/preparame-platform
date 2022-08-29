@@ -1,5 +1,6 @@
 import UsersQueryCrud from "../../components/platform/usersCrud/UsersQueryCrud.vue"
 import UsersRegisterCrud from "../../components/platform/usersCrud/UsersRegisterCrud.vue"
+import UserProfile from "../../components/platform/userProfile/UserProfile.vue"
 import Platform from "../../layouts/Platform.vue"
 
 const userRoutes = [
@@ -34,6 +35,25 @@ const userRoutes = [
         props: {
             userTypes: [
                 'ADMIN',
+            ]
+        }
+    },
+    {
+        path: "/profile",
+        components: {
+            site: Platform
+        },
+        children: [{
+            path: "/",
+            components: {
+                content: UserProfile
+            }
+        }],
+        props: {
+            userTypes: [
+                'ADMIN',
+                'USER',
+                'SPECIALIST'
             ]
         }
     },

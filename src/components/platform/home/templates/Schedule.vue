@@ -18,7 +18,7 @@
 </template>
 
 <script>
-import { filterCrud } from "../../crud/utils/filterCrud.js";
+import { filterCrud } from "../../../general/crud/utils/filterCrud";
 import { formatDateToStringMasked } from "../../../../utils/formatDate.js";
 
 export default {

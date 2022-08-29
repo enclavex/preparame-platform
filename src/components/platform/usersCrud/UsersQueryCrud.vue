@@ -13,7 +13,7 @@
 </template>
 
 <script>
-import CrudQuery from "../crud/CrudQuery.vue";
+import CrudQuery from "./../../general/crud/CrudQuery.vue";
 
 export default {
   components: {

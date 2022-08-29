@@ -21,7 +21,7 @@ import Breadcrumbs from "../../general/Breacrumbs.vue";
 import PageTitle from "./../../general/PageTitle.vue";
 import SpecialistProvidesTimetablesHours from "./SpecialistProvidesTimetablesHours.vue";
 import SpecialistProvidesTimetablesCalendar from "./SpecialistProvidesTimetablesCalendar.vue";
-import { filterCrud } from "./../crud/utils/filterCrud.js";
+import { filterCrud } from "./../../general/crud/utils/filterCrud.js";
 
 export default {
   components: {

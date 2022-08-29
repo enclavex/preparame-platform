@@ -89,7 +89,7 @@
 </template>
 
 <script>
-import { saveCrud } from "../../crud/utils/saveCrud.js";
+import { saveCrud } from "./../../../general/crud/utils/saveCrud.js";
 
 export default {
   data() {

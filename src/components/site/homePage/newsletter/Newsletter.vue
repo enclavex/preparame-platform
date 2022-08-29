@@ -33,7 +33,7 @@
 </template>
 
 <script>
-import { saveCrud } from "../../../platform/crud/utils/saveCrud.js";
+import { saveCrud } from "./../../../general/crud/utils/saveCrud.js";
 import { showError } from "../../../../global.js";
 import { emailValidation } from "../../../../utils/emailValidation.js";
 

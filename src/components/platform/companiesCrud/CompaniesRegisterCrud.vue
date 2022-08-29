@@ -10,9 +10,9 @@
 </template>
 
 <script>
-import CrudRegister from "./../crud/CrudRegister.vue";
-import { openEditCrud } from "./../crud/utils/openEditCrud.js";
-import { saveCrud } from "./../crud/utils/saveCrud.js";
+import CrudRegister from "./../../general/crud/CrudRegister.vue";
+import { openEditCrud } from "./../../general/crud/utils/openEditCrud.js";
+import { saveCrud } from "./../../general/crud/utils/saveCrud.js";
 import { showError } from "./../../../global.js";
 
 export default {

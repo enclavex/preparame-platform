@@ -25,8 +25,8 @@ import CrudQueryTable from "./CrudQueryTable.vue";
 import CrudQueryTitle from "./CrudQueryTitle.vue";
 import Breadcrumbs from "../../general/Breacrumbs.vue";
 
-import { filterCrud } from "./../crud/utils/filterCrud.js";
-import { removeCrud } from "./../crud/utils/removeCrud.js";
+import { filterCrud } from "./../../general/crud/utils/filterCrud.js";
+import { removeCrud } from "./../../general/crud/utils/removeCrud.js";
 
 import { adjustColumnsAndRowsRegister } from "./../crud/utils/adjustColumnsAndRowsRegister";
 

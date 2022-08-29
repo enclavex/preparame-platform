@@ -69,7 +69,7 @@
 <script>
 import { priceConvert } from "../../../utils/priceConvert.js";
 import { refreshToken } from "../../../utils/refreshToken.js";
-import { saveCrud } from "../../platform/crud/utils/saveCrud.js";
+import { saveCrud } from "./../../general/crud/utils/saveCrud.js";
 import { showError } from "../../../global.js";
 import { emailValidation } from "../../../utils/emailValidation.js";
 

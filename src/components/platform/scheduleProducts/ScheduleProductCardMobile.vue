@@ -47,7 +47,7 @@
 </template>
 
 <script>
-import { filterCrud } from "../crud/utils/filterCrud";
+import { filterCrud } from "./../../general/crud/utils/filterCrud";
 
 export default {
   data() {

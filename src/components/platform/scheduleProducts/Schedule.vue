@@ -80,7 +80,7 @@ import {
   getDayOfWeek,
 } from "./organizeSpecialistScheduleData.js";
 import ConfirmSchedule from "./ConfirmSchedule.vue";
-import { filterCrud } from "./../crud/utils/filterCrud.js";
+import { filterCrud } from "./../../general/crud/utils/filterCrud.js";
 
 import Vue from "vue";
 
@@ -320,6 +320,7 @@ export default {
   flex-direction: row;
   justify-content: space-around;
   max-height: 110px;
+  min-height: 50px;
   overflow: scroll;
 }
 

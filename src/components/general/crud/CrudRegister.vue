@@ -20,7 +20,7 @@ import CrudRegisterFormRow from "./CrudRegisterFormRow.vue";
 import CrudRegisterButtons from "./CrudRegisterButtons.vue";
 import Breadcrumbs from "../../general/Breacrumbs.vue";
 
-import { adjustColumnsAndRowsRegister } from "./utils/adjustColumnsAndRowsRegister.js";
+import { adjustColumnsAndRowsRegister } from "./../../general/crud/utils/adjustColumnsAndRowsRegister.js";
 
 export default {
   components: {

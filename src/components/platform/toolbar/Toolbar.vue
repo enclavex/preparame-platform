@@ -23,7 +23,7 @@
                 <q-icon color="icon" name="mdi-logout-variant"></q-icon>
               </q-item-section>
               <q-item-section>
-                <q-item-label >Sair</q-item-label>
+                <q-item-label>Sair</q-item-label>
               </q-item-section>
             </q-item>
           </q-list>
@@ -64,7 +64,7 @@ export default {
 </script>
 
 <style>
- .q-menu {
+.q-menu {
   border-top-left-radius: 0;
   border-top-right-radius: 0;
 }

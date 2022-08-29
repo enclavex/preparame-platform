@@ -22,7 +22,7 @@
 <script>
 import PageTitle from "../../general/PageTitle.vue";
 import Breacrumbs from "../../general/Breacrumbs.vue";
-import { filterCrud } from "./../crud/utils/filterCrud";
+import { filterCrud } from "./../../general/crud/utils/filterCrud";
 
 import {
   organizeSpecialistScheduleData,

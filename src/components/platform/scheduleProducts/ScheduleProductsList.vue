@@ -20,7 +20,7 @@
 import Breadcrumbs from "../../general/Breacrumbs.vue";
 import PageTitle from "../../general/PageTitle.vue";
 
-import { filterCrud } from "./../crud/utils/filterCrud";
+import { filterCrud } from "./../../general/crud/utils/filterCrud";
 
 export default {
   data() {
