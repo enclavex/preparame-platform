@@ -1,6 +1,7 @@
 import { Notify } from 'quasar'
 
 export const userKey = "__knowledge_user"
+
 export const baseApiUrl = "http://54.90.104.135/"
 
 export function showError(e) {
