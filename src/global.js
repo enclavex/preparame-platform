@@ -1,8 +1,8 @@
 import { Notify } from 'quasar'
 
 export const userKey = "__knowledge_user"
-// export const baseApiUrl = "https://api.prepara.me"
-export const baseApiUrl = "http://localhost:3334"
+export const baseApiUrl = "https://api.prepara.me"
+// export const baseApiUrl = "http://localhost:3334"
 
 export function showError(e) {
     if (e && e.response && e.response.data && e.response.data.message) {
