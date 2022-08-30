@@ -169,6 +169,7 @@ export default {
 
 .companies .q-carousel {
   background-color: transparent;
+  height: 450px;
 }
 
 @media (orientation: portrait) {

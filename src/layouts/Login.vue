@@ -199,7 +199,7 @@ export default {
       this.token = this.$router.history.current.query.token;
 
       if (this.token) {
-        this.loggingIn = false
+        this.loggingIn = false;
       }
     } catch (err) {
       //
@@ -328,6 +328,7 @@ export default {
           });
 
           this.resetPasswordDialog = false;
+          this.loggingIn = true;
         })
         .catch(showError);
 
@@ -352,7 +353,7 @@ export default {
         })
         .catch((err) => {
           showError(
-            `Não foi possível localizar este e-mail em nossa base de dados. ${err}` 
+            `Não foi possível localizar este e-mail em nossa base de dados. ${err}`
           );
         });
       this.$q.loading.hide();

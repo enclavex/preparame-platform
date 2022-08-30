@@ -107,9 +107,17 @@ export default {
 
       const msgEncoded = window.encodeURIComponent(msg);
 
-      this.goURL(
-        `https://web.whatsapp.com/send?phone=+5511953399384&text=${msgEncoded}`
-      );
+      const mobile = window.mobileAndTabletCheck();
+
+      if (mobile) {
+        this.goURL(
+          `https://wa.me/5511953399384?text=${msgEncoded}`
+        );
+      } else {
+        this.goURL(
+          `https://web.whatsapp.com/send?phone=+5511953399384&text=${msgEncoded}`
+        );
+      }
     },
     openScheduleEmail: async function () {
       try {

@@ -1,9 +1,6 @@
 <template>
   <div id="wpp-container">
-    <a
-      id="wpp"
-      target="_blank"
-      href="https://web.whatsapp.com/send?phone=+5511953399384"
+    <a id="wpp" target="_blank" :href="whatsAppLink"
       ><q-icon class="site-whatsapp-doubts" name="mdi-whatsapp"></q-icon>
       Dúvidas? Manda aqui</a
     >
@@ -11,7 +8,20 @@
 </template>
 
 <script>
-export default {};
+export default {
+  data() {
+    return { whatsAppLink: "" };
+  },
+  mounted() {
+    const mobile = window.mobileAndTabletCheck();
+
+    if (mobile) {
+      this.whatsAppLink = "https://wa.me/5511953399384"
+    } else {
+      this.whatsAppLink = "https://web.whatsapp.com/send?phone=+5511953399384"
+    }
+  },
+};
 </script>
 
 <style>

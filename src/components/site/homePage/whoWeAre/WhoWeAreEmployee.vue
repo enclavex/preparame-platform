@@ -46,7 +46,6 @@ export default {
   position: relative;
   text-align: center;
   width: 80%;
-  height: 30px;
   line-height: 25px;
   margin: 10px auto 0 auto;
   border-radius: 15px;
