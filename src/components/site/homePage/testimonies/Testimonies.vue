@@ -131,6 +131,10 @@ export default {
   justify-content: center;
 }
 
+.testimonies .q-carousel {
+    height: 450px;
+}
+
 .testimonies-title {
   font-family: "Nunito";
   font-style: normal;
