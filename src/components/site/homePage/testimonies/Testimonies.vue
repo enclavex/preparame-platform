@@ -22,7 +22,7 @@
         class="column"
       >
         <div
-          class="row fit justify-start items-center q-gutter-xs q-col-gutter no-wrap"
+          class="row fit justify-around items-center q-gutter-md q-col-gutter no-wrap"
         >
           <div
             class="testimonies-card"
@@ -30,7 +30,15 @@
             :key="testimony.id"
           >
             <img :src="testimony.avatar" alt="" class="testimonies-card-img" />
-            <div class="testimonies-name">{{ testimony.name }}</div>
+            <div class="testimonies-name">
+              {{ testimony.name }}
+              <q-icon
+                name="mdi-linkedin"
+                class="testimonies-linkedin-link"
+                @click="goUrl(testimony.linkedinURL)"
+              />
+            </div>
+
             <div class="testimonies-position">{{ testimony.function }}</div>
             <q-rating
               v-model="ratingModel"
@@ -60,34 +68,35 @@ export default {
       testimonies: [
         {
           sequence: 1,
-          name: "Cliente",
-          function: "CEO",
-          testimony: `“A ajuda que a Prepara.me me deu foi sensacional. Aprendi muito nas consultorias que fiz e consegui um emprego na área que buscava”`,
-          avatar: require("../../../../assets/imgs/avatar.png"),
+          name: "Leonardo, São Paulo",
+          function: "",
+          testimony: `[...] então queria indicar para vocês essa ajuda que a Prepara.me me deu, uma consultoria INCRÍVEL que me ajudou a montar meu linkedin e cv de uma forma simples e direta, [...] me deu todas as dicas necessárias, feedbacks, suporte, como usar o linkedin melhor. [...] Vale a pena... hoje eu consegui um Emprego e posso dizer com segurança que essa consultoria foi essencial para mim, como pode ser para você também, então invista nisso, nada melhor do que investir no nosso futuro, boa sorte nessa caminhada!`,
+          avatar: require("../../../../assets/imgs/testimonies_pics/leonardo.jpeg"),
+          linkedinURL: "https://www.linkedin.com/in/leonardostefanini/",
         },
         {
           sequence: 2,
-          name: "Cliente",
-          function: "CEO",
-          testimony: `“A ajuda que a Prepara.me me deu foi sensacional. Aprendi muito nas consultorias que fiz e consegui um emprego na área que buscava”`,
-          avatar: require("../../../../assets/imgs/avatar.png"),
+          name: "Davidson, Minas Gerais",
+          function: "",
+          testimony: `Gostei demais viu, fez a entrevista e logo depois me deu os toques do que realmente os entrevistadores querem saber com cada pergunta e tal .. gostei tanto que, dois dias após, fiz uma entrevista em uma empresa e passei para a fase seguinte do processo que envolve alguns testes de  perfil, português/inglês etc.. estou aguardando resultados .. enfim, já a parabenizei pelo trabalho na época mas quero reforçar o quanto a Natasha é boa no que faz, bela profissional vcs tem`,
+          avatar: require("../../../../assets/imgs/testimonies_pics/davidson.jpeg"),
+          linkedinURL: "https://www.linkedin.com/in/davidsonadm2503",
         },
         {
           sequence: 3,
-          name: "Cliente",
-          function: "CEO",
-          testimony: `“A ajuda que a Prepara.me me deu foi sensacional. Aprendi muito nas consultorias que fiz e consegui um emprego na área que buscava”`,
-          avatar: require("../../../../assets/imgs/avatar.png"),
-        },
-        {
-          sequence: 4,
-          name: "Cliente",
-          function: "CEO",
-          testimony: `“A ajuda que a Prepara.me me deu foi sensacional. Aprendi muito nas consultorias que fiz e consegui um emprego na área que buscava”`,
-          avatar: require("../../../../assets/imgs/avatar.png"),
+          name: "Evandro, Rio de Janeiro",
+          function: "",
+          testimony: `Primeiro quero lhe agradecer mais uma vez, pela grande ajuda que você me deu, reformulando meu Cv e meu LinkedIn, nessa segunda feira me vi em uma situação que jamais acharia que fosse passar, recebi 5 ligações para entrevista, é claro que escolhi as oportunidades que mais eu em enquadrava é que via um grande possibilidade de conseguir a vaga, enfim eu consegui, para Aux. de Logística. Muito obrigado mesmo, e grato por ter me ajudado na minha recolocação.`,
+          avatar: require("../../../../assets/imgs/testimonies_pics/evandro.jpeg"),
+          linkedinURL: "https://www.linkedin.com/in/evandrobomfim",
         },
       ],
     };
+  },
+  methods: {
+    goUrl: function (url) {
+      window.open(url, "_blank").focus();
+    },
   },
   mounted() {
     this.mobile = window.mobileAndTabletCheck();
@@ -158,7 +167,7 @@ export default {
 .testimonies-card {
   display: flex;
   flex-direction: column;
-  width: 15vw;
+  width: 25vw;
   height: 35vh;
   background: #fff;
   box-shadow: 0px 5px 30px rgba(0, 0, 0, 0.1);
@@ -215,7 +224,17 @@ export default {
   text-align: justify;
 }
 
+.testimonies-linkedin-link {
+  font-size: 1.3rem;
+  cursor: pointer;
+  color: #0e76a8;
+}
+
 @media (orientation: portrait) {
+  .testimonies {
+    height: 120vh;
+  }
+
   .testimonies-cards-container {
     flex-wrap: wrap;
     margin: 10vh 0 0 10vw;
@@ -226,7 +245,30 @@ export default {
     height: unset;
     margin-right: unset;
     margin: auto;
-    padding-bottom: 20px;
+    padding-bottom: 0px;
+  }
+
+  .testimonies-card-img {
+    top: unset;
+    margin: 10px 0;
+  }
+
+  .testimonies-rating {
+    top: unset;
+  }
+
+  .testimonies-name {
+    top: unset;
+  }
+
+  .testimonies-position {
+    top: unset;
+  }
+
+  .testimonies-testimony {
+    margin-top: 10px;
+    margin-bottom: 10px;
+
   }
 }
 </style>
