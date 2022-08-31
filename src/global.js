@@ -1,6 +1,7 @@
 import { Notify } from 'quasar'
 
 export const userKey = "__knowledge_user"
+
 export const baseApiUrl = "https://api.prepara.me"
 // export const baseApiUrl = "http://localhost:3334"
 
