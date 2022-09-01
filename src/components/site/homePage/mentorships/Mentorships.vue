@@ -3,22 +3,22 @@
     id="mentorship"
     :class="{ row: !mobile, column: mobile, reverse: mobile, mentorship: true }"
   >
-    <div :class="{ row: true, 'col-6': !mobile, 'col-4': mobile }">
+    <div :class="{ row: true, 'col-7': !mobile, 'col-4': mobile }">
       <q-space class="col-1" />
       <div class="column mentorship-picture-container col-10">
-        <div v-if="!mobile" class="col-2" />
+        <div v-if="!mobile" class="col-1" />
         <div
           :class="{
-            'col-8': !mobile,
+            'col-10': !mobile,
             'col-12': mobile,
             'mentorship-picture': true,
           }"
         />
-        <div v-if="!mobile" class="col-2" />
+        <div v-if="!mobile" class="col-1" />
       </div>
-      <q-space class="col-1" />
+      <q-space v-if="mobile" class="col-1" />
     </div>
-    <div :class="{ row: true, 'col-5': !mobile, 'col-8': mobile }">
+    <div :class="{ row: true, 'col-4': !mobile, 'col-8': mobile }">
       <div class="col-12 mentorship-info-container">
         <div
           :class="{
@@ -39,7 +39,7 @@
             </div>
             <div class="metorship-step-obs">
               <div class="metorship-step-text-highlighter" />
-              <div class="metorship-step-text">Temas desde A até B.</div>
+              <div class="metorship-step-text">Temas sobre carreira e recolocação</div>
             </div>
           </div>
           <div class="metorship-step-container">
@@ -68,7 +68,6 @@
           </div>
           <q-btn
             class="mentorship-btn-products"
-            color="indigo"
             label="Conheça nossos serviços"
             to="/ProductList"
           />
@@ -104,7 +103,7 @@ export default {
   background-image: url("../../../../assets/imgs/mentorshipGirl.png");
   background-repeat: no-repeat;
   background-size: contain;
-  width: 80% !important;
+  width: 95% !important;
   height: 100%;
   margin-right: auto;
 }
@@ -179,6 +178,8 @@ export default {
 
 .mentorship-btn-products {
   width: 300px;
+  background-color: #1a27b7;
+  color: #fff;
 }
 
 @media (orientation: portrait) {

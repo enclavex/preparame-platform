@@ -1,22 +1,22 @@
 const menuItems = [
     {
-        name: "Para Você",
+        name: "Para você",
         items: [
             // {
             //     name: "Nossas Trilhas",
             //     to: "",
             // },
             {
-                name: "Adquira Nossos Serviços",
+                name: "Mentorias individuais",
                 to: "/ProductList",
             },
         ],
     },
     {
-        name: "Para Sua Empresa",
+        name: "Para empresas",
         items: [
             {
-                name: "Demissões Responsáveis",
+                name: "Demissão responsável",
                 to: "/toCompanies",
             },
         ],
@@ -35,7 +35,7 @@ const menuItems = [
     //     ],
     // },
     {
-        name: "Sobre Nós",
+        name: "Sobre nós",
         items: [
             {
                 name: "Nossa Empresa",

@@ -38,10 +38,10 @@
               ></q-icon>
             </template>
           </q-input>
-          <div class="login-forgot-pass">
+          <!-- <div class="login-forgot-pass">
             Esqueceu sua senha?
             <a @click="openResetPasswordDialog()">Redefina agora!</a>
-          </div>
+          </div> -->
 
           <q-dialog v-model="resetPasswordDialog" persistent>
             <q-card style="min-width: 350px">
@@ -56,7 +56,7 @@
               </q-card-section>
 
               <q-card-actions align="right" class="text-primary">
-                <q-btn flat label="Cancel" v-close-popup></q-btn>
+                <q-btn flat label="Cancelar" v-close-popup></q-btn>
                 <q-btn
                   flat
                   label="Alterar senha"
@@ -339,6 +339,7 @@ export default {
     },
     resetPassword: async function () {
       this.$q.loading.show();
+
       await axios
         .post(`${baseApiUrl}/password/forgot`, {
           email: this.emailAddress,
@@ -356,6 +357,7 @@ export default {
             `Não foi possível localizar este e-mail em nossa base de dados. ${err}`
           );
         });
+
       this.$q.loading.hide();
     },
   },

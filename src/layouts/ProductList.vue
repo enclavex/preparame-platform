@@ -2,7 +2,7 @@
   <div class="product-list">
     <div class="product-list-container">
       <h1 class="product-list-title">
-        Selecione um ou mais de nossos produtos!
+        Escolha suas mentorias
       </h1>
       <div class="product-list-cards-container">
         <ProductCard

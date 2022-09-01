@@ -17,13 +17,13 @@
       class="shopping-cart-total-btn-continue q-mt-xs"
       @click="requestScheduleWhatsApp()"
     >
-      Solicitar Agendamento Via WhatsApp
+      Solicitar Via WhatsApp
     </div>
     <div
       class="shopping-cart-total-btn-continue q-mt-sm bg-secondary"
       @click="openScheduleEmail()"
     >
-      Solicitar Agendamento Via E-Mail
+      Solicitar Via E-Mail
     </div>
     <q-dialog v-model="openSendEmail">
       <q-card style="min-width: 350px">
@@ -262,11 +262,11 @@ export default {
 @media (orientation: portrait) {
   .shopping-cart-total-card {
     height: auto;
-    width: 100%;
+    width: 90vw;
   }
 
   .shopping-cart-total-value {
-    font-size: 2.5rem;
+    font-size: 1.5rem;
   }
 
   .shopping-cart-total-1x,

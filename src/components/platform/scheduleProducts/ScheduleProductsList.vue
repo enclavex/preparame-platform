@@ -48,16 +48,22 @@ export default {
   async mounted() {
     const filters = [
       {
-        name: "status",
-        model: "ACTIVE",
-      },
-      {
-        name: "type",
-        model: "SCHEDULED",
+        name: "userId",
+        model: localStorage.getItem("userId"),
       },
     ];
 
-    this.products = await filterCrud(filters, "products");
+    const userProducts = await filterCrud(filters, "users/products");
+
+    userProducts.forEach((userProduct) => {
+      if (userProduct.availableQuantity > 0) {
+        userProduct.scheduled = false;
+      } else {
+        userProduct.scheduled = true;
+      }
+
+      this.products.push(userProduct.product);
+    });
   },
 };
 </script>

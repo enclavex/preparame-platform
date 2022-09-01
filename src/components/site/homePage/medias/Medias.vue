@@ -85,11 +85,11 @@ export default {
 }
 
 .medias-news-logo {
-  height: 20%;
-  width: 50%;
+  height: 80px;
+  width: 250px;
   background-size: contain;
   background-repeat: no-repeat;
-  margin: auto;
+  margin: 15px auto;
 }
 
 .medias-news-estadao {

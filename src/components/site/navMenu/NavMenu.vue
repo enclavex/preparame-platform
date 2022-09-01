@@ -1,5 +1,5 @@
 <template>
-  <q-toolbar class="row bg-white text-grey-8 shadow-1">
+  <q-toolbar class="row bg-white text-grey-8">
     <q-btn
       v-if="mobile"
       flat
@@ -8,7 +8,7 @@
       dense
       icon="menu"
     />
-    <q-btn stretch flat :class="{ row: true, 'col-2': !mobile }" to="/">
+    <q-btn stretch flat :class="{ row: true, 'col-2': !mobile, 'col-6': mobile }" to="/">
       <img
         :src="imgURL(logoImg)"
         :class="{ 'nav-menu-prepara-me-logo': true, 'col-12': true }"
@@ -23,12 +23,10 @@
     />
     <q-space v-if="!mobile" />
     <q-btn
-      v-if="!mobile"
       flat
       stretch
-      color="grey-8"
       icon="shopping_cart"
-      label="Meu Carrinho"
+      :label="mobile ? '': 'Meu Carrinho'"
       to="/ShoppingCart"
       no-caps
       class="nav-menu-item-name"
@@ -39,7 +37,7 @@
       v-if="!mobile"
       stretch
       flat
-      label="Acessar Ambiente"
+      label="Acessar plataforma"
       to="/login"
       no-caps
       class="nav-menu-item-name"

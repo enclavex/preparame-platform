@@ -11,9 +11,9 @@
         <q-icon name="done" />{{ item.content }}
       </li>
     </ul>
-    <div class="best-sellers-card-know-more">
+    <!-- <div class="best-sellers-card-know-more">
       <a href="/#/ProductDetails">Saiba mais</a>
-    </div>
+    </div> -->
     <div class="best-sellers-card-price">R$ {{ priceConverted }}</div>
     <div class="best-sellers-card-buy" @click="addToCart(product)">
       Adicionar ao Carrinho
@@ -74,7 +74,7 @@ export default {
 .best-sellers-card-list {
   margin: 20px 0 10px 0;
   font-family: "nunito", sans-serif;
-  color: #667998;
+  color: #333;
   font-weight: 100;
   font-size: 16px;
   text-align: left;

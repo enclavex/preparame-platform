@@ -2,8 +2,15 @@ import { Notify } from 'quasar'
 
 export const userKey = "__knowledge_user"
 
-export const baseApiUrl = "https://api.prepara.me"
-// export const baseApiUrl = "http://localhost:3334"
+var baseApiUrlDefinition = ""
+
+if (process.env.NODE_ENV && process.env.NODE_ENV == 'development') {
+    baseApiUrlDefinition  = "http://localhost:3334"
+} else {
+    baseApiUrlDefinition  = "https://api.prepara.me"
+}
+
+export const baseApiUrl = baseApiUrlDefinition
 
 export function showError(e) {
     if (e && e.response && e.response.data && e.response.data.message) {

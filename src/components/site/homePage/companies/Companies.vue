@@ -78,7 +78,7 @@ export default {
     };
   },
   mounted() {
-    this.mobile = window.mobileAndTabletCheck();
+    // this.mobile = window.mobileAndTabletCheck();
 
     var maxCarousel = this.mobile ? 1 : 4;
     var carouselItems = [];
@@ -169,7 +169,8 @@ export default {
 
 .companies .q-carousel {
   background-color: transparent;
-  height: 450px;
+  height: 400px;
+  overflow: hidden;
 }
 
 @media (orientation: portrait) {

@@ -58,7 +58,7 @@ export default {
 
 <style lang="scss">
 .specialists-card {
-  max-height: 200px;
+  max-height: 400px;
 }
 
 .specialists-card-bio {

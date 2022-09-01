@@ -19,7 +19,7 @@ export default {
   data() {
     return {
       products: [],
-      loadUserCard: false
+      loadUserCard: false,
     };
   },
   components: {
@@ -29,39 +29,24 @@ export default {
   async created() {
     const filters = [
       {
-        name: "status",
-        model: "ACTIVE",
-      },
-      {
-        name: "type",
-        model: "SCHEDULED",
+        name: "userId",
+        model: localStorage.getItem("userId"),
       },
     ];
 
-    this.products = await filterCrud(filters, "products");
+    const userProducts = await filterCrud(filters, "users/products");
 
-    for await (let product of this.products) {
-      const filters = [
-        {
-          name: "productId",
-          model: product.id,
-        },
-        {
-          name: "userId",
-          model: localStorage.getItem("userId"),
-        },
-      ];
-
-      const userProducts = await filterCrud(filters, "users/products");
-
-      if (userProducts.length > 0 && userProducts[0].availableQuantity > 0) {
-        product.scheduled = false;
+    userProducts.forEach((userProduct) => {
+      if (userProduct.availableQuantity > 0) {
+        userProduct.scheduled = false;
       } else {
-        product.scheduled = true;
+        userProduct.scheduled = true;
       }
-    }
 
-    this.loadUserCard = true
+      this.products.push(userProduct.product)
+    });
+
+    this.loadUserCard = true;
   },
   methods: {
     goUrl: function (url) {

@@ -16,6 +16,7 @@
         v-for="(item, index) in menuItem.items"
         :key="index"
         :to="item.to"
+        class="nav-menu-sub-item"
       >
         <q-item-section>
           <q-item-label>{{ item.name }}</q-item-label>
@@ -35,5 +36,10 @@ export default {
 .nav-menu-item-name {
   font-family: "Nunito", sans-serif;
   font-size: 1rem;
+  color: #1a27b7;
+}
+
+.nav-menu-sub-item {
+  color: #1a27b7;
 }
 </style>

@@ -56,7 +56,7 @@
               @click="goUrl(`products/schedule/${product.id}`)"
             />
             <div v-else class="text-uppercase text-center text-weight-medium">
-              Agendamento {{ product.name }} Concluído
+              Agendamento {{ product.name }} realizado
             </div>
           </div>
         </q-banner>
