@@ -117,7 +117,20 @@ const siteRoutes = [
                 content: UseTerms
             }
         }]
+    },
+    {
+        path: "*",
+        components: {
+            site: Site
+        },
+        children: [{
+            path: "/",
+            components: {
+                content: HomePage
+            }
+        }]
     }
+
 ]
 
 export { siteRoutes }
