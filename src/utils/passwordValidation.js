@@ -1,35 +1,29 @@
 export function passwordValidation(password) {
     let percentualValidation = 0
 
-    const regexPatternOneDigit = /^(?=.*\d)$/
-    const regexPatternOneLowerCase = /^(?=.*[a-z])$/
-    const regexPatternOneUpperCase = /^(?=.*[A-Z])$/
-    const regexPatternOneNumber = /^(?=.*[0-9])$/
-    const regexPatternOneSpecialCharacter = /(?=.*[$*&@#]) $/
-    const regexPatternEightCharacters = /^[0-9a-zA-Z$*&@#]{8,}$/
+    const numberValidation = /([0-9])/
+    const lowerCaseValidation = /([a-z])/
+    const upperCaseValidation = /([A-Z])/
+    const specialCharacterValidation = /([~,!,@,#,$,%,^,&,*,-,_,+,=,?,>,<])/;
 
-    if (regexPatternOneDigit.test(password)) {
-        percentualValidation += 16
+    if (password.match(numberValidation)) {
+        percentualValidation += 20
     }
 
-    if (regexPatternOneLowerCase.test(password)) {
-        percentualValidation += 16
+    if (password.match(lowerCaseValidation)) {
+        percentualValidation += 20
     }
 
-    if (regexPatternOneUpperCase.test(password)) {
-        percentualValidation += 17
+    if (password.match(upperCaseValidation)) {
+        percentualValidation += 20
     }
 
-    if (regexPatternOneNumber.test(password)) {
-        percentualValidation += 17
+    if (password.match(specialCharacterValidation)) {
+        percentualValidation += 20
     }
 
-    if (regexPatternOneSpecialCharacter.test(password)) {
-        percentualValidation += 17
-    }
-
-    if (regexPatternEightCharacters.test(password)) {
-        percentualValidation += 17
+    if (password.length > 7) {
+        percentualValidation += 20
     }
   
     return percentualValidation;

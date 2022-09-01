@@ -24,7 +24,8 @@ module.exports = function (/* ctx */) {
     boot: [
       
       'axios',
-      'notification'
+      'notification',
+      ctx.mode.capacitor ? 'google-analytics' : ''
     ],
 
     // https://v1.quasar.dev/quasar-cli/quasar-conf-js#Property%3A-css
@@ -102,7 +103,8 @@ module.exports = function (/* ctx */) {
       plugins: [
         'Notify',
         'Dialog',
-        'Loading'
+        'Loading',
+        'gtm-plugin'
       ],
       config: {
       }

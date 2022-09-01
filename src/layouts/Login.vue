@@ -119,9 +119,25 @@
             type="password"
             name="password"
             label="Senha"
+            @input="passwordValidate()"
           >
             <template v-slot:prepend>
               <q-icon name="mdi-lock" />
+            </template>
+
+            <template v-slot:append>
+              <div
+                :class="{
+                  'text-red': forcePassword === 'Fraca',
+                  'text-orange': forcePassword === 'Média',
+                  'text-green': forcePassword === 'Forte',
+                  'login-form-signin-container-hint-password': true
+                }"
+              >
+              <q-icon v-if="forcePassword === 'Fraca'" name="mdi-emoticon-sad-outline" :tooltip="forcePassword"/>
+              <q-icon v-if="forcePassword === 'Média'" name="mdi-emoticon-neutral-outline" />
+              <q-icon v-if="forcePassword === 'Forte'" name="mdi-emoticon-outline" />
+              </div>
             </template>
           </q-input>
 
@@ -168,6 +184,7 @@ import { mapActions } from "vuex";
 import { baseApiUrl, showError } from "../../src/global.js";
 import { cpfValidation } from "../utils/cpfValidation.js";
 import { emailValidation } from "../utils/emailValidation.js";
+import { passwordValidation } from "../utils/passwordValidation.js";
 import { refreshToken } from "src/utils/refreshToken";
 
 export default {
@@ -184,6 +201,8 @@ export default {
       eyePassIco: "eye-off",
       token: null,
       user: {},
+      passwordValidPercentual: 0,
+      forcePassword: "Fraca",
     };
   },
   async beforeCreate() {
@@ -207,6 +226,25 @@ export default {
   },
   methods: {
     ...mapActions("users", ["setUser"]),
+    passwordValidate: function () {
+      const forcePassword = passwordValidation(this.user.password);
+
+      console.log(forcePassword);
+
+      if (forcePassword <= 100) {
+        this.forcePassword = "Forte";
+      }
+
+      if (forcePassword <= 70) {
+        this.forcePassword = "Média";
+      }
+
+      if (forcePassword <= 30) {
+        this.forcePassword = "Fraca";
+      }
+
+      console.log(this.forcePassword);
+    },
     switchVisibility: function () {
       const passwordField = document.getElementsByName("password")[0];
 
@@ -484,6 +522,10 @@ export default {
   border: 1px solid #fff;
   color: #fff;
   background-color: #667998;
+}
+
+.login-form-signin-container-hint-password {
+  font-size: 1.5rem;
 }
 
 @media screen and (max-width: 600px) {
