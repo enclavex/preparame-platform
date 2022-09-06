@@ -129,6 +129,7 @@ export default {
   display: flex;
   flex-direction: column;
   justify-content: center;
+  margin-top: 4vh;
 }
 
 .testimonies .q-carousel {
@@ -172,7 +173,7 @@ export default {
   display: flex;
   flex-direction: column;
   width: 25vw;
-  height: 35vh;
+  padding-bottom: 10px;
   background: #fff;
   box-shadow: 0px 5px 30px rgba(0, 0, 0, 0.1);
   border-radius: 10px;

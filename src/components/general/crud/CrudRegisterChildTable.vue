@@ -70,27 +70,27 @@ export default {
 <style lang="scss">
 .crud-table {
   .q-table__bottom-item {
-    color: #fff;
+    color: $text-white;
   }
 
   .q-field__native {
-    color: #fff;
+    color: $text-white;
   }
 
   .q-select__dropdown-icon {
-    color: #fff;
+    color: $text-white;
   }
 
   .q-btn__content {
-    color: #fff;
+    color: $text-white;
   }
 
   .q-table__bottom {
-    color: #fff;
+    color: $text-white;
   }
 
   .q-icon {
-    color: #fff;
+    color: $text-white;
   }
 }
 

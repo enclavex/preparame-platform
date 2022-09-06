@@ -39,7 +39,9 @@
             </div>
             <div class="metorship-step-obs">
               <div class="metorship-step-text-highlighter" />
-              <div class="metorship-step-text">Temas sobre carreira e recolocação</div>
+              <div class="metorship-step-text">
+                Temas sobre carreira e recolocação
+              </div>
             </div>
           </div>
           <div class="metorship-step-container">
@@ -204,6 +206,10 @@ export default {
     width: unset;
     margin-right: unset;
     margin: 5% auto 0 auto;
+  }
+
+  .mentorship-btn-products {
+    top: -30px;
   }
 }
 </style>

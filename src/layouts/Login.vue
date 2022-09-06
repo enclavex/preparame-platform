@@ -40,7 +40,7 @@
           </q-input>
           <!-- <div class="login-forgot-pass">
             Esqueceu sua senha?
-            <a @click="openResetPasswordDialog()">Redefina agora!</a>
+            <a @click="openResetPasswordDialog()">Clique aqui e redefina agora.</a>
           </div> -->
 
           <q-dialog v-model="resetPasswordDialog" persistent>
@@ -131,12 +131,22 @@
                   'text-red': forcePassword === 'Fraca',
                   'text-orange': forcePassword === 'Média',
                   'text-green': forcePassword === 'Forte',
-                  'login-form-signin-container-hint-password': true
+                  'login-form-signin-container-hint-password': true,
                 }"
               >
-              <q-icon v-if="forcePassword === 'Fraca'" name="mdi-emoticon-sad-outline" :tooltip="forcePassword"/>
-              <q-icon v-if="forcePassword === 'Média'" name="mdi-emoticon-neutral-outline" />
-              <q-icon v-if="forcePassword === 'Forte'" name="mdi-emoticon-outline" />
+                <q-icon
+                  v-if="forcePassword === 'Fraca'"
+                  name="mdi-emoticon-sad-outline"
+                  :tooltip="forcePassword"
+                />
+                <q-icon
+                  v-if="forcePassword === 'Média'"
+                  name="mdi-emoticon-neutral-outline"
+                />
+                <q-icon
+                  v-if="forcePassword === 'Forte'"
+                  name="mdi-emoticon-outline"
+                />
               </div>
             </template>
           </q-input>
@@ -166,6 +176,15 @@
               <q-icon name="mdi-ticket" />
             </template>
           </q-input>
+
+          <div class="login-form-accept-terms-container">
+            <q-checkbox v-model="acceptTerms" class="login-form-accept-terms" />
+            <div class="login-form-accept-terms-text">
+              Aceito a
+              <a @click="goUrl('PrivacyTerms')">Política de Privacidade</a> e os
+              <a @click="goUrl('useTerms')">Termos de Uso</a> deste site.
+            </div>
+          </div>
 
           <div class="login-form-signin-in" @click="signUp()">Cadastrar</div>
           <div class="login-others-links">
@@ -203,6 +222,7 @@ export default {
       user: {},
       passwordValidPercentual: 0,
       forcePassword: "Fraca",
+      acceptTerms: false,
     };
   },
   async beforeCreate() {
@@ -229,8 +249,6 @@ export default {
     passwordValidate: function () {
       const forcePassword = passwordValidation(this.user.password);
 
-      console.log(forcePassword);
-
       if (forcePassword <= 100) {
         this.forcePassword = "Forte";
       }
@@ -242,8 +260,6 @@ export default {
       if (forcePassword <= 30) {
         this.forcePassword = "Fraca";
       }
-
-      console.log(this.forcePassword);
     },
     switchVisibility: function () {
       const passwordField = document.getElementsByName("password")[0];
@@ -299,6 +315,11 @@ export default {
       this.user = {};
     },
     signUp: async function () {
+      if (!this.acceptTerms) {
+        showError("É necessário aceitar os termos do site para se cadastrar.");
+        return;
+      }
+
       if (!this.user.name) {
         showError("Nome do usuário deve ser preenchido.");
         document.getElementById("name").focus();
@@ -397,6 +418,12 @@ export default {
         });
 
       this.$q.loading.hide();
+    },
+    goUrl: function (url) {
+      if (this.$router.history.current.path !== `/${url}`) {
+        let routeData = this.$router.resolve({ path: `/${url}` });
+        window.open(routeData.href, "_blank");
+      }
     },
   },
 };
@@ -526,6 +553,25 @@ export default {
 
 .login-form-signin-container-hint-password {
   font-size: 1.5rem;
+}
+
+.login-form-accept-terms-container {
+  display: flex;
+  flex-direction: row;
+  margin: 0 5vh;
+}
+
+.login-form-accept-terms-text {
+  line-height: 40px;
+  text-align: center;
+  color: #667998;
+}
+
+.login-form-accept-terms-text a {
+  color: #667998;
+  font-weight: 700;
+  text-decoration: none;
+  cursor: pointer;
 }
 
 @media screen and (max-width: 600px) {

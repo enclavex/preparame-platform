@@ -39,7 +39,6 @@ export default {
 
 .who-we-are-employee-image {
   height: 25vh;
-  width: 25vh;
 }
 
 .who-we-are-employee-name {

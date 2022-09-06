@@ -9,7 +9,9 @@
         Você também pode ser um! <br /><br />
         Descubra como podemos te ajudar a fazer desligamentos humanizados!
       </div>
-      <div class="companies-read-more">SAIBA MAIS</div>
+      <q-btn v-if="showKnowMore" class="companies-read-more" @click="goURL()">
+        SAIBA MAIS
+      </q-btn>
       <div class="">
         <q-carousel
           v-model="slide"
@@ -20,12 +22,19 @@
           padding
           arrows
         >
-          <q-carousel-slide v-for="companyAdjusted in carousel" :name="companyAdjusted.id" :key="companyAdjusted.id" class="column">
+          <q-carousel-slide
+            v-for="companyAdjusted in carousel"
+            :name="companyAdjusted.id"
+            :key="companyAdjusted.id"
+            class="column"
+          >
             <div
               class="row fit justify-start items-center q-gutter-xs q-col-gutter no-wrap"
             >
-              <q-img v-for="item in companyAdjusted.carouselItems" :key="item.sequence"
-                :class="{'rounded-borders': true, 'col-3':!mobile}"
+              <q-img
+                v-for="item in companyAdjusted.carouselItems"
+                :key="item.sequence"
+                :class="{ 'rounded-borders': true, 'col-3': !mobile }"
                 :src="item.src"
               />
             </div>
@@ -38,6 +47,7 @@
 
 <script>
 export default {
+  props: ["showKnowMore"],
   data() {
     return {
       slide: 1,
@@ -78,7 +88,7 @@ export default {
     };
   },
   mounted() {
-    // this.mobile = window.mobileAndTabletCheck();
+    this.mobile = window.mobileAndTabletCheck();
 
     var maxCarousel = this.mobile ? 1 : 4;
     var carouselItems = [];
@@ -99,19 +109,25 @@ export default {
       }
     });
   },
+  methods: {
+    goURL() {
+      console.log('teste')
+      this.$router.push({ path: `/${"ResponsibleDemission"}` });
+    },
+  },
 };
 </script>
 
 <style>
 .companies {
-  height: 100vh;
+  height: 80vh;
   display: flex;
   flex-direction: column;
   justify-content: center;
   background-image: url("../../../../assets/imgs/wave-companies.png");
   background-repeat: no-repeat;
   background-size: contain;
-  background-position-y: 100%;
+  background-position-y: 101%;
 }
 
 .companies-title {
@@ -144,7 +160,6 @@ export default {
 
 .companies-read-more {
   background-color: #1a27b7;
-  height: 7vh;
   width: 10vw;
   line-height: 7vh;
   text-align: center;
@@ -169,14 +184,28 @@ export default {
 
 .companies .q-carousel {
   background-color: transparent;
-  height: 400px;
+  height: 300px;
   overflow: hidden;
+}
+
+.companies .scroll {
+  overflow: hidden;
+}
+
+.companies .q-carousel .fit {
+  height: 80% !important;
+}
+
+@media (max-height: 600px) and (orientation: landscape) {
+  .companies {
+    height: 110vh;
+  }
 }
 
 @media (orientation: portrait) {
   .companies {
     margin-top: 10%;
-    background-image: url("../../../../assets/imgs/wave-companies-mobile.png");
+    background-image: unset;
   }
 
   .companies-second-title {
@@ -196,6 +225,5 @@ export default {
     position: unset;
     width: 80%;
   }
-  
 }
 </style>

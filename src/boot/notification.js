@@ -10,13 +10,13 @@ Notify.setDefaults({
 Notify.registerType('error', {
   icon: 'mdi-alert-circle',
   progress: true,
-  color: 'red',
+  color: 'negative',
   message: 'Erro não catalogado'
 })
 
 Notify.registerType('success', {
   icon: 'mdi-check',
   progress: true,
-  color: 'green',
+  color: 'positive',
   message: 'Operação realizada com sucesso'
 })

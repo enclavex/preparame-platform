@@ -17,7 +17,7 @@ const menuItems = [
         items: [
             {
                 name: "Demissão responsável",
-                to: "/toCompanies",
+                to: "/ResponsibleDemission",
             },
         ],
     },

@@ -92,7 +92,7 @@ export default {
 };
 </script>
 
-<style>
+<style lang="scss">
 .user-card-picture {
   height: 10vh;
 }
@@ -160,6 +160,6 @@ export default {
   font-family: "Manrope", sans-serif;
   font-weight: 600;
   font-size: 0.9rem;
-  color: #555;
+  color: $back-dis;
 }
 </style>

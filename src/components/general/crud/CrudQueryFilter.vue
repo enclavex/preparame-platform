@@ -96,7 +96,7 @@ export default {
 
 <style lang="scss">
 .crud-filter {
-  background-color: #f1f1f1;
+  background-color: $white;
   border-radius: 5px;
 }
 </style>

@@ -8,6 +8,7 @@ import CompanyDetails from "../../layouts/CompanyDetails.vue"
 import FAQ from "../../layouts/FAQ.vue"
 import PrivacyTerms from "../../layouts/PrivacyTerms.vue"
 import UseTerms from "../../layouts/UseTerms.vue"
+import ResponsibleDemission from "../../layouts/ResponsibleDemission.vue"
 
 const siteRoutes = [
     {
@@ -31,6 +32,18 @@ const siteRoutes = [
             path: "/",
             components: {
                 content: ProductDetails
+            }
+        }]
+    },
+    {
+        path: "/ResponsibleDemission",
+        components: {
+            site: Site
+        },
+        children: [{
+            path: "/",
+            components: {
+                content: ResponsibleDemission
             }
         }]
     },

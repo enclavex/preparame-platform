@@ -2,7 +2,7 @@
   <div id="wpp-container">
     <a id="wpp" target="_blank" :href="whatsAppLink"
       ><q-icon class="site-whatsapp-doubts" name="mdi-whatsapp"></q-icon>
-      Dúvidas? Manda aqui</a
+      Dúvidas? Manda aqui!</a
     >
   </div>
 </template>
@@ -36,7 +36,7 @@ export default {
   text-decoration: none;
   font-size: 1.3rem;
   color: white;
-  border-radius: 5px 0 0 5px;
+  border-radius: 35px 0 0 35px;
 }
 
 #wpp-container a:hover {

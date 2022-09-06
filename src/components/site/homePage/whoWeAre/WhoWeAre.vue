@@ -79,9 +79,9 @@ export default {
 .who-we-are-employees-container {
   margin: 10vh auto;
   display: flex;
-  gap: 1vh 10vw;
+  gap: 1vh 5vw;
   max-width: 70vw;
-  align-items: flex-start;
+  justify-content: space-around;
   flex-wrap: wrap;
 }
 

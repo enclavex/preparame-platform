@@ -3,7 +3,7 @@
     <Presentation />
     <Mentorships />
     <Medias />
-    <Companies />
+    <Companies :showKnowMore="true"/>
     <Testimonies />
     <WhoWeAre />
     <Newsletter />

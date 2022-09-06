@@ -1,15 +1,15 @@
 <template>
-  <div v-if="!cookiesAccepted" id="cookieConsentContainer" class="cookieConsentContainer">
-    <div class="cookieTitle">
-      <a>{{purecookieTitle}}</a>
+  <div v-if="!cookiesAccepted" id="cookies-consent-container" class="cookies-consent-container">
+    <div class="cookies-consent-title">
+      <a>Termo de Privacidade</a>
     </div>
-    <div class="cookieDesc">
-      <p>{{`${purecookieDesc}`}}</p>
+    <div class="cookies-consent-text">
+      <p>Este site utiliza cookies e tecnologias semelhantes de acordo com a nota Política de Privacidade. Ao continuar navegando em nosso site você concorda com esses termos.</p>
       <br>
-      <a @click="goURL()">{{`${purecookieLink}`}}</a>
+      <a @click="goURL()">Clique aqui para ler nosso termo de privacidade.</a>
     </div>
-    <div class="cookieButton">
-      <a @click="purecookieDismiss()">{{purecookieButton}}</a>
+    <div class="cookies-consent-btn">
+      <a @click="purecookieDismiss()">Aceitar termo</a>
     </div>
   </div>
 </template>
@@ -18,11 +18,6 @@
   export default {
     data: () => {
       return {
-        purecookieTitle: "Termo de Privacidade",
-        purecookieDesc:
-          "Este site utiliza cookies e tecnologias semelhantes de acordo com a nota Política de Privacidade. Ao continuar navegando em nosso site você concorda com esses termos.",
-        purecookieLink: "Termo de Privacidade",
-        purecookieButton: "Okay",
         cookieName: "acceptCookies",
         cookiesAccepted: false
       };
@@ -80,8 +75,8 @@
   };
 </script>
 
-<style>
-  .cookieConsentContainer {
+<style lang="scss">
+  .cookies-consent-container {
     width: 350px;
     min-height: 20px;
     box-sizing: border-box;
@@ -93,35 +88,36 @@
     right: 30px;
   }
 
-  .cookieConsentContainer .cookieTitle a {
+  .cookies-consent-container .cookies-consent-title a {
     font-family: OpenSans, arial, sans-serif;
-    color: #fff;
+    color: $white;
     font-size: 22px;
     line-height: 20px;
     display: block;
   }
 
-  .cookieConsentContainer .cookieDesc p {
+  .cookies-consent-container .cookies-consent-text p {
     margin: 0;
     padding: 0;
     font-family: OpenSans, arial, sans-serif;
-    color: #fff;
+    color: $white;
     font-size: 13px;
     line-height: 20px;
     display: block;
     margin-top: 10px;
   }
 
-  .cookieConsentContainer .cookieDesc a {
+  .cookies-consent-container .cookies-consent-text a {
+    cursor: pointer;
     font-family: OpenSans, arial, sans-serif;
-    color: #fff;
+    color: $white;
     text-decoration: underline;
   }
 
-  .cookieConsentContainer .cookieButton a {
+  .cookies-consent-container .cookies-consent-btn a {
     display: inline-block;
     font-family: OpenSans, arial, sans-serif;
-    color: #fff;
+    color: $white;
     font-size: 14px;
     font-weight: 700;
     margin-top: 14px;
@@ -132,13 +128,13 @@
     transition: background 0.3s;
   }
 
-  .cookieConsentContainer .cookieButton a:hover {
+  .cookies-consent-container .cookies-consent-btn a:hover {
     cursor: pointer;
     background: #3e9b67;
   }
 
   @media (max-width: 980px) {
-    .cookieConsentContainer {
+    .cookies-consent-container {
       bottom: 0;
       left: 0;
       width: 100%;

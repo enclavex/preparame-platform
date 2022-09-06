@@ -63,7 +63,7 @@ export default {
   background-image: url("../../../../assets/imgs/mediaPreparame.png");
   background-repeat: no-repeat;
   background-size: contain;
-  height: 34vh;
+  height: 32vh;
   margin: 0 20px;
 }
 
@@ -78,10 +78,12 @@ export default {
   display: flex;
   flex-direction: column;
   background-color: #fff;
-  height: 45vh;
+  height: auto;
   width: 40vw;
   border-radius: 20px;
   margin: auto;
+  min-height: 300px;
+  justify-content: space-around;
 }
 
 .medias-news-logo {

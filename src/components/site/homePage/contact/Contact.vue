@@ -37,13 +37,11 @@
         </div>
       </div>
       <q-space />
-      <!-- <div class="contact-info col-2 column">
-        <div class="contact-info-title">Links Rápidos</div>
-        <div class="contact-info-text">Home</div>
-        <div class="contact-info-text">Sobre Nós</div>
-        <div class="contact-info-text">Serviços</div>
-        <div class="contact-info-text">Grátis</div>
-      </div> -->
+      <div class="contact-info col-2 column">
+        <div class="contact-terms-title">Termos</div>
+        <div class="contact-terms-text" @click="goUrl('PrivacyTerms', 'internal')">Politicas de Privacidade</div>
+        <div class="contact-terms-text" @click="goUrl('UseTerms', 'internal')">Termos de Uso</div>
+      </div>
       <q-space />
       <div class="contact-info col-2 column">
         <div class="contact-info-title">Siga-nos</div>
@@ -87,8 +85,12 @@ export default {
     this.mobile = window.mobileAndTabletCheck();
   },
   methods: {
-    goUrl: function (url) {
-      window.open(url, "_blank").focus();
+    goUrl: function (url, type = 'external') {
+      if (type === 'external') {
+        window.open(url, "_blank").focus();
+      } else {
+        this.$router.push({ path: url });
+      }
     },
     imgURL: function (pathName) {
       var images = require.context(
@@ -150,11 +152,28 @@ export default {
   color: #000000;
 }
 
+.contact-terms-title {
+  font-family: "Nunito";
+  font-weight: 600;
+  font-size: 1rem;
+  display: flex;
+  align-items: center;
+  color: #000000;
+}
+
 .contact-info {
   margin-top: 50px;
 }
 
 .contact-info-text {
+  font-family: "Nunito";
+  font-weight: 300;
+  font-size: 0.8rem;
+  color: #6c6c6c;
+}
+
+.contact-terms-text {
+  cursor: pointer;
   font-family: "Nunito";
   font-weight: 300;
   font-size: 0.8rem;

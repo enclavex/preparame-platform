@@ -69,6 +69,7 @@ export default {
   font-weight: 700;
   font-size: 20px;
   text-align: center;
+  min-height: 60px;
 }
 
 .best-sellers-card-list {

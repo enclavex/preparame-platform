@@ -12,6 +12,7 @@
       </q-page-container>
       <Contact />
       <WhatsApp />
+      <Cookies />
     </q-layout>
   </div>
 </template>
@@ -21,13 +22,15 @@ import NavMenu from "../components/site/navMenu/NavMenu.vue";
 import SideNavMenu from "../components/site/navMenu/SideNavMenu.vue";
 import Contact from "../components/site/homePage/contact/Contact.vue";
 import WhatsApp from "../components/site/general/WhatsApp.vue";
+import Cookies from "../components/general/CookiesAccept.vue";
 
 export default {
   components: {
     Contact,
     NavMenu,
     SideNavMenu,
-    WhatsApp
+    WhatsApp,
+    Cookies
   },
   data() {
     return {
