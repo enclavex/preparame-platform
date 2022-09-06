@@ -151,15 +151,19 @@ export default {
   color: $text-white;
 }
 
-@media (max-height: 600px) and (orientation: landscape) {
+@media (max-height: 800px) and (orientation: landscape) {
   .companies-beneficits {
     height: 110vh;
   }
 
   .companies-beneficits-title {
-    font-size: 2.5rem;
+    font-size: 2.2rem;
     height: 25vh;
     line-height: 10vh;
+  }
+
+  .companies-beneficits-step {
+    font-size: 1rem;
   }
 }
 

@@ -36,7 +36,7 @@ const siteRoutes = [
         }]
     },
     {
-        path: "/ResponsibleDemission",
+        path: "/demissaohumanizada",
         components: {
             site: Site
         },

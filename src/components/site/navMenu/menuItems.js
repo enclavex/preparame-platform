@@ -17,23 +17,10 @@ const menuItems = [
         items: [
             {
                 name: "Demissão responsável",
-                to: "/ResponsibleDemission",
+                to: "/demissaohumanizada",
             },
         ],
     },
-    // {
-    //     name: "Materiais Gratuitos",
-    //     items: [
-    //         {
-    //             name: "Criador de Currículos",
-    //             to: "",
-    //         },
-    //         {
-    //             name: "Dicas e Videos",
-    //             to: "",
-    //         },
-    //     ],
-    // },
     {
         name: "Sobre nós",
         items: [

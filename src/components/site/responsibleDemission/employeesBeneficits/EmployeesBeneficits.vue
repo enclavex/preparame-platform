@@ -129,7 +129,6 @@ export default {
   background-repeat: no-repeat;
   background-size: contain;
   width: 70% !important;
-  margin-left: 8vw;
 }
 
 .employees-beneficits-title {
@@ -148,15 +147,23 @@ export default {
   color: #fff;
 }
 
-@media (max-height: 600px) and (orientation: landscape) {
+@media (max-height: 800px) and (orientation: landscape) {
   .employees-beneficits {
     height: 110vh;
   }
 
   .employees-beneficits-title {
-    font-size: 2.5rem;
+    font-size: 2.2rem;
     height: 35vh !important;
     line-height: 30vh;
+  }
+
+  .employees-beneficits-step {
+    font-size: 1rem;
+  }
+
+  .employees-beneficits-picture {
+    width: 95% !important;
   }
 }
 

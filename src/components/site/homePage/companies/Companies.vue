@@ -196,7 +196,7 @@ export default {
   height: 80% !important;
 }
 
-@media (max-height: 600px) and (orientation: landscape) {
+@media (max-height: 800px) and (orientation: landscape) {
   .companies {
     height: 110vh;
   }

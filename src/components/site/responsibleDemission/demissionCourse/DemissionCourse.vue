@@ -30,7 +30,7 @@
         <q-btn
           class="demission-course-btn"
           label="INSCREVER-ME"
-          to="/ProductList"
+          href="https://hotmart.com/pt-br/marketplace/produtos/demissao-humanizada-fundamentos-praticas-e-reflexoes/I55409958I"
         />
       </div>
     </div>

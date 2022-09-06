@@ -41,8 +41,8 @@
         </div>
         <q-btn
           class="manual-demission-btn"
-          label="Download"
-          to="/ProductList"
+          label="Acessar"
+          href="https://preparame-backend.s3.sa-east-1.amazonaws.com/others/e-book+Manual+da+Demiss%C3%A3o+Respons%C3%A1vel+-+Prepara.me.pdf"
         />
       </div>
     </div>
@@ -118,6 +118,17 @@ export default {
   height: 50px;
   background-color: #1a27b7;
   color: #fff;
+}
+
+@media (max-height: 800px) and (orientation: landscape) {
+  .manual-demission-title {
+    font-size: 2rem;
+  }
+
+  .manual-demission-sub-title { 
+    font-size: 1.1rem;
+
+  }
 }
 
 @media (orientation: portrait) {
