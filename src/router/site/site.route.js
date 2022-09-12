@@ -9,6 +9,7 @@ import FAQ from "../../layouts/FAQ.vue"
 import PrivacyTerms from "../../layouts/PrivacyTerms.vue"
 import UseTerms from "../../layouts/UseTerms.vue"
 import ResponsibleDemission from "../../layouts/ResponsibleDemission.vue"
+import PageNotFound from "../../pages/PageNotFound.vue"
 
 const siteRoutes = [
     {
@@ -139,7 +140,7 @@ const siteRoutes = [
         children: [{
             path: "/",
             components: {
-                content: HomePage
+                content: PageNotFound
             }
         }]
     }
