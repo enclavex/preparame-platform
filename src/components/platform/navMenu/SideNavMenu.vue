@@ -81,12 +81,6 @@ const menu = {
   },
   USER: {
     menuList: [
-      {
-        icon: "schedule",
-        label: "Agendar Serviço",
-        separator: true,
-        url: "products/list",
-      },
     ],
   },
   SPECIALIST: {

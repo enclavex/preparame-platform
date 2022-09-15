@@ -3,7 +3,7 @@ function urlQueryBuilder(url, cols) {
 
     url = `/${url}`;
 
-    if (cols) {
+    if (cols.length > 0) {
         cols.forEach((filter) => {
             if (filter.model) {
                 if (queryString) {

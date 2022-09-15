@@ -38,10 +38,6 @@ export default {
       product: {},
       breadcrumbs: [
         {
-          title: "Serviços",
-          to: "/products/list",
-        },
-        {
           title: "Agendamento",
           to: "",
         },

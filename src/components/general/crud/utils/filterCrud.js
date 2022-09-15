@@ -14,7 +14,8 @@ async function filterCrud(filters, url, columns) {
         .get(`${baseApiUrl}${url}`, config)
         .catch(showError);
 
-    if (columns) {
+
+    if (columns && columns.length > 0) {
         columns.forEach((column) => {
             if (column.field.indexOf(".") > 0) {
                 const key = column.field.substr(0, column.field.indexOf("."));

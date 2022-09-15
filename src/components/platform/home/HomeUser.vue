@@ -1,8 +1,12 @@
 <template>
-  <div id="q-app" class="homeUser">
+  <div id="q-app" class="home-user">
     <q-page>
       <div class="row">
-        <UserCard v-if="loadUserCard" class="col-3" :products="products" />
+        <UserCard
+          v-if="loadUserCard"
+          class="col-3"
+          :products="products"
+        />
         <Schedule :homeType="'USER'" class="col-8" />
       </div>
     </q-page>
@@ -43,7 +47,7 @@ export default {
         userProduct.scheduled = true;
       }
 
-      this.products.push(userProduct.product)
+      this.products.push(userProduct.product);
     });
 
     this.loadUserCard = true;
@@ -52,12 +56,12 @@ export default {
     goUrl: function (url) {
       this.$router.push({ path: `${url}/${this.product.id}` });
     },
-  },
+  }
 };
 </script>
 
 <style>
-.homeUser {
+.home-user {
   height: 100%;
 }
 </style>

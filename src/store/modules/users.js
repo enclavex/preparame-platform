@@ -8,10 +8,11 @@ export default ({
     },
     mutations: {
         setUser(state, user) {
-            state.user  = user
-            state.auth  = !user
+            state.user = user
+            state.auth = !user
 
-            if(user) {
+            console.log(user)
+            if (user) {
                 localStorage.setItem('token', user.token);
                 localStorage.setItem('refresh_token', user.refresh_token);
                 localStorage.setItem('userAvatarUrl', user.user.avatarUrl);
@@ -19,6 +20,8 @@ export default ({
                 localStorage.setItem('userEmail', user.user.email);
                 localStorage.setItem('userId', user.user.id);
                 localStorage.setItem('userType', user.user.type.value);
+                localStorage.setItem('surveyAnswered', user.user.surveyAnswered);
+
             } else {
                 delete axios.defaults.headers.common["Authorization"]
             }

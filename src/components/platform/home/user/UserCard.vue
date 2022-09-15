@@ -24,14 +24,18 @@
         </div>
       </q-card-section> -->
       <q-card-section class="col-12 user-card-profile-level-info">
-        <!-- <q-separator></q-separator> -->
-        <q-banner rounded class="q-ma-sm text-white bg-secondary">
+        <q-banner
+          v-if="!surveyAnswered"
+          rounded
+          class="q-ma-sm text-white bg-secondary"
+        >
           <div class="user-card-banner-content row">
             <q-btn
               flat
               color="white"
               label="Responder Pesquisa de Perfil"
               class="col-12"
+              @click="goUrl(`survey`)"
             />
           </div>
         </q-banner>
@@ -72,6 +76,7 @@ export default {
     return {
       userAvatarUrl: "",
       userName: "",
+      surveyAnswered: false,
       data: [
         ["Completo", "Falta"],
         ["Percentual", 70],
@@ -83,6 +88,10 @@ export default {
     this.userAvatarUrl = localStorage.getItem("userAvatarUrl");
 
     this.userName = localStorage.getItem("userName");
+  },
+  mounted() {
+    this.surveyAnswered =
+      localStorage.getItem("surveyAnswered") == "true" ? true : false;
   },
   methods: {
     goUrl: function (url) {

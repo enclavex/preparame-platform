@@ -111,7 +111,6 @@ export default {
   },
   methods: {
     goURL() {
-      console.log('teste')
       this.$router.push({ path: `/${"ResponsibleDemission"}` });
     },
   },
