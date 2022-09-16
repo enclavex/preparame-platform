@@ -25,24 +25,32 @@
           <div
             v-for="(question, questionIndex) in questions"
             :key="questionIndex"
-            class="nps-survey-question-container col-12 row"
+            class="nps-survey-question-container column"
+            :id="question.index"
           >
-            <div class="nps-survey-question col-8">
+            <div
+              :class="{
+                'nps-survey-question': true,
+                'text-center': true,
+                'nps-survey-question-answered': question.answer > -1,
+              }"
+            >
               {{ `${question.index}. ${question.question}` }}
             </div>
-            <div class="nps-survey-answer-container col-4 row">
+            <div class="nps-survey-answer-container q-mb-lg row">
               <span
                 v-for="(option, optionIndex) in question.options"
                 :key="optionIndex"
                 @click="selectAnswer(question, optionIndex)"
                 :class="{
                   'nps-survey-answer': true,
-                  'col-1': true,
                   'nps-survey-answer-selected': optionIndex === question.answer,
+                  'nps-survey-answered': question.answer > -1 || focusedQuestion !== question.index,
                 }"
                 >{{ option }}</span
               >
             </div>
+            <q-separator></q-separator>
           </div>
           <br />
           <q-btn
@@ -148,7 +156,16 @@ export default {
       }
     },
     selectAnswer: function (question, optionIndex) {
+      if (question.answer === -1) {
+        this.focusedQuestion = question.index + 1
+      }
+      
       question.answer = optionIndex;
+
+      const element = document.getElementById(`${question.index + 1}`)
+
+      element.scrollIntoView({behavior: "smooth", block: "center", inline: "center"});
+
     },
     saveSurvey: async function () {
       const userUpdate = {
@@ -160,7 +177,7 @@ export default {
       const userUpdated = await saveCrud("users", userUpdate, "put");
 
       if (userUpdated.status == 204) {
-        localStorage.setItem('surveyAnswered', 'true');
+        localStorage.setItem("surveyAnswered", "true");
 
         this.$router.push("/platform");
 
@@ -220,6 +237,7 @@ export default {
     return {
       page: 1,
       surveyAnswered: false,
+      focusedQuestion: 1,
       breadcrumbs: [
         {
           title: "Pesquisa",
@@ -297,7 +315,7 @@ export default {
           question:
             "O quanto você recomenda a empresa para seus amigos e familiares trabalharem?",
           answer: -1,
-          options: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10],
+          options: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10],
           type: "grade",
           category: "NPS",
         },
@@ -306,7 +324,7 @@ export default {
           question:
             "O quanto você se sentia respeitado na empresa, de forma geral?",
           answer: -1,
-          options: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10],
+          options: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10],
           type: "grade",
           category: "laborRisk",
         },
@@ -314,7 +332,7 @@ export default {
           index: 3,
           question: "O quanto você se sentia respeitado pelos seus líderes?",
           answer: -1,
-          options: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10],
+          options: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10],
           type: "grade",
           category: "laborRisk",
         },
@@ -323,7 +341,7 @@ export default {
           question:
             "O quanto você gostaria de voltar a trabalhar nesta empresa no futuro?",
           answer: -1,
-          options: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10],
+          options: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10],
           type: "grade",
           category: "laborRisk",
         },
@@ -332,7 +350,7 @@ export default {
           question:
             "O quanto você achou que seu processo de demissão foi respeitoso?",
           answer: -1,
-          options: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10],
+          options: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10],
           type: "grade",
           category: "laborRisk",
         },
@@ -340,7 +358,7 @@ export default {
           index: 6,
           question: "O quanto você se sentia seguro fisicamente na empresa?",
           answer: -1,
-          options: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10],
+          options: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10],
           type: "grade",
           category: "laborRisk",
         },
@@ -348,7 +366,7 @@ export default {
           index: 7,
           question: "O quanto você se sentia seguro emocionalmente na empresa?",
           answer: -1,
-          options: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10],
+          options: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10],
           type: "grade",
           category: "laborRisk",
         },
@@ -357,7 +375,7 @@ export default {
           question:
             "O quanto você gostava do pacote de benefícios e remuneração da empresa?",
           answer: -1,
-          options: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10],
+          options: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10],
           type: "grade",
           category: "laborRisk",
         },
@@ -386,35 +404,59 @@ export default {
 }
 
 .nps-survey-question-container {
-  height: 6vh !important;
   justify-content: center;
   align-content: center;
+  width: 80%;
+  height: 15vh;
+  margin: 0 auto;
 }
 
 .nps-survey-question {
   font-size: 1.3rem;
-  display: flex;
   align-items: center;
+  color: $text;
+  width: 100% !important;
+}
+
+.nps-survey-question.nps-survey-question-answered {
+  color: $text-transparent;
 }
 
 .nps-survey-answer {
   font-size: 1.3rem;
   padding: 10px;
-  color: $text-grey;
   text-align: center;
   font-weight: 500;
   display: flex;
   justify-content: center;
   align-items: center;
   margin: 0 2px;
-  border-radius: 5px;
+  border-radius: 50px;
+  height: 60px;
+  width: 60px;
   cursor: pointer;
   transition: all 0.3s ease;
-  background-color: $secondary;
-  color: $text-white;
+  border: 2px solid $secondary;
+  color: $secondary;
 }
 
 .nps-survey-answer-selected {
-  background: $positive;
+  background: $primary;
+}
+
+.nps-survey-answer-container {
+  width: 100% !important;
+  justify-content: center;
+}
+
+.nps-survey-answer.nps-survey-answered {
+  border: 2px solid $secondary-transparent;
+  color: $secondary-transparent;
+}
+
+.nps-survey-answer-selected.nps-survey-answered {
+  background: $primary-transparent;
+  color: $text-white;
+  border: 2px solid $primary-transparent;
 }
 </style>
