@@ -117,7 +117,7 @@ export default {
               value: "",
             },
           ],
-        },
+        }
       },
       columns: [
         {
@@ -157,6 +157,14 @@ export default {
           align: "left",
           label: "Situação",
           field: "status.label",
+          sortable: true,
+          visible: true,
+        },
+        {
+          name: "companyName",
+          align: "left",
+          label: "Empresa",
+          field: "company.name",
           sortable: true,
           visible: true,
         },

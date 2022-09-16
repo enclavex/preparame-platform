@@ -117,6 +117,21 @@ export default {
 
               ],
             },
+            company: {
+              label: "Empresa",
+              name: "companyId",
+              size: "3",
+              row: 3,
+              col: 1,
+              model: "",
+              type: "DialogSelect",
+              visible: true,
+              options: {
+                table: "companies",
+                value: "id",
+                label: "name",
+              },
+            },
           },
         },
       },
