@@ -8,7 +8,12 @@
       dense
       icon="menu"
     />
-    <q-btn stretch flat :class="{ row: true, 'col-2': !mobile, 'col-6': mobile }" to="/">
+    <q-btn
+      stretch
+      flat
+      :class="{ row: true, 'col-2': !mobile, 'col-6': mobile }"
+      to="/"
+    >
       <img
         :src="imgURL(logoImg)"
         :class="{ 'nav-menu-prepara-me-logo': true, 'col-12': true }"
@@ -26,7 +31,7 @@
       flat
       stretch
       icon="shopping_cart"
-      :label="mobile ? '': 'Meu Carrinho'"
+      :label="mobile ? '' : 'Meu Carrinho'"
       to="/ShoppingCart"
       no-caps
       class="nav-menu-item-name"
@@ -34,10 +39,9 @@
     <q-space v-if="!mobile" />
     <q-space v-if="!mobile" />
     <q-btn
-      v-if="!mobile"
       stretch
       flat
-      label="Acessar plataforma"
+      :label="mobile ? 'Acessar' : 'Acessar plataforma'"
       to="/login"
       no-caps
       class="nav-menu-item-name"
@@ -47,7 +51,7 @@
 
 <script>
 import NavMenuItem from "./NavMenuItem.vue";
-import { menuItems } from "./menuItems.js"
+import { menuItems } from "./menuItems.js";
 
 export default {
   name: "NavMenu",
@@ -55,7 +59,7 @@ export default {
     return {
       logoImg: "logo_preparame_home.png",
       mobile: false,
-      menuItems
+      menuItems,
     };
   },
   components: {

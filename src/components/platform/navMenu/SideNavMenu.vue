@@ -1,6 +1,7 @@
 <template>
   <div id="q-app">
     <q-drawer
+      v-if="menuList.length > 0"
       v-model="drawerController"
       show-if-above
       :width="200"
@@ -80,8 +81,7 @@ const menu = {
     ],
   },
   USER: {
-    menuList: [
-    ],
+    menuList: [],
   },
   SPECIALIST: {
     menuList: [

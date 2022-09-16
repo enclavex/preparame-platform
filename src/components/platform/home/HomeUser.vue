@@ -1,12 +1,8 @@
 <template>
   <div id="q-app" class="home-user">
     <q-page>
-      <div class="row">
-        <UserCard
-          v-if="loadUserCard"
-          class="col-3"
-          :products="products"
-        />
+      <div :class="{ row: !mobile }">
+        <UserCard v-if="loadUserCard" class="col-3" :products="products" />
         <Schedule :homeType="'USER'" class="col-8" />
       </div>
     </q-page>
@@ -24,11 +20,15 @@ export default {
     return {
       products: [],
       loadUserCard: false,
+      mobile: false,
     };
   },
   components: {
     Schedule,
     UserCard,
+  },
+  mounted() {
+    this.mobile = window.mobileAndTabletCheck();
   },
   async created() {
     const filters = [
@@ -56,7 +56,7 @@ export default {
     goUrl: function (url) {
       this.$router.push({ path: `${url}/${this.product.id}` });
     },
-  }
+  },
 };
 </script>
 

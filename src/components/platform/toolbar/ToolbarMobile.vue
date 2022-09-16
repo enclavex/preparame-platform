@@ -2,7 +2,7 @@
   <div id="q-app" class="platform-toolbar">
     <q-header elevated class="bg-primary">
       <q-toolbar>
-        <q-btn flat @click="toogleMenu()" round dense icon="menu"></q-btn>
+        <q-btn v-if="userType != 'USER'" flat @click="toogleMenu()" round dense icon="menu"></q-btn>
         <q-toolbar-title>Prepara.me</q-toolbar-title>
         <q-btn-dropdown stretch flat label="Perfil">
           <q-list class="toolbar-perfil">
@@ -38,6 +38,7 @@ export default {
     return {
       userAvatarUrl: "",
       userName: "",
+      userType: ""
     };
   },
   methods: {
@@ -58,6 +59,7 @@ export default {
   created() {
     this.userAvatarUrl = localStorage.getItem("userAvatarUrl");
     this.userName = localStorage.getItem("userName");
+    this.userType = localStorage.getItem("userType");
   },
 };
 </script>
