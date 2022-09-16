@@ -28,27 +28,33 @@
             class="nps-survey-question-container column"
             :id="question.index"
           >
-            <div
-              :class="{
-                'nps-survey-question': true,
-                'text-center': true,
-                'nps-survey-question-answered': question.answer > -1,
-              }"
-            >
-              {{ `${question.index}. ${question.question}` }}
-            </div>
-            <div class="nps-survey-answer-container q-mb-lg row">
-              <span
-                v-for="(option, optionIndex) in question.options"
-                :key="optionIndex"
-                @click="selectAnswer(question, optionIndex)"
+            <div class="column">
+              <div
                 :class="{
-                  'nps-survey-answer': true,
-                  'nps-survey-answer-selected': optionIndex === question.answer,
-                  'nps-survey-answered': question.answer > -1 || focusedQuestion !== question.index,
+                  'nps-survey-question': true,
+                  'text-center': true,
+                  'q-mt-lg': true,
+                  'nps-survey-question-answered': question.answer > -1,
                 }"
-                >{{ option }}</span
               >
+                {{ `${question.index}. ${question.question}` }}
+              </div>
+              <div class="nps-survey-answer-container q-mb-lg row">
+                <span
+                  v-for="(option, optionIndex) in question.options"
+                  :key="optionIndex"
+                  @click="selectAnswer(question, optionIndex)"
+                  :class="{
+                    'nps-survey-answer': true,
+                    'nps-survey-answer-selected':
+                      optionIndex === question.answer,
+                    'nps-survey-answered':
+                      question.answer > -1 ||
+                      focusedQuestion !== question.index,
+                  }"
+                  >{{ option }}</span
+                >
+              </div>
             </div>
             <q-separator></q-separator>
           </div>
@@ -140,6 +146,8 @@ export default {
   methods: {
     goNPSSurvey: function () {
       this.page--;
+
+      window.scrollTo(0, 0);
     },
     goFeelingsMap: function () {
       const questionsNotAnswered = this.questions.filter((question) => {
@@ -154,18 +162,23 @@ export default {
       } else {
         this.page++;
       }
+
+      window.scrollTo(0, 0);
     },
     selectAnswer: function (question, optionIndex) {
       if (question.answer === -1) {
-        this.focusedQuestion = question.index + 1
+        this.focusedQuestion = question.index + 1;
       }
-      
+
       question.answer = optionIndex;
 
-      const element = document.getElementById(`${question.index + 1}`)
+      const element = document.getElementById(`${question.index + 1}`);
 
-      element.scrollIntoView({behavior: "smooth", block: "center", inline: "center"});
-
+      element.scrollIntoView({
+        behavior: "smooth",
+        block: "center",
+        inline: "center",
+      });
     },
     saveSurvey: async function () {
       const userUpdate = {
@@ -407,7 +420,6 @@ export default {
   justify-content: center;
   align-content: center;
   width: 80%;
-  height: 15vh;
   margin: 0 auto;
 }
 
@@ -431,9 +443,9 @@ export default {
   justify-content: center;
   align-items: center;
   margin: 0 2px;
-  border-radius: 50px;
-  height: 60px;
-  width: 60px;
+  border-radius: 2vw;
+  height: 4vw;
+  width: 4vw;
   cursor: pointer;
   transition: all 0.3s ease;
   border: 2px solid $secondary;
@@ -458,5 +470,18 @@ export default {
   background: $primary-transparent;
   color: $text-white;
   border: 2px solid $primary-transparent;
+}
+
+@media (orientation: portrait) {
+  .nps-survey-question-container {
+    width: 100%;
+  }
+
+  .nps-survey-answer {
+    border-radius: 50%;
+    height: 50px;
+    width: 50px;
+    margin-top: 5px;
+  }
 }
 </style>
