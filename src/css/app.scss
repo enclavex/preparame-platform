@@ -1,5 +1,7 @@
 @import url("https://fonts.googleapis.com/css2?family=Manrope:wght@200;300;400;500;600;700;800&display=swap");
-@import url('https://fonts.googleapis.com/css2?family=Anton&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Anton&display=swap");
+@import url('https://fonts.googleapis.com/css2?family=Work+Sans:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Cabin:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500;1,600;1,700&display=swap');
 
 @font-face {
     font-family: "Mitr";
@@ -22,6 +24,12 @@
     font-family: "Nunito";
     font-weight: bold;
     src: url("../../src/assets/fonts/Nunito-SemiBold.ttf") format("truetype");
+}
+
+@font-face {
+    font-family: "NewhouseDTPro-Regular";
+    font-weight: 400;
+    src: url("//db.onlinewebfonts.com/t/ebd37b0d055a1045a840c257c68c066c.eot");
 }
 
 @keyframes shake {
@@ -57,7 +65,11 @@
 }
 
 .bg-prepara-me {
-    background-color: #1a27b7;
+    background: $prepara-me-gradient;
+}
+
+.bg-prepara-me-blue {
+    background: $prepara-me;
 }
 
 input:focus,
@@ -82,7 +94,7 @@ a {
 }
 
 .bg-background {
-    background-color: #f6f6fe
+    background-color: #f6f6fe;
 }
 
 .contain {

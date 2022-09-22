@@ -69,7 +69,7 @@
             text-color="white"
           />
           <span class="q-ml-sm"
-            >Deseja confirma o cancelamento do horário agendado?</span
+            >Deseja confirmar o cancelamento do horário agendado?</span
           >
         </q-card-section>
 

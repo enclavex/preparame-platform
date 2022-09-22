@@ -132,6 +132,26 @@ export default {
                 label: "name",
               },
             },
+            realocated: {
+              label: "Realocado",
+              name: "realocated",
+              size: "3",
+              row: 3,
+              col: 2,
+              model: "",
+              type: "Select",
+              visible: true,
+              options: [
+                {
+                  label: "Realocado",
+                  value: "REALOCATED",
+                },
+                {
+                  label: "Não Realocado",
+                  value: "NOT_REALOCATED",
+                },
+              ],
+            },
           },
         },
       },

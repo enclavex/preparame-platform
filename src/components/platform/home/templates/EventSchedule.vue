@@ -6,7 +6,7 @@
       'q-ma-sm': true,
       'text-white': true,
       'bg-grey': !eventValid,
-      'bg-secondary': eventValid && !lessThen1Hour,
+      'bg-prepara-me-blue': eventValid && !lessThen1Hour,
       'bg-primary': eventValid && lessThen1Hour,
     }"
   >
@@ -72,7 +72,7 @@
             text-color="white"
           />
           <span class="q-ml-sm"
-            >Deseja confirma o cancelamento do horário agendado?</span
+            >Deseja confirmar o cancelamento do horário agendado?</span
           >
         </q-card-section>
 

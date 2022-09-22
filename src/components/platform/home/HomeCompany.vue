@@ -1,19 +1,228 @@
 <template>
-  <div id="q-app" class="schedule">
-    <q-page>
+  <div id="q-app" class="home-company">
+    <q-page :class="{ 'q-pa-md': !mobile, row: !mobile }">
+      <div
+        :class="{
+          'home-company-charts': true,
+          'justify-around': true,
+          'col-12': !mobile,
+          row: !mobile,
+          column: mobile,
+        }"
+      >
+        <NpsCard
+          v-if="dashboardsLoaded"
+          :nps="nps"
+          :class="{ 'col-2': !mobile }"
+        ></NpsCard>
+        <EmployeerBrandRiskCard
+          v-if="dashboardsLoaded"
+          :class="{ 'col-2': !mobile }"
+          :employeerBrandRisk="brandRisk"
+        ></EmployeerBrandRiskCard>
+        <LaborRiskCard
+          v-if="dashboardsLoaded"
+          :class="{ 'col-2': !mobile }"
+          :laborRisk="laborRisk"
+        ></LaborRiskCard>
+        <RealocatedsCard
+          v-if="dashboardsLoaded"
+          :class="{ 'col-2': !mobile }"
+          :realocateds="countRealocateds"
+          :totalUsers="countUsers"
+        ></RealocatedsCard>
+        <RegisteredEmployeesCard
+          v-if="dashboardsLoaded"
+          :class="{ 'col-2': !mobile }"
+          :registeredEmployees="countUsers"
+          :totalEmployees="countEmployees"
+        >
+        </RegisteredEmployeesCard>
+      </div>
+      <div class="home-company-charts-detailed justify-around row q-gutter-md">
+        <LaborRiskDetailedCard
+          v-if="dashboardsLoaded"
+          :class="{ 'col-4': !mobile }"
+          :laborRisks="laborRiskData"
+        />
+        <FeelingsMapCard
+          v-if="dashboardsLoaded"
+          :class="{ 'col-4': !mobile }"
+          :feelingsMap="feelingsMapData"
+        />
+      </div>
     </q-page>
   </div>
 </template>
 
 <script>
+import { filterCrud } from "./../../general/crud/utils/filterCrud";
+
+import NpsCard from "./company/NpsCard.vue";
+import EmployeerBrandRiskCard from "./company/EmployeerBrandRiskCard.vue";
+import LaborRiskCard from "./company/LaborRiskCard.vue";
+import RealocatedsCard from "./company/RealocatedsCard.vue";
+import RegisteredEmployeesCard from "./company/RegisteredEmployeesCard.vue";
+import FeelingsMapCard from "./company/FeelingsMapCard.vue";
+import LaborRiskDetailedCard from "./company/LaborRiskDetailedCard.vue";
+
 export default {
   components: {
+    NpsCard,
+    EmployeerBrandRiskCard,
+    LaborRiskCard,
+    RealocatedsCard,
+    RegisteredEmployeesCard,
+    FeelingsMapCard,
+    LaborRiskDetailedCard,
+  },
+  data() {
+    return {
+      nps: 0,
+      laborRisk: 0,
+      brandRisk: 0,
+      countUsers: 0,
+      countEmployees: 0,
+      countRealocateds: 0,
+      dashboardsLoaded: false,
+      feelingsMapData: [],
+      laborRiskData: [],
+      brandRiskData: [],
+      mobile: false,
+    };
+  },
+  methods: {
+    loadNpsSurveyAnswers: async function () {
+      const filters = [
+        {
+          name: "companyId",
+          model: localStorage.getItem("companyId"),
+        },
+      ];
+
+      const npsSurveyReport = await filterCrud(
+        filters,
+        "reports/NPSSurveyAnswers"
+      );
+
+      const npsSurveyAnswers = npsSurveyReport.filter(npsSurvey => {
+        return npsSurvey.user.surveyAnswered
+      })
+
+      let npsTotal = npsSurveyAnswers.reduce((npsTotal, employee) => {
+        return npsTotal + employee.user.NPSSurvey;
+      }, 0);
+
+      this.nps = (npsTotal / npsSurveyAnswers.length).toFixed(2);
+
+      let laborRisk = npsSurveyAnswers.reduce((laborRisckTotal = 0, employee) => {
+        return laborRisckTotal + employee.user.laborRisk;
+      }, 0);
+
+      this.laborRisk = (laborRisk / npsSurveyAnswers.length).toFixed(2);
+
+      let brandRisk = npsSurveyAnswers.reduce((brandRisckTotal = 0, employee) => {
+        return brandRisckTotal + employee.user.brandRisk;
+      }, 0);
+
+      this.brandRisk = (brandRisk / npsSurveyAnswers.length).toFixed(2);
+
+      const users = npsSurveyAnswers.filter((employee) => {
+        return employee.userId;
+      });
+
+      const realocateds = users.filter((user) => {
+        return user.user.realocated == "REALOCATED";
+      });
+
+      users.forEach((user) => {
+        const feelingsMap = JSON.parse(user.user.feelingsMapJSON);
+        const laborRisks = JSON.parse(user.user.laborRiskJSON);
+        const brandRisks = JSON.parse(user.user.brandRiskJSON);
+
+        if (Array.isArray(feelingsMap)) {
+          feelingsMap.forEach((feelingMapped) => {
+            const findFeeling = this.feelingsMapData.findIndex(
+              (feelingInserted) => {
+                return feelingMapped.feeling == feelingInserted.feeling;
+              }
+            );
+
+            if (findFeeling >= 0) {
+              this.feelingsMapData[findFeeling].count++;
+            } else {
+              this.feelingsMapData.push({ ...feelingMapped, count: 1 });
+            }
+          });
+        }
+
+        if (Array.isArray(laborRisks)) {
+          laborRisks.forEach((laborRiskMapped) => {
+            const findLaborRisk = this.laborRiskData.findIndex(
+              (laborRiskInserted) => {
+                return laborRiskMapped.question == laborRiskInserted.question;
+              }
+            );
+
+            if (findLaborRisk >= 0) {
+              this.laborRiskData[findLaborRisk].count += laborRiskMapped.answer;
+            } else {
+              this.laborRiskData.push({
+                ...laborRiskMapped,
+                count: laborRiskMapped.answer,
+              });
+            }
+          });
+        }
+
+        if (Array.isArray(brandRisks)) {
+          brandRisks.forEach((brandRiskMapped) => {
+            const findbrandRisk = this.brandRiskData.findIndex(
+              (brandRiskInserted) => {
+                return brandRiskMapped.question == brandRiskInserted.question;
+              }
+            );
+
+            if (findbrandRisk >= 0) {
+              this.brandRiskData[findbrandRisk].count += brandRiskMapped.answer;
+            } else {
+              this.brandRiskData.push({
+                ...brandRiskMapped,
+                count: brandRiskMapped.answer,
+              });
+            }
+          });
+        }
+      });
+
+      this.countEmployees = npsSurveyAnswers.length;
+      this.countUsers = users.length;
+      this.countRealocateds = realocateds.length;
+      this.dashboardsLoaded = true;
+    },
+  },
+  async mounted() {
+    this.mobile = window.mobileAndTabletCheck();
+
+    this.loadNpsSurveyAnswers();
   },
 };
 </script>
 
-<style>
-.schedule {
-  height: 100%;
+<style lang="scss">
+.home-company {
+  height: 100vh;
+  width: 100vw;
+}
+
+.home-company-charts {
+  display: flex;
+  flex-direction: row;
+  height: 20vh !important;
+}
+
+.home-company-charts-detailed {
+  height: 60vh;
+  width: 100vw;
 }
 </style>

@@ -93,6 +93,9 @@ const menu = {
       },
     ],
   },
+  COMPANY_ADMIN: {
+    menuList: [],
+  }
 };
 
 export default {

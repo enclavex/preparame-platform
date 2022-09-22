@@ -86,8 +86,8 @@ export default {
   font-family: "Nunito";
   font-style: normal;
   font-weight: 500;
-  max-width: 600px;
-  font-size: 2.2rem;
+  max-width: 500px;
+  font-size: 2rem;
   text-transform: uppercase;
   background: linear-gradient(90deg, #1a27b7 0%, #ff4690 100%);
   -webkit-background-clip: text;

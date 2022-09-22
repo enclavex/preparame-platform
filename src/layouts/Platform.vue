@@ -58,6 +58,7 @@ export default {
 
 <style lang="scss">
 .platform-content {
-  background: radial-gradient(circle, rgba(246,246,254,1) 7%, rgba(251,251,251,1) 94%);
+  background-color: #fafafa;
 }
+
 </style>

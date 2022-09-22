@@ -1,6 +1,6 @@
 <template>
   <div id="q-app" class="platform-toolbar">
-    <q-header elevated class="bg-primary">
+    <q-header elevated class="bg-prepara-me">
       <q-toolbar>
         <q-btn v-if="userType != 'USER'" flat @click="toogleMenu()" round dense icon="menu"></q-btn>
         <q-toolbar-title>Prepara.me</q-toolbar-title>

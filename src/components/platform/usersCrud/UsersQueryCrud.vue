@@ -117,6 +117,30 @@ export default {
               value: "",
             },
           ],
+        },
+        realocated: {
+          label: "Realocado",
+          name: "realocated",
+          size: "3",
+          row: 2,
+          col: 4,
+          model: "",
+          type: "Select",
+          visible: true,
+          options: [
+            {
+              label: "Realocado",
+              value: "REALOCATED",
+            },
+            {
+              label: "Não Realocado",
+              value: "NOT_REALOCATED",
+            },
+            {
+              label: "Todos",
+              value: "",
+            },
+          ],
         }
       },
       columns: [
@@ -157,6 +181,14 @@ export default {
           align: "left",
           label: "Situação",
           field: "status.label",
+          sortable: true,
+          visible: true,
+        },
+        {
+          name: "realocated",
+          align: "left",
+          label: "Realocado",
+          field: "realocated.label",
           sortable: true,
           visible: true,
         },

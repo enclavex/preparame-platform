@@ -9,25 +9,14 @@
           <div class="user-card-name">
             {{ userName }}
           </div>
-          <!-- <div class="user-card-access-profile" @click="goUrl('profile')">
-            Acessar Perfil
-          </div> -->
         </div>
       </q-card-section>
-      <!-- <q-card-section class="col-12 user-card-profile-level-info">
-        <div class="user-card-profile-level-label q-mt-sm">
-          Seu perfil está quase completo!
-        </div>
-        <div class="user-card-profile-level-progress q-pa-sm row">
-          <q-linear-progress :value="0.9" size="10px" class="col-10" rounded />
-          <div class="user-card-profile-level-progress-percent col-2">90%</div>
-        </div>
-      </q-card-section> -->
+
       <q-card-section class="col-12 user-card-profile-level-info">
         <q-banner
           v-if="!surveyAnswered"
           rounded
-          class="q-ma-sm text-white bg-secondary"
+          class="q-ma-sm text-white bg-prepara-me "
         >
           <div class="user-card-banner-content row">
             <q-btn
@@ -45,7 +34,7 @@
             'q-ma-sm': true,
             'text-white': true,
             'bg-green': product.scheduled,
-            'bg-secondary': !product.scheduled,
+            'bg-prepara-me': !product.scheduled,
           }"
           v-for="product in products"
           :key="product.id"
@@ -76,12 +65,7 @@ export default {
     return {
       userAvatarUrl: "",
       userName: "",
-      surveyAnswered: false,
-      data: [
-        ["Completo", "Falta"],
-        ["Percentual", 70],
-        ["Percentual", 30],
-      ],
+      surveyAnswered: false
     };
   },
   created() {
