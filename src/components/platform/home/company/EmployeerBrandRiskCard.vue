@@ -111,9 +111,9 @@ export default {
   bottom: 0;
   background-image: linear-gradient(
     to right,
-    #e5405e 0%,
+    rgb(0, 170, 0) 0%,
     #ffdb3a 45%,
-    rgb(0, 170, 0) 100%
+    #e5405e 100%
   );
 }
 

@@ -2,24 +2,21 @@
   <q-card class="home-company-labor-risk-detailed-card column q-pb-md q-px-md">
     <div class="home-company-labor-risk-detailed-card-header column">
       <div class="home-company-labor-risk-detailed-card-info-container">
-        <q-card-section class="home-company-labor-risk-detailed-card-title"
-          >Riscos Trabalhistas</q-card-section
-        >
+        <q-card-section class="home-company-labor-risk-detailed-card-title">
+          <h4>Pesquisa de Desligamento</h4>
+          <h6>Perguntas de 1 a 10</h6>
+        </q-card-section>
       </div>
-      <Pie
-        v-if="showChart"
-        :data="laborRiskDataChartConverted"
-        :height="380"
-      />
+      <Column v-if="showChart" :data="laborRiskDataChartConverted" :height="380" />
     </div>
   </q-card>
 </template>
 
 <script>
-import Pie from "../../../general/charts/Pie.vue";
+import Column from "../../../general/charts/Column.vue";
 export default {
   components: {
-    Pie,
+    Column,
   },
   props: ["laborRisks"],
   data() {

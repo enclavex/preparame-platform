@@ -6,7 +6,7 @@
           >Riscos da Marca</q-card-section
         >
       </div>
-      <Pie
+      <Bar
         v-if="showChart"
         :data="brandRiskDataChartConverted"
         :height="380"
@@ -16,10 +16,10 @@
 </template>
 
 <script>
-import Pie from "../../../general/charts/Pie.vue";
+import Bar from "../../../general/charts/Bar.vue";
 export default {
   components: {
-    Pie,
+    Bar,
   },
   props: ["brandRisks"],
   data() {

@@ -28,7 +28,6 @@ export default {
 #wpp-container a {
   z-index: 999999;
   position: fixed;
-  font-family: "Nunito", sans-serif;
   right: -240px;
   transition: 0.5s;
   padding: 15px;
@@ -45,7 +44,6 @@ export default {
 
 #wpp {
   top: 90%;
-  font-family: "Nunito", sans-serif;
   background-color: #4caf50;
 }
 

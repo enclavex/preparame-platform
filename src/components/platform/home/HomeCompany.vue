@@ -93,6 +93,17 @@ export default {
   },
   methods: {
     loadNpsSurveyAnswers: async function () {
+      let companyId = localStorage.getItem("companyId");
+
+      if (companyId === 'null') {
+        this.$q.notify({
+          type: "error",
+          message: "Nenhuma empresa selecionada para o usuário.",
+        });
+
+        return
+      }
+
       const filters = [
         {
           name: "companyId",
@@ -105,9 +116,9 @@ export default {
         "reports/NPSSurveyAnswers"
       );
 
-      const npsSurveyAnswers = npsSurveyReport.filter(npsSurvey => {
-        return npsSurvey.user.surveyAnswered
-      })
+      const npsSurveyAnswers = npsSurveyReport.filter((npsSurvey) => {
+        return npsSurvey.user.surveyAnswered;
+      });
 
       let npsTotal = npsSurveyAnswers.reduce((npsTotal, employee) => {
         return npsTotal + employee.user.NPSSurvey;
@@ -115,17 +126,23 @@ export default {
 
       this.nps = (npsTotal / npsSurveyAnswers.length).toFixed(2);
 
-      let laborRisk = npsSurveyAnswers.reduce((laborRisckTotal = 0, employee) => {
-        return laborRisckTotal + employee.user.laborRisk;
-      }, 0);
+      let laborRisk = npsSurveyAnswers.reduce(
+        (laborRisckTotal = 0, employee) => {
+          return laborRisckTotal + employee.user.laborRisk;
+        },
+        0
+      );
 
-      this.laborRisk = (laborRisk / npsSurveyAnswers.length).toFixed(2);
+      this.laborRisk = 10 - (laborRisk / npsSurveyAnswers.length).toFixed(2);
 
-      let brandRisk = npsSurveyAnswers.reduce((brandRisckTotal = 0, employee) => {
-        return brandRisckTotal + employee.user.brandRisk;
-      }, 0);
+      let brandRisk = npsSurveyAnswers.reduce(
+        (brandRisckTotal = 0, employee) => {
+          return brandRisckTotal + employee.user.brandRisk;
+        },
+        0
+      );
 
-      this.brandRisk = (brandRisk / npsSurveyAnswers.length).toFixed(2);
+      this.brandRisk = 10 - (brandRisk / npsSurveyAnswers.length).toFixed(2);
 
       const users = npsSurveyAnswers.filter((employee) => {
         return employee.userId;

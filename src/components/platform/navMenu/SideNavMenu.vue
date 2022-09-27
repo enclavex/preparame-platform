@@ -78,6 +78,18 @@ const menu = {
         separator: false,
         url: "products",
       },
+      {
+        icon: "mdi-file-video-outline",
+        label: "Grupos de Videos do Simulador",
+        separator: false,
+        url: "simulatorVideosGroups",
+      },
+      {
+        icon: "mdi-video-account",
+        label: "Videos do Simulador",
+        separator: false,
+        url: "simulatorVideos",
+      },
     ],
   },
   USER: {
@@ -134,6 +146,8 @@ export default {
 }
 
 .side-nav-menu-list {
+  font-family: "Nunito";
+  font-style: normal;
   height: 100%;
 }
 </style>

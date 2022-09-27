@@ -112,23 +112,23 @@ export default {
           return question.category === "laborRisk";
         });
 
-        this.feelings.forEach((feeling) => {
-          if (feeling.laborRiskCheck && feeling.checked) {
-            laborRiskQuestions.push({
-              question: feeling.feeling,
-              answer: 0,
-              brandRisk: true,
-              category: "laborRisk",
-            });
-          } else if (feeling.laborRiskCheck && !feeling.checked) {
-            laborRiskQuestions.push({
-              question: feeling.feeling,
-              answer: 10,
-              brandRisk: true,
-              category: "laborRisk",
-            });
-          }
-        });
+        // this.feelings.forEach((feeling) => {
+        //   if (feeling.laborRiskCheck && feeling.checked) {
+        //     laborRiskQuestions.push({
+        //       question: feeling.feeling,
+        //       answer: 0,
+        //       brandRisk: true,
+        //       category: "laborRisk",
+        //     });
+        //   } else if (feeling.laborRiskCheck && !feeling.checked) {
+        //     laborRiskQuestions.push({
+        //       question: feeling.feeling,
+        //       answer: 10,
+        //       brandRisk: true,
+        //       category: "laborRisk",
+        //     });
+        //   }
+        // });
 
         this.laborRiskJSON = JSON.stringify(
           laborRiskQuestions
@@ -184,8 +184,8 @@ export default {
             })
         );
 
-        this.laborRisk = totalLaborRiskQuestion / 10;
-        this.brandRisk = totalBrandRiskQuestion / 6;
+        this.laborRisk = totalLaborRiskQuestion / 8;
+        this.brandRisk = totalBrandRiskQuestion / 4;
 
         this.showConfirmEndSurvey = true;
       }

@@ -42,7 +42,6 @@ export default {
 
 <style lang="scss">
 .crud-title {
-  font-family: "Manrope", sans-serif;
   font-weight: 700;
 }
 

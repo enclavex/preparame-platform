@@ -5,6 +5,7 @@ import { productRoutes } from "./products.route"
 import { specialistRoutes } from "./specialists.route"
 import { subscriptionPlanRoutes } from "./subscriptionPlans.route"
 import { userRoutes } from "./users.route"
+import { simulatorVideosGroupRoutes } from "./simulatorVideos.route"
 
 const platformRoutesGroup =
     [
@@ -15,6 +16,7 @@ const platformRoutesGroup =
         ...specialistRoutes,
         ...subscriptionPlanRoutes,
         ...userRoutes,
+        ...simulatorVideosGroupRoutes,
     ]
 
 export { platformRoutesGroup }

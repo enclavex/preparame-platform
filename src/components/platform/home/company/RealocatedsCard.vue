@@ -10,7 +10,7 @@
           >Realocados</q-card-section
         >
         <q-card-section class="home-company-realocated-card-realocated"
-          >{{ realocateds }}/{{ totalUsers }}</q-card-section
+          >{{ realocatedPercent }}%</q-card-section
         >
       </div>
     </div>

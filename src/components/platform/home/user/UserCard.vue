@@ -96,7 +96,6 @@ export default {
 }
 
 .user-card-name {
-  font-family: "Manrope", sans-serif;
   font-weight: 700;
   font-size: 1.5rem;
 }
@@ -106,7 +105,6 @@ export default {
 }
 
 .user-card-profile-level-label {
-  font-family: "Manrope", sans-serif;
   font-weight: 200;
   font-size: 1rem;
   text-align: center;
@@ -150,7 +148,6 @@ export default {
   align-items: center;
   text-align: center;
   padding: 10px 5px;
-  font-family: "Manrope", sans-serif;
   font-weight: 600;
   font-size: 0.9rem;
   color: $back-dis;
