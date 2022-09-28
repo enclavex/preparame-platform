@@ -44,7 +44,7 @@ export default {
 <style lang="scss">
 .home-company-labor-risk-alert-card {
   width: 18vw;
-  height: 20vh;
+  height: 20vh !important;
 }
 
 .home-company-labor-risk-alert-card-header {

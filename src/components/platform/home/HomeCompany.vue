@@ -12,29 +12,35 @@
       >
         <NpsCard
           v-if="dashboardsLoaded"
+          :class="{ 'col-2': !mobile }"
           :nps="nps"
         ></NpsCard>
         <EmployeerBrandRiskCard
           v-if="dashboardsLoaded"
+          :class="{ 'col-2': !mobile }"
           :employeerBrandRisk="brandRisk"
         ></EmployeerBrandRiskCard>
         <LaborRiskCard
           v-if="dashboardsLoaded"
+          :class="{ 'col-2': !mobile }"
           :laborRisk="laborRisk"
         ></LaborRiskCard>
         <RealocatedsCard
           v-if="dashboardsLoaded"
+          :class="{ 'col-2': !mobile }"
           :realocateds="countRealocateds"
           :totalUsers="countUsers"
         ></RealocatedsCard>
         <RegisteredEmployeesCard
           v-if="dashboardsLoaded"
+          :class="{ 'col-2': !mobile }"
           :registeredEmployees="countUsers"
           :totalEmployees="countEmployees"
         >
         </RegisteredEmployeesCard>
         <LaborRiskAlertCard
           v-if="dashboardsLoaded"
+          :class="{ 'col-2': !mobile }"
           :laborRiskAlerts="countLaborRiskAlerts"
           :totalUsers="countUsers"
         ></LaborRiskAlertCard>
@@ -49,10 +55,15 @@
           :feelingsMap="feelingsMapData"
         />
       </div>
-      <div class="home-company-charts-detailed justify-between row">
-        <div class="column">
-          <div class="row"></div>
-        </div>
+      <div
+        :class="{
+          'home-company-charts': true,
+          'justify-between': true,
+          'col-12': !mobile,
+          row: !mobile,
+          column: mobile,
+        }"
+      >
       </div>
     </q-page>
   </div>
