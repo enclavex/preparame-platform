@@ -132,8 +132,6 @@ export default {
         "reports/NPSSurveyAnswers"
       );
 
-      console.log(npsSurveyReport);
-
       const npsSurveyAnswers = npsSurveyReport.filter((npsSurvey) => {
         if (npsSurvey.user) {
           return npsSurvey.user.surveyAnswered;
@@ -164,7 +162,7 @@ export default {
 
       this.brandRisk = 10 - (brandRisk / npsSurveyAnswers.length).toFixed(2);
 
-      const users = npsSurveyAnswers.filter((employee) => {
+      const users = npsSurveyReport.filter((employee) => {
         return employee.userId;
       });
 
@@ -217,7 +215,7 @@ export default {
         }
 
         this.laborRiskData.forEach((laborRisk) => {
-          laborRisk.count = laborRisk.count / users.length;
+          laborRisk.count = laborRisk.count / npsSurveyAnswers.length;
         });
 
         if (Array.isArray(brandRisks)) {
@@ -244,7 +242,7 @@ export default {
         brandRisk.count = brandRisk.count / users.length;
       });
 
-      this.countEmployees = npsSurveyAnswers.length;
+      this.countEmployees = npsSurveyReport.length;
       this.countUsers = users.length;
       this.countRealocateds = realocateds.length;
       this.countLaborRiskAlerts = laborRiskAlerts.length;
