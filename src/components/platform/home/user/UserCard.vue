@@ -22,23 +22,13 @@
             <q-btn
               flat
               color="white"
-              label="Responder Pesquisa de Perfil"
+              label="Responder Pesquisa de Desligamento"
               class="col-12"
               @click="goUrl(`survey`)"
             />
           </div>
         </q-banner>
-        <q-banner v-if="!laborRiskAlert" rounded class="q-ma-sm text-white bg-negative">
-          <div class="user-card-banner-content row">
-            <q-btn
-              flat
-              color="white"
-              label="Preciso de conciliação de pendências trabalhistas"
-              class="col-12"
-              @click="laborRiskAlertDialog = true"
-            />
-          </div>
-        </q-banner>
+
         <q-banner
           rounded
           :class="{
@@ -64,6 +54,21 @@
             </div>
           </div>
         </q-banner>
+        <q-banner
+          v-if="!laborRiskAlert"
+          rounded
+          class="q-ma-sm text-white bg-negative"
+        >
+          <div class="user-card-banner-content row">
+            <q-btn
+              flat
+              color="white"
+              label="Preciso de ajuda com pendências trabalhistas"
+              class="col-12"
+              @click="laborRiskAlertDialog = true"
+            />
+          </div>
+        </q-banner>
       </q-card-section>
     </q-card>
     <q-dialog v-model="laborRiskAlertDialog">
@@ -72,8 +77,8 @@
           <div class="row q-mt-sm">
             <div class="crud-title">
               Ao clicar em confirmar, entraremos em contato para esclarecer
-              melhor os problemas trabalhistas quem você venha a ter com a sua
-              última empresa.
+              melhor suas pendências ou dúvidas trabalhistas com sua última
+              empresa.
             </div>
           </div>
         </q-card-section>
@@ -141,7 +146,7 @@ export default {
           message: "Conversa sobre conciliação solicitada.",
         });
 
-        this.laborRiskAlert = true
+        this.laborRiskAlert = true;
       }
     },
   },
