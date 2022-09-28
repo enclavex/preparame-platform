@@ -34,7 +34,7 @@ export default {
     };
   },
   mounted() {
-    this.npsPercent = this.nps * 10;
+    this.npsPercent = (this.nps * 10).toFixed(2);
   },
 };
 </script>

@@ -63,8 +63,7 @@
           row: !mobile,
           column: mobile,
         }"
-      >
-      </div>
+      ></div>
     </q-page>
   </div>
 </template>
@@ -133,8 +132,12 @@ export default {
         "reports/NPSSurveyAnswers"
       );
 
+      console.log(npsSurveyReport);
+
       const npsSurveyAnswers = npsSurveyReport.filter((npsSurvey) => {
-        return npsSurvey.user.surveyAnswered;
+        if (npsSurvey.user) {
+          return npsSurvey.user.surveyAnswered;
+        }
       });
 
       let npsTotal = npsSurveyAnswers.reduce((npsTotal, employee) => {

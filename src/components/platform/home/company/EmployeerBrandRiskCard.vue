@@ -42,7 +42,7 @@ export default {
     };
   },
   mounted() {
-    this.employeerBrandRiskPercent = this.employeerBrandRisk * 10;
+    this.employeerBrandRiskPercent = (this.employeerBrandRisk * 10).toFixed(2);
   },
 };
 </script>

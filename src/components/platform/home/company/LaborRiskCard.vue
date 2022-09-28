@@ -36,7 +36,7 @@ export default {
     };
   },
   mounted() {
-    this.laborRiskPercent = this.laborRisk * 10;
+    this.laborRiskPercent = (this.laborRisk * 10).toFixed(2);
   },
 };
 </script>

@@ -36,7 +36,7 @@ export default {
     };
   },
   mounted() {
-    this.realocatedPercent = (this.realocateds / this.totalUsers) * 100;
+    this.realocatedPercent = ((this.realocateds / this.totalUsers) * 100).toFixed(2);
   },
 };
 </script>

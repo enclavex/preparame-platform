@@ -44,7 +44,7 @@ export default {
   },
   mounted() {
     this.registeredEmployeesPercent =
-      (this.registeredEmployees / this.totalEmployees) * 100;
+      ((this.registeredEmployees / this.totalEmployees) * 100).toFixed(2);
   },
 };
 </script>

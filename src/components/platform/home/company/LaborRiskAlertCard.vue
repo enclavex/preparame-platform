@@ -36,7 +36,7 @@ export default {
     };
   },
   mounted() {
-    this.laborRiskAlertsPercent = (this.laborRiskAlerts / this.totalUsers) * 100;
+    this.laborRiskAlertsPercent = ((this.laborRiskAlerts / this.totalUsers) * 100).toFixed(2);
   },
 };
 </script>
