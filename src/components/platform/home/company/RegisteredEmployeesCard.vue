@@ -51,7 +51,7 @@ export default {
 
 <style lang="scss">
 .home-company-registered-employees-card {
-  width: 15vw;
+  width: 17vw;
   height: 20vh;
 }
 

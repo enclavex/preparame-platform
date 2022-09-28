@@ -49,7 +49,7 @@ export default {
 
 <style lang="scss">
 .home-company-employeer-brand-risk-card {
-  width: 15vw;
+  width: 18vw;
   height: 20vh;
 }
 

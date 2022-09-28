@@ -43,7 +43,7 @@ export default {
 
 <style lang="scss">
 .home-company-realocated-card {
-  width: 15vw;
+  width: 18vw;
   height: 20vh;
 }
 

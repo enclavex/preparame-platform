@@ -4,7 +4,7 @@
       <div
         :class="{
           'home-company-charts': true,
-          'justify-around': true,
+          'justify-between': true,
           'col-12': !mobile,
           row: !mobile,
           column: mobile,
@@ -13,33 +13,31 @@
         <NpsCard
           v-if="dashboardsLoaded"
           :nps="nps"
-          :class="{ 'col-2': !mobile }"
         ></NpsCard>
         <EmployeerBrandRiskCard
           v-if="dashboardsLoaded"
-          :class="{ 'col-2': !mobile }"
           :employeerBrandRisk="brandRisk"
         ></EmployeerBrandRiskCard>
         <LaborRiskCard
           v-if="dashboardsLoaded"
-          :class="{ 'col-2': !mobile }"
           :laborRisk="laborRisk"
         ></LaborRiskCard>
         <RealocatedsCard
           v-if="dashboardsLoaded"
-          :class="{ 'col-2': !mobile }"
           :realocateds="countRealocateds"
           :totalUsers="countUsers"
         ></RealocatedsCard>
         <RegisteredEmployeesCard
           v-if="dashboardsLoaded"
-          :class="{ 'col-2': !mobile }"
           :registeredEmployees="countUsers"
           :totalEmployees="countEmployees"
         >
         </RegisteredEmployeesCard>
-      </div>
-      <div class="home-company-charts-detailed justify-around row q-gutter-md">
+        <LaborRiskAlertCard
+          v-if="dashboardsLoaded"
+          :laborRiskAlerts="countLaborRiskAlerts"
+          :totalUsers="countUsers"
+        ></LaborRiskAlertCard>
         <LaborRiskDetailedCard
           v-if="dashboardsLoaded"
           :class="{ 'col-4': !mobile }"
@@ -51,6 +49,11 @@
           :feelingsMap="feelingsMapData"
         />
       </div>
+      <div class="home-company-charts-detailed justify-between row">
+        <div class="column">
+          <div class="row"></div>
+        </div>
+      </div>
     </q-page>
   </div>
 </template>
@@ -61,6 +64,7 @@ import { filterCrud } from "./../../general/crud/utils/filterCrud";
 import NpsCard from "./company/NpsCard.vue";
 import EmployeerBrandRiskCard from "./company/EmployeerBrandRiskCard.vue";
 import LaborRiskCard from "./company/LaborRiskCard.vue";
+import LaborRiskAlertCard from "./company/LaborRiskAlertCard.vue";
 import RealocatedsCard from "./company/RealocatedsCard.vue";
 import RegisteredEmployeesCard from "./company/RegisteredEmployeesCard.vue";
 import FeelingsMapCard from "./company/FeelingsMapCard.vue";
@@ -75,6 +79,7 @@ export default {
     RegisteredEmployeesCard,
     FeelingsMapCard,
     LaborRiskDetailedCard,
+    LaborRiskAlertCard,
   },
   data() {
     return {
@@ -84,6 +89,7 @@ export default {
       countUsers: 0,
       countEmployees: 0,
       countRealocateds: 0,
+      countLaborRiskAlerts: 0,
       dashboardsLoaded: false,
       feelingsMapData: [],
       laborRiskData: [],
@@ -152,6 +158,10 @@ export default {
         return user.user.realocated == "REALOCATED";
       });
 
+      const laborRiskAlerts = users.filter((user) => {
+        return user.user.laborRiskAlert == "ALERT";
+      });
+
       users.forEach((user) => {
         const feelingsMap = JSON.parse(user.user.feelingsMapJSON);
         const laborRisks = JSON.parse(user.user.laborRiskJSON);
@@ -193,7 +203,7 @@ export default {
         }
 
         this.laborRiskData.forEach((laborRisk) => {
-          laborRisk.count = (laborRisk.count / users.length);
+          laborRisk.count = laborRisk.count / users.length;
         });
 
         if (Array.isArray(brandRisks)) {
@@ -223,6 +233,7 @@ export default {
       this.countEmployees = npsSurveyAnswers.length;
       this.countUsers = users.length;
       this.countRealocateds = realocateds.length;
+      this.countLaborRiskAlerts = laborRiskAlerts.length;
       this.dashboardsLoaded = true;
     },
   },
