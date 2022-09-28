@@ -193,7 +193,7 @@ export default {
         }
 
         this.laborRiskData.forEach((laborRisk) => {
-          laborRisk.count = laborRisk.count / users.length;
+          laborRisk.count = (laborRisk.count / users.length).toFixed(2);
         });
 
         if (Array.isArray(brandRisks)) {

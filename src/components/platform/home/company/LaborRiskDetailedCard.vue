@@ -4,7 +4,7 @@
       <div class="home-company-labor-risk-detailed-card-info-container">
         <q-card-section class="home-company-labor-risk-detailed-card-title">
           <h4>Pesquisa de Desligamento</h4>
-          <h6>Perguntas de 1 a 10</h6>
+          <h6>Notas de 1 a 10</h6>
         </q-card-section>
       </div>
       <Column v-if="showChart" :data="laborRiskDataChartConverted" :height="380" />
