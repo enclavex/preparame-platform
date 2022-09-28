@@ -10,7 +10,7 @@
           >Risco Trabalhista</q-card-section
         >
         <q-card-section class="home-company-labor-risk-card-nps">{{
-          laborRisk
+          laborRiskShow
         }}</q-card-section>
       </div>
     </div>
@@ -33,10 +33,12 @@ export default {
   data() {
     return {
       laborRiskPercent: 0,
+      laborRiskShow: 0,
     };
   },
   mounted() {
-    this.laborRiskPercent = (this.laborRisk * 10).toFixed(2);
+    this.laborRiskPercent = this.laborRisk * 10;
+    this.laborRiskShow = (this.laborRisk).toFixed(2)
   },
 };
 </script>
