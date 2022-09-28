@@ -72,7 +72,7 @@ export default {
 .home-company-registered-employees-card-registered-employees {
   color: $text-dark-grey;
   width: 100%;
-  font-size: 3rem;
+  font-size: 2rem;
   text-align: right;
   padding: 0;
   letter-spacing: 0;

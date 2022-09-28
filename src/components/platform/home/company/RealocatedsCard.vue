@@ -64,7 +64,7 @@ export default {
 .home-company-realocated-card-realocated {
   color: $text-dark-grey;
   width: 100%;
-  font-size: 3rem;
+  font-size: 2rem;
   text-align: right;
   padding: 0;
   letter-spacing: 0;

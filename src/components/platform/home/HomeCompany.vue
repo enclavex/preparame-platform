@@ -95,13 +95,13 @@ export default {
     loadNpsSurveyAnswers: async function () {
       let companyId = localStorage.getItem("companyId");
 
-      if (companyId === 'null') {
+      if (companyId === "null") {
         this.$q.notify({
           type: "error",
           message: "Nenhuma empresa selecionada para o usuário.",
         });
 
-        return
+        return;
       }
 
       const filters = [
@@ -192,16 +192,20 @@ export default {
           });
         }
 
+        this.laborRiskData.forEach((laborRisk) => {
+          laborRisk.count = laborRisk.count / users.length;
+        });
+
         if (Array.isArray(brandRisks)) {
           brandRisks.forEach((brandRiskMapped) => {
-            const findbrandRisk = this.brandRiskData.findIndex(
+            const findBrandRisk = this.brandRiskData.findIndex(
               (brandRiskInserted) => {
                 return brandRiskMapped.question == brandRiskInserted.question;
               }
             );
 
-            if (findbrandRisk >= 0) {
-              this.brandRiskData[findbrandRisk].count += brandRiskMapped.answer;
+            if (findBrandRisk >= 0) {
+              this.brandRiskData[findBrandRisk].count += brandRiskMapped.answer;
             } else {
               this.brandRiskData.push({
                 ...brandRiskMapped,
@@ -210,6 +214,10 @@ export default {
             }
           });
         }
+      });
+
+      this.brandRiskData.forEach((brandRisk) => {
+        brandRisk.count = brandRisk.count / users.length;
       });
 
       this.countEmployees = npsSurveyAnswers.length;

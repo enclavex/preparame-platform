@@ -81,7 +81,7 @@ export default {
         laborRiskJSON: this.laborRiskJSON,
       };
 
-      const userUpdated = await saveCrud("users", userUpdate, "put");
+      const userUpdated = await saveCrud("users/updateSurveyFields", userUpdate, "put");
 
       if (userUpdated.status == 204) {
         localStorage.setItem("surveyAnswered", "true");
@@ -359,7 +359,7 @@ export default {
         {
           index: 9,
           question:
-            "Os cálculos da rescisão estão corretos? (abrir por cálculo? Ex: horas extras, insalubridade, FGTS, férias, etc)",
+            "Os cálculos da rescisão estão corretos?",
           answer: -1,
           options: ["Não", "Sim"],
           type: "YesNo",

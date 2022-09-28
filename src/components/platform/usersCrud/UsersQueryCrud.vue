@@ -141,6 +141,30 @@ export default {
               value: "",
             },
           ],
+        },
+        laborRiskAlert: {
+          label: "Alerta de Risco Trabalhista",
+          name: "laborRiskAlert",
+          size: "3",
+          row: 3,
+          col: 1,
+          model: "",
+          type: "Select",
+          visible: true,
+          options: [
+            {
+              label: "Alerta",
+              value: "ALERT",
+            },
+            {
+              label: "Normal",
+              value: "NORMAL",
+            },
+            {
+              label: "Todos",
+              value: "",
+            },
+          ],
         }
       },
       columns: [
@@ -189,6 +213,14 @@ export default {
           align: "left",
           label: "Realocado",
           field: "realocated.label",
+          sortable: true,
+          visible: true,
+        },
+        {
+          name: "laborRiskAlert",
+          align: "left",
+          label: "Alerta de Risco Trabalhista",
+          field: "laborRiskAlert.label",
           sortable: true,
           visible: true,
         },

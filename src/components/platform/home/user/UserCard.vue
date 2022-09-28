@@ -16,7 +16,7 @@
         <q-banner
           v-if="!surveyAnswered"
           rounded
-          class="q-ma-sm text-white bg-prepara-me "
+          class="q-ma-sm text-white bg-prepara-me"
         >
           <div class="user-card-banner-content row">
             <q-btn
@@ -25,6 +25,17 @@
               label="Responder Pesquisa de Perfil"
               class="col-12"
               @click="goUrl(`survey`)"
+            />
+          </div>
+        </q-banner>
+        <q-banner v-if="!laborRiskAlert" rounded class="q-ma-sm text-white bg-negative">
+          <div class="user-card-banner-content row">
+            <q-btn
+              flat
+              color="white"
+              label="Preciso de conciliação de pendências trabalhistas"
+              class="col-12"
+              @click="laborRiskAlertDialog = true"
             />
           </div>
         </q-banner>
@@ -55,17 +66,44 @@
         </q-banner>
       </q-card-section>
     </q-card>
+    <q-dialog v-model="laborRiskAlertDialog">
+      <q-card style="min-width: 350px">
+        <q-card-section>
+          <div class="row q-mt-sm">
+            <div class="crud-title">
+              Ao clicar em confirmar, entraremos em contato para esclarecer
+              melhor os problemas trabalhistas quem você venha a ter com a sua
+              última empresa.
+            </div>
+          </div>
+        </q-card-section>
+
+        <q-card-actions align="right" class="text-primary">
+          <q-btn label="Cancelar" color="negative" v-close-popup />
+          <q-btn
+            label="Confirmar"
+            color="primary"
+            @click="laborRiskAlertUpdate()"
+            v-close-popup
+          />
+        </q-card-actions>
+      </q-card>
+    </q-dialog>
   </div>
 </template>
 
 <script>
+import { saveCrud } from "./../../../general/crud/utils/saveCrud.js";
+
 export default {
   props: ["products"],
   data() {
     return {
       userAvatarUrl: "",
       userName: "",
-      surveyAnswered: false
+      surveyAnswered: false,
+      laborRiskAlertDialog: false,
+      laborRiskAlert: false,
     };
   },
   created() {
@@ -76,10 +114,35 @@ export default {
   mounted() {
     this.surveyAnswered =
       localStorage.getItem("surveyAnswered") == "true" ? true : false;
+
+    this.laborRiskAlert =
+      localStorage.getItem("laborRiskAlert") == "ALERT" ? true : false;
   },
   methods: {
     goUrl: function (url) {
       this.$router.push({ path: `/${url}` });
+    },
+    laborRiskAlertUpdate: async function () {
+      const userUpdate = {
+        laborRiskAlert: "ALERT",
+      };
+
+      const userUpdated = await saveCrud(
+        "users/updateLaborRiskAlert",
+        userUpdate,
+        "put"
+      );
+
+      if (userUpdated.status == 204) {
+        localStorage.setItem("laborRiskAlert", "ALERT");
+
+        this.$q.notify({
+          type: "success",
+          message: "Conversa sobre conciliação solicitada.",
+        });
+
+        this.laborRiskAlert = true
+      }
     },
   },
 };
