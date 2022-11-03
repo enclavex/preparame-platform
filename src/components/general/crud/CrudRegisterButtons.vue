@@ -77,7 +77,7 @@ export default {
       this.onReset();
     },
     onReset: function () {
-      this.$router.push({ path: this.$parent.$parent.$parent.editUrl });
+      window.location.reload();
     },
   },
 };

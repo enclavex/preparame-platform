@@ -30,6 +30,38 @@
         </q-banner>
 
         <q-banner
+          v-if="interviewSimulator"
+          rounded
+          class="q-ma-sm text-white bg-prepara-me"
+        >
+          <div class="user-card-banner-content row">
+            <q-btn
+              flat
+              color="white"
+              label="Simulador de Entrevistas"
+              class="col-12"
+              @click="goUrl(`interviewSimulatorPresentation`)"
+            />
+          </div>
+        </q-banner>
+
+        <q-banner
+          v-if="simulator"
+          rounded
+          class="q-ma-sm text-white bg-prepara-me"
+        >
+          <div class="user-card-banner-content row">
+            <q-btn
+              flat
+              color="white"
+              label="Usar Simulador de Entrevistas"
+              class="col-12"
+              @click="goUrl(`interviewSimulatorPresentation`)"
+            />
+          </div>
+        </q-banner>
+
+        <q-banner
           rounded
           :class="{
             'q-ma-sm': true,
@@ -101,7 +133,7 @@
 import { saveCrud } from "./../../../general/crud/utils/saveCrud.js";
 
 export default {
-  props: ["products"],
+  props: ["products", "interviewSimulator"],
   data() {
     return {
       userAvatarUrl: "",
@@ -109,6 +141,7 @@ export default {
       surveyAnswered: false,
       laborRiskAlertDialog: false,
       laborRiskAlert: false,
+      simulator: false,
     };
   },
   created() {
@@ -122,6 +155,15 @@ export default {
 
     this.laborRiskAlert =
       localStorage.getItem("laborRiskAlert") == "ALERT" ? true : false;
+
+    const createdAt = new Date(localStorage.getItem("createdAt"));
+    const actualDate = new Date();
+
+    const dayDiff = parseInt(
+      ((actualDate - createdAt) / 1000 / 60 / 60 / 24).toFixed(0)
+    );
+
+    this.simulator = dayDiff <= 70;
   },
   methods: {
     goUrl: function (url) {

@@ -58,7 +58,7 @@ export default {
 
 <style lang="scss">
 .platform-content {
-  background-color: #fafafa;
+  background-color: #f5f6fa;
   font-family: "Nunito";
   font-style: normal;
 }

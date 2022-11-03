@@ -4,11 +4,11 @@
       v-if="menuList.length > 0"
       v-model="drawerController"
       show-if-above
-      :width="200"
-      :breakpoint="500"
+      :width="300"
+      :breakpoint="100"
       bordered
       overlay
-      content-class="bg-grey-3"
+      content-class="side-nav-menu"
     >
       <q-scroll-area class="fit">
         <q-list>
@@ -16,9 +16,9 @@
             <q-item
               :key="index"
               clickable
-              :active="menuItem.label === 'Outbox'"
               v-ripple
               @click="goUrl(menuItem.url)"
+              class="side-nav-menu-item"
             >
               <q-item-section avatar>
                 <q-icon :name="menuItem.icon"></q-icon>
@@ -107,7 +107,7 @@ const menu = {
   },
   COMPANY_ADMIN: {
     menuList: [],
-  }
+  },
 };
 
 export default {
@@ -141,8 +141,8 @@ export default {
 
 <style lang="scss">
 .side-nav-menu {
-  max-width: 200px;
   height: 100%;
+  background-color: #fff;
 }
 
 .side-nav-menu-list {
@@ -150,4 +150,38 @@ export default {
   font-style: normal;
   height: 100%;
 }
+
+.side-nav-menu-item {
+  font-family: "Nunito";
+  font-weight: 700;
+  background-color: #fff;
+  color: #454545;
+  transition: all 0.1s ease;
+  border-right: 10px solid transparent;
+}
+
+.side-nav-menu-item:hover {
+  background: rgb(210, 212, 234);
+  background: linear-gradient(
+    90deg,
+    rgba(210, 212, 234, 1) 0%,
+    rgba(217, 219, 241, 1) 100%
+  );
+  border-right: 10px solid #c1c3d6;
+}
+
+.side-nav-menu-item:hover > .q-item__section > .q-icon {
+  background: #1a27b7;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.side-nav-menu-item:hover > .q-item__section {
+  background: linear-gradient(90deg, #1a27b7 0%, #ff4690 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
 </style>

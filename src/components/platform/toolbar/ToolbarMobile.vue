@@ -1,8 +1,15 @@
 <template>
   <div id="q-app" class="platform-toolbar">
-    <q-header elevated class="bg-primary">
+    <q-header elevated class="platform-toolbar-header">
       <q-toolbar>
-        <q-btn v-if="userType != 'USER'" flat @click="toogleMenu()" round dense icon="menu"></q-btn>
+        <q-btn
+          v-if="userType != 'USER'"
+          flat
+          @click="toogleMenu()"
+          round
+          dense
+          icon="menu"
+        ></q-btn>
         <q-toolbar-title>Prepara.me</q-toolbar-title>
         <q-btn-dropdown stretch flat label="Perfil">
           <q-list class="toolbar-perfil">
@@ -22,7 +29,7 @@
                 <q-icon color="icon" name="mdi-logout-variant"></q-icon>
               </q-item-section>
               <q-item-section>
-                <q-item-label >Sair</q-item-label>
+                <q-item-label>Sair</q-item-label>
               </q-item-section>
             </q-item>
           </q-list>
@@ -38,7 +45,7 @@ export default {
     return {
       userAvatarUrl: "",
       userName: "",
-      userType: ""
+      userType: "",
     };
   },
   methods: {
@@ -64,9 +71,19 @@ export default {
 };
 </script>
 
-<style>
- .q-menu {
+<style lang="scss">
+.q-menu {
   border-top-left-radius: 0;
   border-top-right-radius: 0;
+}
+
+.platform-toolbar-header {
+  background-color: #fff;
+  color: $text-grey;
+}
+
+.q-toolbar__title {
+  color: $prepara-me-blue;
+  font-weight: 700;
 }
 </style>

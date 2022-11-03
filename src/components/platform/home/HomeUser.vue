@@ -2,7 +2,7 @@
   <div id="q-app" class="home-user">
     <q-page>
       <div :class="{ row: !mobile }">
-        <UserCard v-if="loadUserCard" class="col-3" :products="products" />
+        <UserCard v-if="loadUserCard" class="col-3" :products="products" :interviewSimulator="interviewSimulator"/>
         <Schedule :homeType="'USER'" class="col-8" />
       </div>
     </q-page>
@@ -21,6 +21,7 @@ export default {
       products: [],
       loadUserCard: false,
       mobile: false,
+      interviewSimulator: false
     };
   },
   components: {
@@ -51,6 +52,10 @@ export default {
     });
 
     this.loadUserCard = true;
+
+    this.interviewSimulator = ((new Date() - new Date(localStorage.getItem("createdAt")))/1000/60/60/24) <= 7
+
+    console.log(this.interviewSimulator)
   },
   methods: {
     goUrl: function (url) {

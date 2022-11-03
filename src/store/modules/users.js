@@ -11,7 +11,6 @@ export default ({
             state.user = user
             state.auth = !user
 
-            console.log(user.user)
             if (user) {
                 localStorage.setItem('token', user.token);
                 localStorage.setItem('refresh_token', user.refresh_token);
@@ -23,6 +22,7 @@ export default ({
                 localStorage.setItem('surveyAnswered', user.user.surveyAnswered);
                 localStorage.setItem('laborRiskAlert', user.user.laborRiskAlert.value);
                 localStorage.setItem('companyId', user.user.companyId);
+                localStorage.setItem('createdAt', user.user.created_at);
 
             } else {
                 delete axios.defaults.headers.common["Authorization"]

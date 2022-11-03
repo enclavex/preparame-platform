@@ -22,7 +22,7 @@ export default {
   data: () => {
     return {
       registerType: "unique",
-      editUrl: "/simulatorVideosGroups",
+      editUrl: "/products/simulatorVideosGroup",
       tables: {
         mainTable: {
           id: null,
