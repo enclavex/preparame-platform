@@ -140,8 +140,12 @@ export default {
 
       var video = document.querySelector("video");
 
-      video.load();
-      video.play();
+      setTimeout(function () {
+        video.pause();
+
+        video.load();
+        video.play();
+      }, 250);
 
       this.calculatePercent();
     },
