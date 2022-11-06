@@ -107,8 +107,6 @@ export default {
     return {
       simulatorVideos: [],
       showTip: false,
-      video:
-        "https://preparame-backend.s3.sa-east-1.amazonaws.com/videos/Alguma+vez+algum+colega+de+trabalho+ou+funcion%C3%A1rio+j%C3%A1+fez+ou+disse+algo+incorreto+ou+enganoso+Como+voc%C3%AA+lidou+com+isso.mp4",
       interviewPercent: 0,
       videoNumber: 0,
       mobile: false,
@@ -139,6 +137,11 @@ export default {
       if (this.videoNumber + 1 < this.simulatorVideos.length) {
         this.videoNumber = this.videoNumber + 1;
       }
+
+      var video = document.querySelector("video");
+
+      video.load();
+      video.play();
 
       this.calculatePercent();
     },
