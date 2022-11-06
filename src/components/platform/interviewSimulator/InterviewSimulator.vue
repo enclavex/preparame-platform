@@ -131,6 +131,15 @@ export default {
     async loadVideos() {
       this.simulatorVideos = await filterCrud([], "products/simulatorVideos");
 
+      var video = document.querySelector("video");
+
+      setTimeout(function () {
+        video.pause();
+
+        video.load();
+        video.play();
+      }, 250);
+      
       this.calculatePercent();
     },
     nextVideo() {
@@ -153,6 +162,15 @@ export default {
       if (this.videoNumber > 0) {
         this.videoNumber = this.videoNumber - 1;
       }
+
+      var video = document.querySelector("video");
+
+      setTimeout(function () {
+        video.pause();
+
+        video.load();
+        video.play();
+      }, 250);
 
       this.calculatePercent();
     },
