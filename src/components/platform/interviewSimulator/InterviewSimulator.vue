@@ -1,5 +1,9 @@
 <template>
-  <div v-if="simulatorVideos.length > 0" class="interview-simulator column">
+  <div
+    v-if="simulatorVideos.length > 0"
+    :class="{ 'interview-simulator': true, column: !mobile }"
+  >
+    <Breadcrumbs :breadcrumbs="breadcrumbs" />
     <q-card-section class="interview-simulator-card-progress-bar-container row">
       <div class="interview-simulator-progress-bar-container col-12">
         <div
@@ -27,20 +31,40 @@
       <q-btn
         outline
         label="ANTERIOR"
-        :class="{ 'interview-simulator-previous-btn': true }"
+        :class="{
+          'interview-simulator-previous-btn': true,
+          'interview-simulator-btn': true,
+        }"
         @click="priorVideo()"
       />
       <q-btn
+        v-if="!mobile"
         flat
         label="APOIO DE RESPOSTA"
-        :class="{ 'interview-simulator-tip-btn': true }"
+        :class="{
+          'interview-simulator-tip-btn': true,
+          'interview-simulator-btn': true,
+        }"
         @click="showTipDialog()"
       />
       <q-btn
         flat
         label="PRÓXIMA"
-        :class="{ 'interview-simulator-next-btn': true }"
+        :class="{
+          'interview-simulator-next-btn': true,
+          'interview-simulator-btn': true,
+        }"
         @click="nextVideo()"
+      />
+      <q-btn
+        v-if="mobile"
+        flat
+        label="APOIO DE RESPOSTA"
+        :class="{
+          'interview-simulator-tip-btn': true,
+          'interview-simulator-btn': true,
+        }"
+        @click="showTipDialog()"
       />
     </div>
     <q-dialog v-model="showTip">
@@ -72,16 +96,32 @@
 </template>
 
 <script>
+import Breadcrumbs from "../../general/Breacrumbs.vue";
 import { filterCrud } from "./../../general/crud/utils/filterCrud";
 
 export default {
+  components: {
+    Breadcrumbs,
+  },
   data() {
     return {
       simulatorVideos: [],
       showTip: false,
-      video: require("./../../../assets/videos/1.mp4"),
+      video:
+        "https://preparame-backend.s3.sa-east-1.amazonaws.com/videos/Alguma+vez+algum+colega+de+trabalho+ou+funcion%C3%A1rio+j%C3%A1+fez+ou+disse+algo+incorreto+ou+enganoso+Como+voc%C3%AA+lidou+com+isso.mp4",
       interviewPercent: 0,
       videoNumber: 0,
+      mobile: false,
+      breadcrumbs: [
+        {
+          title: "Apresentação do Simulador de Entrevistas",
+          to: "interviewSimulatorPresentation",
+        },
+        {
+          title: "Simulador de Entrevistas",
+          to: "",
+        },
+      ],
     };
   },
   methods: {
@@ -93,46 +133,52 @@ export default {
     async loadVideos() {
       this.simulatorVideos = await filterCrud([], "products/simulatorVideos");
 
-      this.calculatePercent()
+      this.calculatePercent();
     },
     nextVideo() {
       if (this.videoNumber + 1 < this.simulatorVideos.length) {
         this.videoNumber = this.videoNumber + 1;
       }
 
-      this.calculatePercent()
+      this.calculatePercent();
     },
     priorVideo() {
       if (this.videoNumber > 0) {
         this.videoNumber = this.videoNumber - 1;
       }
 
-      this.calculatePercent()
+      this.calculatePercent();
     },
     calculatePercent() {
-      this.interviewPercent = ((this.videoNumber + 1) / this.simulatorVideos.length) * 100
-    }
+      this.interviewPercent =
+        ((this.videoNumber + 1) / this.simulatorVideos.length) * 100;
+    },
   },
   created() {
     this.loadVideos();
+  },
+  mounted() {
+    this.mobile = window.mobileAndTabletCheck();
   },
 };
 </script>
 
 <style lang="scss">
 .interview-simulator {
-  height: 100vh;
-  padding: 40px;
+  height: 95vh;
+  padding: 0 40px 0 40px;
 }
 
 .interview-simulator-video-title {
-  text-align: center;
+  position: relative;
+  text-align: left;
   padding: 20px 0 0 0;
   font-size: 2rem;
   font-family: "nunito";
   text-transform: uppercase;
   color: $prepara-me-blue;
   font-weight: 700;
+  margin: auto;
 }
 
 .interview-simulator-video {
@@ -142,27 +188,26 @@ export default {
 }
 
 .interview-simulator-control {
-  height: 15vh;
+  height: 10vh;
+}
+
+.interview-simulator-btn {
+  height: 50px;
+  width: 250px;
 }
 
 .interview-simulator-previous-btn {
   color: $prepara-me-blue;
-  height: 50px;
-  width: 250px;
 }
 
 .interview-simulator-next-btn {
   color: $text-white;
   background-color: $prepara-me-blue;
-  height: 50px;
-  width: 250px;
 }
 
 .interview-simulator-tip-btn {
   background: $prepara-me-gradient;
   color: $text-white;
-  height: 50px;
-  width: 250px;
 }
 
 .interview-simulator-tip-card {
@@ -220,6 +265,7 @@ export default {
 
 .interview-simulator-card-progress-bar-container {
   padding: 0;
+  margin-top: 20px;
 }
 
 .interview-simulator-progress-bar-container {
@@ -245,5 +291,55 @@ export default {
   right: 0;
   bottom: 0;
   background-image: linear-gradient(90deg, #1a27b7 0%, #ff4690 100%);
+}
+
+@media (orientation: portrait) {
+  .interview-simulator {
+    height: 92.5vh;
+    padding: 4vw;
+  }
+
+  .interview-simulator-video-title {
+    font-size: 1rem;
+  }
+
+  .interview-simulator-video {
+    height: 30vh;
+    width: 90vw;
+    margin: auto;
+  }
+
+  .interview-simulator-tip-card {
+    padding: 50px 0 0 0;
+  }
+
+  .interview-simulator-tip-card-title {
+    font-size: 1rem;
+  }
+
+  .interview-simulator-tip-card-tip {
+    font-size: 0.8rem;
+    top: 4vh;
+  }
+
+  .interview-simulator-tip-card-btn {
+    font-size: 0.8rem;
+    height: 40px;
+    width: 200px;
+  }
+
+  .interview-simulator-tip-card-logo {
+    height: 15vw;
+    width: 15vw;
+    border-radius: 15vw !important;
+    top: -6vh;
+  }
+
+  .interview-simulator-btn {
+    height: 40px;
+    width: 150px;
+    font-size: 0.7rem;
+    margin: 10px 0 10px 0;
+  }
 }
 </style>
