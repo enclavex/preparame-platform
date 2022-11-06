@@ -24,7 +24,7 @@
       controlsList="nodownload"
       oncontextmenu="return false;"
     >
-      <source :src="video" type="video/mp4" />
+      <source :src="simulatorVideos[videoNumber].linkVideo" type="video/mp4" />
       Your browser does not support the video tag.
     </video>
     <div class="interview-simulator-control row justify-around">
