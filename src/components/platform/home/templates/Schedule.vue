@@ -43,7 +43,7 @@ export default {
     const dateEnd = new Date();
 
     dateBegin.setDate(dateBegin.getDate() - 1);
-    dateEnd.setDate(dateEnd.getDate() + 7);
+    dateEnd.setDate(dateEnd.getDate() + 14);
 
     const filters = [
       {
