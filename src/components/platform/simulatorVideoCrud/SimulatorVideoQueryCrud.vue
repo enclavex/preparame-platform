@@ -58,6 +58,14 @@ export default {
           visible: true,
         },
         {
+          name: "order",
+          label: "Ordem",
+          align: "right",
+          field: "order",
+          sortable: true,
+          visible: true,
+        },
+        {
           name: "linkVideo",
           label: "Link",
           align: "left",

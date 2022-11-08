@@ -85,6 +85,14 @@ export default {
           visible: true,
         },
         {
+          name: "order",
+          align: "right",
+          label: "Ordem",
+          field: "order",
+          sortable: true,
+          visible: true,
+        },
+        {
           name: "actions",
           label: "Ações",
           align: "center",

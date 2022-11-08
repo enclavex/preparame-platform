@@ -14,6 +14,9 @@
         ></div>
       </div>
     </q-card-section>
+    <div class="interview-simulator-video-subtitle">
+      {{ simulatorVideosGroup[videoGroupNumber].name }}
+    </div>
     <div class="interview-simulator-video-title">
       {{ simulatorVideos[videoNumber].question }}
     </div>
@@ -30,7 +33,7 @@
     <div class="interview-simulator-control row justify-around">
       <q-btn
         outline
-        label="ANTERIOR"
+        :label="'ANTERIOR'"
         :class="{
           'interview-simulator-previous-btn': true,
           'interview-simulator-btn': true,
@@ -49,12 +52,23 @@
       />
       <q-btn
         flat
-        label="PRÓXIMA"
+        :label="
+          videoNumber + 1 == simulatorVideos.length
+            ? videoGroupNumber + 1 == simulatorVideosGroup.length
+              ? 'FINALIZAR ENTREVISTA'
+              : 'FINALIZAR GRUPO'
+            : 'PRÓXIMA'
+        "
         :class="{
           'interview-simulator-next-btn': true,
           'interview-simulator-btn': true,
         }"
-        @click="nextVideo()"
+        @click="
+          videoNumber + 1 == simulatorVideos.length &&
+          videoGroupNumber + 1 == simulatorVideosGroup.length
+            ? showEndInterviewDialog()
+            : nextVideo()
+        "
       />
       <q-btn
         v-if="mobile"
@@ -86,7 +100,55 @@
             <q-btn
               label="Estou Pronto"
               :class="{ 'interview-simulator-tip-card-btn': true }"
-              @click="showTip = false"
+              @click="closeTipDialog()"
+            />
+          </q-card-actions>
+        </q-card>
+      </q-card>
+    </q-dialog>
+    <q-dialog v-model="showQuestionNextGroup">
+      <q-card flat class="interview-simulator-tip-card">
+        <q-card class="interview-simulator-tip-card-background">
+          <div class="interview-simulator-tip-card-logo"></div>
+          <div class="interview-simulator-tip-card-title">
+            Você finalizou parte da entrevista!
+          </div>
+
+          <q-card-section class="q-pt-none">
+            <div class="interview-simulator-tip-card-tip">
+              Deseja continuar e seguir para as próximas questões?
+            </div>
+          </q-card-section>
+
+          <q-card-actions align="right">
+            <q-btn
+              label="Estou Pronto"
+              :class="{ 'interview-simulator-tip-card-btn': true }"
+              @click="nextGroup()"
+            />
+          </q-card-actions>
+        </q-card>
+      </q-card>
+    </q-dialog>
+    <q-dialog v-model="showEndInterview">
+      <q-card flat class="interview-simulator-tip-card">
+        <q-card class="interview-simulator-tip-card-background">
+          <div class="interview-simulator-tip-card-logo"></div>
+          <div class="interview-simulator-tip-card-title">
+            Você finalizou a nossa entrevista!
+          </div>
+
+          <q-card-section class="q-pt-none">
+            <div class="interview-simulator-tip-card-tip">
+              Parabéns por chegar até aqui, continue a praticar para atingir a excelência.
+            </div>
+          </q-card-section>
+
+          <q-card-actions align="right">
+            <q-btn
+              label="Finalizar"
+              :class="{ 'interview-simulator-tip-card-btn': true }"
+              @click="endInterview()"
             />
           </q-card-actions>
         </q-card>
@@ -106,9 +168,13 @@ export default {
   data() {
     return {
       simulatorVideos: [],
+      simulatorVideosGroup: [],
       showTip: false,
+      showQuestionNextGroup: false,
+      showEndInterview: false,
       interviewPercent: 0,
       videoNumber: 0,
+      videoGroupNumber: 0,
       mobile: false,
       breadcrumbs: [
         {
@@ -124,62 +190,116 @@ export default {
   },
   methods: {
     showTipDialog: function () {
+      this.pauseVideo();
+
       this.showTip = true;
 
       this.loadTip();
     },
+    closeTipDialog: function () {
+      this.playVideo();
+
+      this.showTip = false;
+    },
+    async showEndInterviewDialog() {
+      this.showEndInterview = true
+    },
+    async endInterview() {
+      this.$router.push({ path: `/platform` });
+    },
+    async loadGroupVideos() {
+      this.simulatorVideosGroup = await filterCrud(
+        [],
+        "products/simulatorVideosGroup"
+      );
+    },
     async loadVideos() {
-      this.simulatorVideos = await filterCrud([], "products/simulatorVideos");
+      const filters = [
+        {
+          name: "simulatorVideosGroupId",
+          model: this.simulatorVideosGroup[this.videoGroupNumber].id,
+        },
+      ];
 
-      var video = document.querySelector("video");
+      this.simulatorVideos = await filterCrud(
+        filters,
+        "products/simulatorVideos"
+      );
 
-      setTimeout(function () {
-        video.pause();
-
-        video.load();
-        video.play();
-      }, 250);
-      
+      this.startVideo();
       this.calculatePercent();
+    },
+    nextGroup() {
+      this.videoGroupNumber = this.videoGroupNumber + 1;
+
+      this.loadVideos();
+
+      this.videoNumber = 0;
+      this.showQuestionNextGroup = false;
     },
     nextVideo() {
       if (this.videoNumber + 1 < this.simulatorVideos.length) {
         this.videoNumber = this.videoNumber + 1;
+      } else {
+        if (this.videoGroupNumber + 1 < this.simulatorVideosGroup.length) {
+          this.pauseVideo();
+
+          this.showQuestionNextGroup = true;
+
+          return;
+        }
       }
 
-      var video = document.querySelector("video");
-
-      setTimeout(function () {
-        video.pause();
-
-        video.load();
-        video.play();
-      }, 250);
-
+      this.startVideo();
       this.calculatePercent();
     },
     priorVideo() {
       if (this.videoNumber > 0) {
         this.videoNumber = this.videoNumber - 1;
+      } else {
+        if (this.videoGroupNumber > 0) {
+          this.videoGroupNumber = this.videoGroupNumber - 1;
+
+          this.loadVideos();
+
+          this.videoNumber = this.simulatorVideos.length - 1;
+
+          return;
+        }
       }
 
+      this.startVideo();
+      this.calculatePercent();
+    },
+    startVideo() {
       var video = document.querySelector("video");
 
-      setTimeout(function () {
-        video.pause();
+      if (video) {
+        setTimeout(function () {
+          video.pause();
 
-        video.load();
-        video.play();
-      }, 250);
+          video.load();
+          video.play();
+        }, 250);
+      }
+    },
+    pauseVideo() {
+      var video = document.querySelector("video");
 
-      this.calculatePercent();
+      video.pause();
+    },
+    playVideo() {
+      var video = document.querySelector("video");
+
+      video.play();
     },
     calculatePercent() {
       this.interviewPercent =
         ((this.videoNumber + 1) / this.simulatorVideos.length) * 100;
     },
   },
-  created() {
+  async created() {
+    await this.loadGroupVideos();
     this.loadVideos();
   },
   mounted() {
@@ -204,6 +324,18 @@ export default {
   color: $prepara-me-blue;
   font-weight: 700;
   margin: auto;
+}
+
+.interview-simulator-video-subtitle {
+  position: relative;
+  text-align: left;
+  padding: 20px 0 0 0;
+  font-size: 1rem;
+  font-family: "nunito";
+  text-transform: uppercase;
+  color: $prepara-me-blue;
+  font-weight: 700;
+  margin: 0 auto;
 }
 
 .interview-simulator-video {
@@ -268,16 +400,16 @@ export default {
   width: 100%;
   font-family: "nunito";
   font-size: 2rem;
-  top: 4vh;
+  margin-top: 4vh;
   text-align: left;
   color: #1a27b7;
   padding-left: 20px;
+  padding-right: 20px;
 }
 
 .interview-simulator-tip-card-tip {
   position: relative;
   width: 100%;
-  top: 4vh;
 }
 
 .interview-simulator-tip-card-btn {

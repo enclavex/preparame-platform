@@ -6,6 +6,8 @@ import { urlQueryBuilder } from "./../../../../utils/urlQueryBuilder.js"
 async function filterCrud(filters, url, columns) {
     url = urlQueryBuilder(url, filters)
 
+    console.log(url, filters)
+
     const config = {
         headers: { authorization: `Bearer ${localStorage.getItem("token")}` },
     };
