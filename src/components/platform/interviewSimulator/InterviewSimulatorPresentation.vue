@@ -74,14 +74,16 @@ export default {
 
 .interview-simulator-presentation-header {
   position: relative;
-  width: 96%;
-  height: 30vh;
+  width: 96vw;
+  height: 50vh;
   background: linear-gradient(90deg, #dfe1f3 0%, #f6e9f2 100%);
-  margin: 0 auto 0 3vw;
+  margin: 0 auto 0 auto;
   top: 3vh;
   border-radius: 5px;
-  max-width: 1100px;
   padding: 15px;
+  display: flex;
+  flex-direction: row;
+  align-content: center;
 }
 
 .interview-simulator-presentation-header-title {

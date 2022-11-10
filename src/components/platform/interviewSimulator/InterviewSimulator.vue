@@ -310,25 +310,26 @@ export default {
 
 <style lang="scss">
 .interview-simulator {
-  height: 95vh;
+  height: 94vh;
   padding: 0 40px 0 40px;
 }
 
 .interview-simulator-video-title {
-  position: relative;
-  text-align: left;
-  padding: 20px 0 0 0;
-  font-size: 2rem;
+  width: 100%;
+  height: 5vh;
+  text-align: center;
+  padding: 20px 0 20px 0;
+  font-size: 1.5rem;
   font-family: "nunito";
   text-transform: uppercase;
   color: $prepara-me-blue;
   font-weight: 700;
-  margin: auto;
 }
 
 .interview-simulator-video-subtitle {
-  position: relative;
-  text-align: left;
+  width: 100%;
+  height: 3vh;
+  text-align: center;
   padding: 20px 0 0 0;
   font-size: 1rem;
   font-family: "nunito";
@@ -339,9 +340,10 @@ export default {
 }
 
 .interview-simulator-video {
-  height: 60vh;
+  position: relative;
+  height: 50vh;
   width: 50vw;
-  margin: auto;
+  margin: 20px auto;
 }
 
 .interview-simulator-control {
@@ -423,6 +425,7 @@ export default {
 .interview-simulator-card-progress-bar-container {
   padding: 0;
   margin-top: 20px;
+  height: 1vh;
 }
 
 .interview-simulator-progress-bar-container {
