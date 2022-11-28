@@ -13,78 +13,91 @@
       </div>
     </div>
     <hr />
-    <div
-      class="shopping-cart-total-btn-continue q-mt-xs"
-      @click="requestScheduleWhatsApp()"
-    >
-      Solicitar Via WhatsApp
-    </div>
-    <div
-      class="shopping-cart-total-btn-continue q-mt-sm bg-secondary"
-      @click="openScheduleEmail()"
-    >
-      Solicitar Via E-Mail
-    </div>
-    <q-dialog v-model="openSendEmail">
+    <q-btn
+      label="Comprar agora"
+      color="primary"
+      @click="requestLogin()"
+      :disable="!(items.length > 0)"
+    />
+    <q-dialog persistent v-model="openLogin">
+      <Login> </Login>
+    </q-dialog>
+    <q-dialog v-model="beforePayment">
       <q-card style="min-width: 350px">
         <q-card-section>
           <div class="row q-mt-sm">
-            <div class="text-h6 crud-title">
-              Insira suas informações para solicitar o agendamento dos produtos
-              selecionados.
+            <div class="text-h5 crud-title">Instruções para o pagamento</div>
+          </div>
+        </q-card-section>
+        <q-card-section>
+          <div class="row">
+            <div class="text-h6">
+              Após clicar em continuar, você será redirecionado para o site de
+              pagamentos. <br /><br />
+              Os produtos adquiridos estarão disponíveis dentro do ambiente da
+              nossa plataforma. <br /><br />
+              Caso encontrar algum problema referente ao pagamento entre em
+              contato conosco e informe o protocolo: {{ paymentOrderLink }}
+              <br /><br />
+              O protocolo poderá ser encontrado dentro da nossa plataforma no
+              menu "Pedidos".
             </div>
           </div>
         </q-card-section>
-
         <q-card-section>
-          <q-input
-            filled
-            color="secondary"
-            v-model="user.name"
-            :label="'Nome'"
-            dense
-            :class="`col-12 q-mb-sm q-mr-sm`"
-          >
-          </q-input>
-          <q-input
-            filled
-            color="secondary"
-            v-model="user.email"
-            :label="'E-Mail'"
-            dense
-            :class="`col-12 q-mb-sm q-mr-sm`"
-          >
-          </q-input>
+          <q-card-actions align="right" class="text-primary">
+            <q-btn label="Cancelar" color="negative" v-close-popup />
+            <q-btn
+              label="Continuar para pagamento"
+              color="primary"
+              @click="requestPagarMe()"
+              v-close-popup
+            />
+          </q-card-actions>
         </q-card-section>
-
-        <q-card-actions align="right" class="text-primary">
-          <q-btn label="Cancelar" color="negative" v-close-popup />
-          <q-btn label="Solicitar Agendamento" color="primary" @click="requestScheduleEmail()" v-close-popup />
-        </q-card-actions>
       </q-card>
     </q-dialog>
+
+    <q-inner-loading :showing="loadingPagarMe">
+      <q-spinner-dots size="100px" color="primary" />
+    </q-inner-loading>
   </div>
 </template>
 
 <script>
 import { priceConvert } from "../../../utils/priceConvert.js";
-import { refreshToken } from "../../../utils/refreshToken.js";
-import { saveCrud } from "./../../general/crud/utils/saveCrud.js";
-import { showError } from "../../../global.js";
-import { emailValidation } from "../../../utils/emailValidation.js";
+import axios from "axios";
+import { baseApiUrl, showError } from "../../../global";
+import Login from "../general/Login.vue";
+import { loginControl } from "../../../utils/controls/loginControl.js";
 
 export default {
   props: ["products"],
+  components: {
+    Login,
+  },
   data() {
     return {
       total: 0,
-      user: {},
-      openSendEmail: false,
+      items: [],
+      loadingPagarMe: false,
+      idInterval: null,
+      paymentOrderCreated: null,
+      beforePayment: false,
+      paymentOrderLink: "",
+      openLogin: false,
     };
   },
   mounted() {
     setTimeout(() => {
       this.products.forEach((product) => {
+        this.items.push({
+          id: product.id,
+          title: product.name,
+          unit_price: product.price.replace(".", ""),
+          quantity: product.qnty,
+          tangible: false,
+        });
         this.total += product.price * product.qnty;
       });
 
@@ -92,89 +105,130 @@ export default {
     }, 100);
   },
   methods: {
-    requestScheduleWhatsApp: function () {
-      var msgProducts = "";
-
-      this.products.forEach((product) => {
-        msgProducts += `*${product.name}*: ${product.qnty} agendamento(s) \n`;
-
-        return msgProducts;
-      });
-
-      let msg = `Olá, desejo fazer o agendamento dos seguintes serviços: \n`;
-
-      msg += msgProducts;
-
-      const msgEncoded = window.encodeURIComponent(msg);
-
-      const mobile = window.mobileAndTabletCheck();
-
-      if (mobile) {
-        this.goURL(
-          `https://wa.me/5511953399384?text=${msgEncoded}`
-        );
-      } else {
-        this.goURL(
-          `https://web.whatsapp.com/send?phone=+5511953399384&text=${msgEncoded}`
-        );
+    requestLogin: function () {
+      if (!loginControl.isLogged) {
+        this.openLogin = true;
       }
-    },
-    openScheduleEmail: async function () {
-      try {
-        const loggedUser = await refreshToken().then((token) => {
-          return false
-        });
 
-        if (loggedUser) {
-          this.user.email = localStorage.getItem("userEmail");
-          this.user.name = localStorage.getItem("userName");
+      const loginInterval = setInterval(() => {
+        if (loginControl.isLogged) {
+          this.openLogin = false;
+
+          this.beforePayment = true;
+
+          clearInterval(loginInterval);
         }
-
-        this.openSendEmail = true;
-      } catch (err) {
-        showError(err);
-      }
+      }, 100);
     },
-    requestScheduleEmail: async function () {
-      try {
-        var msgProducts = "";
+    requestPagarMe: async function () {
+      this.loadingPagarMe = true;
 
-        this.products.forEach((product) => {
-          msgProducts += `${product.name}: ${product.qnty} agendamento(s) \n`;
+      const data = {
+        items: this.items,
+        amount: this.total.toString().replace(",", ""),
+      };
 
-          return msgProducts;
-        });
+      const token = localStorage.getItem("token");
 
-        let msg = `Olá, desejo fazer o agendamento dos seguintes serviços: \n`;
+      if (token) {
+        let config = {
+          method: "POST",
+          headers: { authorization: `Bearer ${localStorage.getItem("token")}` },
+          data: data,
+          url: `${baseApiUrl}${"/orders/pagarme"}`,
+        };
 
-        msg += msgProducts;
-
-        if (!emailValidation(this.user.email)) {
-          showError("Email Inválido.");
-          return;
-        }
-
-        const result = await saveCrud("/products/requestSchedule", {
-          email: this.user.email,
-          name: this.user.name,
-          obs: msg,
-        });
-
-        if (result && result.status === 201) {
-          this.$q.notify({
-            type: "success",
-            message: "Solicitado com sucesso.",
+        this.paymentOrderCreated = await axios(config)
+          .then((created) => {
+            return created;
+          })
+          .catch((err) => {
+            return showError(err);
           });
 
-          this.$router.push({ path: `/` });
-          
-          localStorage.removeItem("cart");
-        }
-      } catch (err) {
-        showError(err);
+        this.paymentOrderCreated.data.userId = localStorage.getItem("userId");
+        this.paymentOrderCreated.data.pagarMeOrderId =
+          this.paymentOrderCreated.data.id;
+        this.paymentOrderCreated.data.status = "CREATED";
+        this.paymentOrderCreated.data.dateCreated = new Date();
 
-        return false;
+        delete this.paymentOrderCreated.data.id;
+
+        config = {
+          method: "POST",
+          headers: { authorization: `Bearer ${localStorage.getItem("token")}` },
+          data: this.paymentOrderCreated.data,
+          url: `${baseApiUrl}${"/orders"}`,
+        };
+
+        await axios(config)
+          .then((created) => {
+            this.paymentOrderCreated.data.orderId = created.data.id;
+
+            return created;
+          })
+          .catch((err) => {
+            return showError(err);
+          });
+
+        await Promise.all(
+          this.paymentOrderCreated.data.items.map((orderItem) => {
+            const newOrderItem = {
+              orderId: this.paymentOrderCreated.data.orderId,
+              productId: orderItem.external_id,
+              amount: orderItem.unit_price,
+              quantity: orderItem.quantity,
+            };
+
+            const config = {
+              method: "POST",
+              headers: {
+                authorization: `Bearer ${localStorage.getItem("token")}`,
+              },
+              data: newOrderItem,
+              url: `${baseApiUrl}${"/orders/item"}`,
+            };
+
+            return axios(config);
+          })
+        );
+
+        localStorage.removeItem("cart");
+
+        this.goURL(this.paymentOrderCreated.data.url);
+
+        this.idInterval = setInterval(this.getOrderStatus, 1000);
+      } else {
+        showError("Não foi possível identificar o usuário registrado.");
       }
+    },
+    getOrderStatus: async function () {
+      const config = {
+        method: "GET",
+        headers: { authorization: `Bearer ${localStorage.getItem("token")}` },
+        url: `${baseApiUrl}/orders/pagarme?paymentLinkId=${this.paymentOrderCreated.data.pagarMeOrderId}`,
+      };
+
+      await axios(config)
+        .then((orders) => {
+          if (orders.data.length > 0 && orders.data[0].status === "created") {
+            this.$q.notify({
+              type: "success",
+              message: "Sucesso",
+            });
+
+            this.loadingPagarMe = false;
+
+            clearInterval(this.idInterval);
+
+            this.$router.push("/platform");
+          }
+
+          return orders;
+        })
+        .catch((err) => {
+          return showError(err);
+        });
     },
     goURL: function (url) {
       window.open(url, "_blank").focus();

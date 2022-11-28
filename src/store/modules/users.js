@@ -4,12 +4,12 @@ export default ({
     namespaced: true,
     state: {
         user: null,
-        auth: true
+        auth: false
     },
     mutations: {
         setUser(state, user) {
             state.user = user
-            state.auth = !user
+            state.auth = !!user
 
             if (user) {
                 localStorage.setItem('token', user.token);
@@ -23,9 +23,11 @@ export default ({
                 localStorage.setItem('laborRiskAlert', user.user.laborRiskAlert.value);
                 localStorage.setItem('companyId', user.user.companyId);
                 localStorage.setItem('createdAt', user.user.created_at);
-
+                localStorage.setItem('logged', true);
             } else {
                 delete axios.defaults.headers.common["Authorization"]
+
+                localStorage.setItem('logged', false);
             }
         }
     },

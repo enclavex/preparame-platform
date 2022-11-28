@@ -2,8 +2,16 @@
   <div id="q-app" class="home-user">
     <q-page>
       <div :class="{ row: !mobile }">
-        <UserCard v-if="loadUserCard" class="col-3" :products="products" :interviewSimulator="interviewSimulator"/>
-        <Schedule :homeType="'USER'" class="col-8" />
+        <UserCard
+          v-if="loadUserCard"
+          class="col-3"
+          :products="products"
+          :interviewSimulator="interviewSimulator"
+        />
+        <div class="col col-8">
+          <Schedule :homeType="'USER'" class="col-12" />
+          <OrdersList />
+        </div>
       </div>
     </q-page>
   </div>
@@ -12,6 +20,7 @@
 <script>
 import Schedule from "./templates/Schedule.vue";
 import UserCard from "./user/UserCard.vue";
+import OrdersList from "./templates/OrdersList.vue"
 
 import { filterCrud } from "./../../general/crud/utils/filterCrud";
 
@@ -21,12 +30,13 @@ export default {
       products: [],
       loadUserCard: false,
       mobile: false,
-      interviewSimulator: false
+      interviewSimulator: false,
     };
   },
   components: {
     Schedule,
     UserCard,
+    OrdersList
   },
   mounted() {
     this.mobile = window.mobileAndTabletCheck();
@@ -53,9 +63,13 @@ export default {
 
     this.loadUserCard = true;
 
-    this.interviewSimulator = ((new Date() - new Date(localStorage.getItem("createdAt")))/1000/60/60/24) <= 7
-
-    console.log(this.interviewSimulator)
+    this.interviewSimulator =
+      (new Date() - new Date(localStorage.getItem("createdAt"))) /
+        1000 /
+        60 /
+        60 /
+        24 <=
+      7;
   },
   methods: {
     goUrl: function (url) {
