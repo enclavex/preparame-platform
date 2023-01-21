@@ -93,7 +93,20 @@ const menu = {
     ],
   },
   USER: {
-    menuList: [],
+    menuList: [
+      {
+        icon: "mdi-file-document-edit-outline",
+        label: "Construtor de currículo",
+        separator: true,
+        url: "resumeCreatorPresentation",
+      },
+      {
+        icon: "mdi-monitor",
+        label: "Simulador de entrevistas",
+        separator: true,
+        url: "interviewSimulatorPresentation",
+      },
+    ],
   },
   SPECIALIST: {
     menuList: [

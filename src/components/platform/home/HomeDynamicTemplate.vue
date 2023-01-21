@@ -29,7 +29,7 @@ export default {
           break;
       }
 
-      return () => import(`./Home${userType}`);
+       return () => import(`./Home${userType}`);
     },
   },
   mounted() {

@@ -1,16 +1,32 @@
 <template>
-  <div id="q-app" class="home-user">
+  <div id="q-app" class="home-external-user">
     <q-page>
       <div :class="{ row: !mobile }">
-        <UserCard
-          v-if="loadUserCard"
-          class="col-3"
+        <ExternalUserWelcomeCard
+          v-if="loadUserCard && !mobile"
           :products="products"
           :interviewSimulator="interviewSimulator"
         />
-        <div class="col col-8">
-          <Schedule :homeType="'USER'" class="col-12" />
-          <OrdersList />
+        <ExternalUserWelcomeCardMobile
+          v-else-if="loadUserCard && mobile"
+          :products="products"
+          :interviewSimulator="interviewSimulator"
+        />
+        <div :class="{ col: true, 'q-px-xl': !mobile, 'q-px-lg': mobile }">
+          <div :class="{ row: true, 'q-col-gutter-xl': !mobile, 'q-col-gutter-lg': mobile }">
+            <ExternalUserKitRealocationProCard v-if=false
+              :class="{ 'col-6': !mobile, 'col-12': mobile }"
+            />
+            <ExternalUserIndividualMentorshipCard v-if=false
+              :class="{ 'col-6': !mobile, 'col-12': mobile }"
+            />
+            <ExternalUserInterviewSimulatorCard
+              :class="{ 'col-6': !mobile, 'col-12': mobile }"
+            />
+            <ExternalUserResumeCreatorCard
+              :class="{ 'col-6': !mobile, 'col-12': mobile }"
+            />
+          </div>
         </div>
       </div>
     </q-page>
@@ -18,9 +34,12 @@
 </template>
 
 <script>
-import Schedule from "./templates/Schedule.vue";
-import UserCard from "./user/UserCard.vue";
-import OrdersList from "./templates/OrdersList.vue"
+import ExternalUserWelcomeCard from "./externalUser/ExternalUserWelcomeCard.vue";
+import ExternalUserWelcomeCardMobile from "./externalUser/ExternalUserWelcomeCardMobile.vue";
+import ExternalUserKitRealocationProCard from "./externalUser/ExternalUserKitRealocationProCard.vue";
+import ExternalUserInterviewSimulatorCard from "./externalUser/ExternalUserInterviewSimulatorCard.vue";
+import ExternalUserResumeCreatorCard from "./externalUser/ExternalUserResumeCreatorCard.vue";
+import ExternalUserIndividualMentorshipCard from "./externalUser/ExternalUserIndividualMentorshipCard.vue";
 
 import { filterCrud } from "./../../general/crud/utils/filterCrud";
 
@@ -34,9 +53,12 @@ export default {
     };
   },
   components: {
-    Schedule,
-    UserCard,
-    OrdersList
+    ExternalUserWelcomeCard,
+    ExternalUserKitRealocationProCard,
+    ExternalUserInterviewSimulatorCard,
+    ExternalUserResumeCreatorCard,
+    ExternalUserIndividualMentorshipCard,
+    ExternalUserWelcomeCardMobile,
   },
   mounted() {
     this.mobile = window.mobileAndTabletCheck();
@@ -80,7 +102,7 @@ export default {
 </script>
 
 <style>
-.home-user {
+.home-external-user {
   height: 100%;
 }
 </style>
