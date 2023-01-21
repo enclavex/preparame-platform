@@ -27,9 +27,12 @@ async function refreshToken(error) {
                     return resolve(res);
                 })
                 .catch((err) => {
+                    localStorage.removeItem("token");
+                    localStorage.removeItem("refresh_token");
+
                     return reject(err);
                 });
-            } catch (err) {
+        } catch (err) {
             return reject(err);
         }
     });
