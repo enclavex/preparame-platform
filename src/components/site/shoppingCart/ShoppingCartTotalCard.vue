@@ -195,40 +195,10 @@ export default {
 
         localStorage.removeItem("cart");
 
-        this.goURL(this.paymentOrderCreated.data.url);
-
-        this.idInterval = setInterval(this.getOrderStatus, 1000);
+        this.$router.push({ path: `/${"orders"}` });
       } else {
         showError("Não foi possível identificar o usuário registrado.");
       }
-    },
-    getOrderStatus: async function () {
-      const config = {
-        method: "GET",
-        headers: { authorization: `Bearer ${localStorage.getItem("token")}` },
-        url: `${baseApiUrl}/orders/pagarme?paymentLinkId=${this.paymentOrderCreated.data.pagarMeOrderId}`,
-      };
-
-      await axios(config)
-        .then((orders) => {
-          if (orders.data.length > 0 && orders.data[0].status === "created") {
-            this.$q.notify({
-              type: "success",
-              message: "Sucesso",
-            });
-
-            this.loadingPagarMe = false;
-
-            clearInterval(this.idInterval);
-
-            this.$router.push("/platform");
-          }
-
-          return orders;
-        })
-        .catch((err) => {
-          return showError(err);
-        });
     },
     goURL: function (url) {
       window.open(url, "_blank").focus();

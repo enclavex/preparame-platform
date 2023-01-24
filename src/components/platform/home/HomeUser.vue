@@ -1,7 +1,7 @@
 <template>
   <div id="q-app" class="home-external-user">
     <q-page>
-      <div :class="{ row: !mobile }">
+      <div>
         <ExternalUserWelcomeCard
           v-if="loadUserCard && !mobile"
           :products="products"
@@ -12,20 +12,40 @@
           :products="products"
           :interviewSimulator="interviewSimulator"
         />
-        <div :class="{ col: true, 'q-px-xl': !mobile, 'q-px-lg': mobile }">
-          <div :class="{ row: true, 'q-col-gutter-xl': !mobile, 'q-col-gutter-lg': mobile }">
-            <ExternalUserKitRealocationProCard v-if=false
-              :class="{ 'col-6': !mobile, 'col-12': mobile }"
-            />
-            <ExternalUserIndividualMentorshipCard v-if=false
-              :class="{ 'col-6': !mobile, 'col-12': mobile }"
-            />
-            <ExternalUserInterviewSimulatorCard
-              :class="{ 'col-6': !mobile, 'col-12': mobile }"
-            />
-            <ExternalUserResumeCreatorCard
-              :class="{ 'col-6': !mobile, 'col-12': mobile }"
-            />
+        <div class="row">
+          <UserCard
+            v-if="loadUserCard"
+            class="col-3"
+            :products="products"
+            :interviewSimulator="interviewSimulator"
+          />
+          <div
+            :class="{
+              col: true,
+              'q-px-md': !mobile,
+              'q-px-lg': mobile,
+              'col-8': true,
+            }"
+          >
+            <div
+              :class="{
+                'q-col-gutter-md': !mobile,
+                'q-col-gutter-lg': mobile,
+                'external-user-options': true,
+              }"
+            >
+              <ExternalUserInterviewSimulatorCard :class="{ 'col-12': true }" />
+              <ExternalUserKitRealocationProCard
+                v-if="!kitPro"
+                :class="{ 'col-12': true }"
+              />
+              <ExternalUserIndividualMentorshipCard
+                v-if="false"
+                :class="{ 'col-12': true }"
+              />
+
+              <ExternalUserResumeCreatorCard :class="{ 'col-12': true }" />
+            </div>
           </div>
         </div>
       </div>
@@ -40,6 +60,7 @@ import ExternalUserKitRealocationProCard from "./externalUser/ExternalUserKitRea
 import ExternalUserInterviewSimulatorCard from "./externalUser/ExternalUserInterviewSimulatorCard.vue";
 import ExternalUserResumeCreatorCard from "./externalUser/ExternalUserResumeCreatorCard.vue";
 import ExternalUserIndividualMentorshipCard from "./externalUser/ExternalUserIndividualMentorshipCard.vue";
+import UserCard from "./user/UserCard.vue";
 
 import { filterCrud } from "./../../general/crud/utils/filterCrud";
 
@@ -50,6 +71,10 @@ export default {
       loadUserCard: false,
       mobile: false,
       interviewSimulator: false,
+      periodTest: false,
+      kitPro: false,
+      daysToExpirePeriodTest: 0,
+      daysToExpireUse: 0,
     };
   },
   components: {
@@ -59,6 +84,7 @@ export default {
     ExternalUserResumeCreatorCard,
     ExternalUserIndividualMentorshipCard,
     ExternalUserWelcomeCardMobile,
+    UserCard,
   },
   mounted() {
     this.mobile = window.mobileAndTabletCheck();
@@ -85,13 +111,24 @@ export default {
 
     this.loadUserCard = true;
 
-    this.interviewSimulator =
-      (new Date() - new Date(localStorage.getItem("createdAt"))) /
+    this.daysToExpirePeriodTest =
+      ((new Date() - new Date(localStorage.getItem("periodTest"))) /
         1000 /
         60 /
         60 /
-        24 <=
-      7;
+        24) *
+      -1;
+
+    this.daysToExpireUse =
+      ((new Date() - new Date(localStorage.getItem("expiresDate"))) /
+        1000 /
+        60 /
+        60 /
+        24) *
+      -1;
+
+    this.periodTest = this.daysToExpirePeriodTest > 0;
+    this.kitPro = this.daysToExpireUse > 0;
   },
   methods: {
     goUrl: function (url) {
@@ -104,5 +141,10 @@ export default {
 <style>
 .home-external-user {
   height: 100%;
+}
+
+.external-user-options {
+  display: flex;
+  flex-direction: column;
 }
 </style>

@@ -1,17 +1,6 @@
 <template>
-  <div class="row user-card q-ma-md">
-    <q-card class="row col-12 user-card-container">
-      <q-card-section class="col-12 row user-card-header q-mb-sm">
-        <div class="user-card-picture col-3">
-          <img :src="userAvatarUrl" alt="" />
-        </div>
-        <div class="user-card-info col-9">
-          <div class="user-card-name">
-            {{ userName }}
-          </div>
-        </div>
-      </q-card-section>
-
+  <div class="row user-card q-mx-lg q-mb-md">
+    <q-card class="row col-12 user-card-container q-py-md">
       <q-card-section class="col-12 user-card-profile-level-info">
         <q-banner
           v-if="!surveyAnswered"
@@ -53,7 +42,7 @@
             'bg-green': product.scheduled,
             'bg-prepara-me': !product.scheduled,
           }"
-          v-for="product in products"
+          v-for="product in productsSchedulables"
           :key="product.id"
         >
           <div class="user-card-banner-content row">
@@ -126,6 +115,7 @@ export default {
       laborRiskAlertDialog: false,
       laborRiskAlert: false,
       simulator: false,
+      productsSchedulables: []
     };
   },
   created() {
@@ -134,20 +124,15 @@ export default {
     this.userName = localStorage.getItem("userName");
   },
   mounted() {
+    this.productsSchedulables = this.products.filter((product) => {
+      return product.type === "SCHEDULED";
+    });
+
     this.surveyAnswered =
       localStorage.getItem("surveyAnswered") == "true" ? true : false;
 
     this.laborRiskAlert =
       localStorage.getItem("laborRiskAlert") == "ALERT" ? true : false;
-
-    const createdAt = new Date(localStorage.getItem("createdAt"));
-    const actualDate = new Date();
-
-    const dayDiff = parseInt(
-      ((actualDate - createdAt) / 1000 / 60 / 60 / 24).toFixed(0)
-    );
-
-    this.simulator = dayDiff <= 70;
   },
   methods: {
     goUrl: function (url) {
@@ -180,6 +165,10 @@ export default {
 </script>
 
 <style lang="scss">
+.user-card-container {
+  border-radius: 15px;
+}
+
 .user-card-picture {
   height: 10vh;
 }

@@ -1,55 +1,48 @@
 <template>
-  <div class="row external-user-resume-creator-card justify-around q-mb-xl">
-    <q-card
-      class="row col-12 external-user-resume-creator-card-container q-pa-sm"
-    >
-      <q-card-section
-        class="col-12 row external-user-resume-creator-card-header"
-      >
-        <div
-          class="row external-user-resume-creator-card-info space-around col-12"
-        >
-          <div class="external-user-resume-creator-card-title col-12">
-            MODELO DE CURRÍCULO GRÁTIS
-          </div>
-          <div
-            :class="{
-              row: true,
-              'external-user-resume-creator-card-info-container': true,
-              'col-6': mobile,
-              'col-9': !mobile,
-              'q-mt-md': true,
-            }"
-          >
+  <div class="external-user-resume-creator-card justify-around q-mb-sm">
+    <q-card class="external-user-resume-creator-card-container q-pa-sm">
+      <q-card-section class="external-user-resume-creator-card-header">
+        <div class="external-user-resume-creator-card-info space-around">
+          <div class="row">
             <div
-              class="external-user-resume-creator-card-info-container-msg col-12 q-mb-sm"
+              :class="{
+                column: true,
+                'external-user-resume-creator-card-info-container': true,
+                'q-mt-md': true,
+                'col-10': true,
+              }"
             >
-              Aumente as chances de ter seu CV selecionado com nosso modelo e
-              dicas para preenchimento!
+              <div class="external-user-resume-creator-card-title">
+                MODELO DE CURRÍCULO GRÁTIS
+              </div>
+              <div
+                class="external-user-resume-creator-card-info-container-msg q-mb-sm"
+              >
+                Aumente as chances de ter seu CV selecionado com nosso modelo e
+                dicas para preenchimento!
+              </div>
+              <div
+                class="external-user-resume-creator-card-info-container-msg q-mb-md"
+              >
+                <b>É fácil. É rápido. É gratuito!</b>
+              </div>
+              <div v-if="!mobile" class="q-mb-sm">
+                <q-btn
+                  color="secondary"
+                  label="BAIXAR MODELO"
+                  href="https://preparame-backend.s3.sa-east-1.amazonaws.com/others/Modelo+1+-+CV+Nome+Sobrenome+-+%C3%81rea++(1).docx"
+                />
+              </div>
             </div>
-            <div
-              class="external-user-resume-creator-card-info-container-msg col-12 q-mb-md"
-            >
-              <b>É fácil. É rápido. É gratuito!</b>
-            </div>
-            <div v-if="!mobile" class="col-4 q-mb-sm">
-              <q-btn
-                color="secondary"
-                label="BAIXAR MODELO"
-                href="https://preparame-backend.s3.sa-east-1.amazonaws.com/others/Modelo+1+-+CV+Nome+Sobrenome+-+%C3%81rea++(1).docx"
-              />
-            </div>
+            <img
+              :class="{
+                'external-user-resume-creator-card-img': true,
+              }"
+              src="./../../../../assets/imgs/check.png"
+            />
           </div>
-          <img
-            :class="{
-              'external-user-resume-creator-card-img': true,
-              'col-3': !mobile,
-              'col-6': mobile,
-            }"
-            src="./../../../../assets/imgs/check.png"
-          />
         </div>
-        <div v-if="mobile" class="col-12 q-mt-md">
+        <div v-if="mobile" class="q-mt-md">
           <q-btn
             color="secondary"
             label="BAIXAR MODELO"
@@ -92,7 +85,7 @@ export default {
 }
 
 .external-user-resume-creator-card-img {
-  height: 150px;
+  height: 100px;
 }
 
 .external-user-resume-creator-card-btn-container {

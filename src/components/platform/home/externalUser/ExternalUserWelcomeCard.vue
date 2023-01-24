@@ -1,6 +1,6 @@
 <template>
   <div class="row external-user-welcome-card">
-    <q-card class="row col-12 external-user-welcome-card-container q-pa-lg">
+    <q-card class="row col-12 external-user-welcome-card-container q-pa-md">
       <q-card-section class="col-12 row external-user-welcome-card-header">
         <div class="external-user-welcome-card-info col-9">
           <div class="external-user-welcome-card-first-msg">
@@ -100,7 +100,7 @@ export default {
 
 <style lang="scss">
 .external-user-welcome-card {
-  width: 95vw;
+  width: 98vw;
   padding: 20px;
   margin-left: auto;
   margin-right: auto;

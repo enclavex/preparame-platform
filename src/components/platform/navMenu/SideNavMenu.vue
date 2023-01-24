@@ -27,10 +27,6 @@
                 {{ menuItem.label }}
               </q-item-section>
             </q-item>
-            <q-separator
-              :key="'sep' + index"
-              v-if="menuItem.separator"
-            ></q-separator>
           </template>
         </q-list>
       </q-scroll-area>
@@ -94,17 +90,23 @@ const menu = {
   },
   USER: {
     menuList: [
-      {
-        icon: "mdi-file-document-edit-outline",
-        label: "Construtor de currículo",
-        separator: true,
-        url: "resumeCreatorPresentation",
-      },
+      // {
+      //   icon: "mdi-file-document-edit-outline",
+      //   label: "Construtor de currículo",
+      //   separator: true,
+      //   url: "resumeCreatorPresentation",
+      // },
       {
         icon: "mdi-monitor",
         label: "Simulador de entrevistas",
         separator: true,
         url: "interviewSimulatorPresentation",
+      },
+      {
+        icon: "mdi-cart",
+        label: "Meus Pedidos",
+        separator: true,
+        url: "orders",
       },
     ],
   },

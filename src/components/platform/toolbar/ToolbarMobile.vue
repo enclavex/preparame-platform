@@ -3,7 +3,6 @@
     <q-header elevated class="platform-toolbar-header">
       <q-toolbar>
         <q-btn
-          v-if="userType != 'USER'"
           flat
           @click="toogleMenu()"
           round

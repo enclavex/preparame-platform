@@ -12,6 +12,7 @@ export default ({
             state.auth = !!user
 
             if (user) {
+                console.log(user)
                 localStorage.setItem('token', user.token);
                 localStorage.setItem('refresh_token', user.refresh_token);
                 localStorage.setItem('userAvatarUrl', user.user.avatarUrl);
@@ -23,6 +24,8 @@ export default ({
                 localStorage.setItem('laborRiskAlert', user.user.laborRiskAlert.value);
                 localStorage.setItem('companyId', user.user.companyId);
                 localStorage.setItem('createdAt', user.user.created_at);
+                localStorage.setItem('expiresDate', user.user.expiresDate);
+                localStorage.setItem('periodTest', user.user.periodTest);
                 localStorage.setItem('logged', true);
             } else {
                 delete axios.defaults.headers.common["Authorization"]

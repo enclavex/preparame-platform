@@ -2,10 +2,6 @@ const menuItems = [
     {
         name: "Para você",
         items: [
-            // {
-            //     name: "Nossas Trilhas",
-            //     to: "",
-            // },
             {
                 name: "Mentorias individuais",
                 to: "/ProductList",

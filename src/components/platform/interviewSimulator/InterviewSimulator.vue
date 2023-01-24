@@ -1,6 +1,6 @@
 <template>
   <div
-    v-if="simulatorVideos.length > 0"
+    v-if="simulatorVideos.length > 0 && !expired"
     :class="{ 'interview-simulator': true, column: !mobile }"
   >
     <Breadcrumbs :breadcrumbs="breadcrumbs" />
@@ -140,7 +140,8 @@
 
           <q-card-section class="q-pt-none">
             <div class="interview-simulator-tip-card-tip">
-              Parabéns por chegar até aqui, continue a praticar para atingir a excelência.
+              Parabéns por chegar até aqui, continue a praticar para atingir a
+              excelência.
             </div>
           </q-card-section>
 
@@ -168,6 +169,7 @@ export default {
   data() {
     return {
       simulatorVideos: [],
+      expired: false,
       simulatorVideosGroup: [],
       showTip: false,
       showQuestionNextGroup: false,
@@ -175,6 +177,8 @@ export default {
       interviewPercent: 0,
       videoNumber: 0,
       videoGroupNumber: 0,
+      daysToExpirePeriodTest: 0,
+      daysToExpireUse: 0,
       mobile: false,
       breadcrumbs: [
         {
@@ -202,7 +206,7 @@ export default {
       this.showTip = false;
     },
     async showEndInterviewDialog() {
-      this.showEndInterview = true
+      this.showEndInterview = true;
     },
     async endInterview() {
       this.$router.push({ path: `/platform` });
@@ -225,6 +229,16 @@ export default {
         filters,
         "products/simulatorVideos"
       );
+
+      const expiresDate = new Date(localStorage.getItem("expiresDate"));
+      const periodTest = new Date(localStorage.getItem("periodTest"));
+      const actualDate = new Date();
+
+      if (actualDate < periodTest && !(expiresDate > periodTest)) {
+        this.simulatorVideos.forEach((simulatorVideo) => {
+          simulatorVideo.tip = "Dicas disponíveis apenas na versão paga.";
+        });
+      }
 
       this.startVideo();
       this.calculatePercent();
@@ -304,6 +318,26 @@ export default {
   },
   mounted() {
     this.mobile = window.mobileAndTabletCheck();
+
+    this.daysToExpirePeriodTest =
+      ((new Date() - new Date(localStorage.getItem("periodTest"))) /
+        1000 /
+        60 /
+        60 /
+        24) *
+      -1;
+
+    this.daysToExpireUse =
+      ((new Date() - new Date(localStorage.getItem("expiresDate"))) /
+        1000 /
+        60 /
+        60 /
+        24) *
+      -1;
+
+    if (!(this.daysToExpireUse > 0) && !(this.daysToExpirePeriodTest > 0)) {
+      this.expired = true;
+    }
   },
 };
 </script>

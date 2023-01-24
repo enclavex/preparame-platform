@@ -96,7 +96,7 @@ export default {
 
 <style lang="scss">
 .external-user-welcome-card {
-  width: 95vw;
+  width: 98vw;
   padding: 20px;
   margin-left: auto;
   margin-right: auto;

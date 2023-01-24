@@ -401,6 +401,7 @@ export default {
       this.$q.loading.hide();
     },
     goUrl: function (url) {
+      console.log(url)
       if (this.$router.history.current.path !== `/${url}`) {
         let routeData = this.$router.resolve({ path: `/${url}` });
         window.open(routeData.href, "_blank");

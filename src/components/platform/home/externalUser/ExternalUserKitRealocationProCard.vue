@@ -23,25 +23,15 @@
             }"
           >
             <div
-              class="external-user-kit-realocation-pro-card-product col-3 justify-around"
+              class="external-user-kit-realocation-pro-card-product col-5 justify-around q-mb-lg"
             >
-              <div class="external-user-kit-realocation-pro-card-img"></div>
-              <div
-                class="row external-user-kit-realocation-pro-card-btn-container justify-around"
-              >
-                <q-btn
-                  class="external-user-kit-realocation-pro-card-btn-know-more"
-                  outline
-                  rounded
-                  color="secondary"
-                  label="3 MODELOS"
-                />
-              </div>
-            </div>
-            <div
-              class="external-user-kit-realocation-pro-card-product col-3 justify-around"
-            >
-              <div class="external-user-kit-realocation-pro-card-img"></div>
+              <img
+                class="external-user-kit-realocation-pro-card-img"
+                src="./../../../../assets/imgs/homeSimulador.png"
+              />
+              <p class="external-user-kit-realocation-pro-card-text">
+                <b>Simulador de Entrevistas disponível a toda hora</b>
+              </p>
               <div
                 class="row external-user-kit-realocation-pro-card-btn-container justify-around"
               >
@@ -55,9 +45,15 @@
               </div>
             </div>
             <div
-              class="external-user-kit-realocation-pro-card-product col-3 justify-around"
+              class="external-user-kit-realocation-pro-card-product col-5 justify-around  q-mb-lg"
             >
-              <div class="external-user-kit-realocation-pro-card-img"></div>
+              <img
+                class="external-user-kit-realocation-pro-card-img"
+                src="./../../../../assets/imgs/homeApoioRespostas.png"
+              />
+              <p class="external-user-kit-realocation-pro-card-text">
+                <b>Facilidade na hora de ensaiar suas respostas</b>
+              </p>
               <div
                 class="row external-user-kit-realocation-pro-card-btn-container justify-around"
               >
@@ -91,7 +87,7 @@
             >
               <p>
                 Um pagamento único de R$19,90 dará
-                <b>acesso ilimitado por 3 meses</b> a notas essas vantagens!
+                <b>acesso ilimitado por 3 meses</b> a essas vantagens!
               </p>
             </div>
             <q-space></q-space>
@@ -100,7 +96,7 @@
                 'external-user-kit-realocation-pro-card-footer-info': true,
                 'col-4': !mobile,
                 'col-12': mobile,
-                row: mobile,
+                row: true,
                 'justify-around': true,
               }"
             >
@@ -114,9 +110,6 @@
         </div>
       </q-card-section>
     </q-card>
-    <q-inner-loading :showing="loadingPagarMe">
-      <q-spinner-dots size="100px" color="primary" />
-    </q-inner-loading>
   </div>
 </template>
 
@@ -128,7 +121,6 @@ export default {
   data() {
     return {
       mobile: false,
-      loadingPagarMe: false,
       paymentOrderCreated: null,
     };
   },
@@ -149,8 +141,6 @@ export default {
       await axios(config)
         .then((orders) => {
           if (orders.data.length > 0 && orders.data[0].status === "created") {
-            this.loadingPagarMe = false;
-
             clearInterval(this.idInterval);
           }
 
@@ -158,7 +148,7 @@ export default {
         })
         .then((orders) => {
           if (orders.data && orders.data.length == 0) {
-            throw new Error('Not completed yet')
+            throw new Error("Not completed yet");
           }
 
           return axios
@@ -187,12 +177,12 @@ export default {
         });
     },
     requestPagarMe: async function () {
-      this.loadingPagarMe = true;
-
+      ""
       const data = {
         items: [
           {
-            id: "b2dda7e3-a6f6-4771-b59a-eeb8b7b5769a",
+            // id: "b2dda7e3-a6f6-4771-b59a-eeb8b7b5769a", //homologação
+            id: "5fca32d9-2abd-42a1-9043-2920ef156530", //Produção
             title: "Kit Realocação Pró",
             unit_price: "1990",
             tangible: false,
@@ -247,7 +237,8 @@ export default {
 
         const newOrderItem = {
           orderId: this.paymentOrderCreated.data.orderId,
-          productId: "b2dda7e3-a6f6-4771-b59a-eeb8b7b5769a",
+          // productId: "b2dda7e3-a6f6-4771-b59a-eeb8b7b5769a", //homologação
+          productId: "5fca32d9-2abd-42a1-9043-2920ef156530", //Produção
           amount: "1990",
           quantity: "1",
         };
@@ -261,11 +252,9 @@ export default {
           url: `${baseApiUrl}${"/orders/item"}`,
         };
 
-        await axios(config);
+        await axios(config).catch((err) => showError(err));
 
-        this.goURL(this.paymentOrderCreated.data.url);
-
-        this.idInterval = setInterval(this.getOrderStatus, 1000);
+        this.$router.push({ path: `/${"orders"}` });
       } else {
         showError("Não foi possível identificar o usuário registrado.");
       }
@@ -291,9 +280,18 @@ export default {
   background-clip: text;
 }
 
+.external-user-kit-realocation-pro-card-product {
+  display: flex;
+  flex-direction: column;
+}
+
 .external-user-kit-realocation-pro-card-img {
-  height: 150px;
-  background-color: #ff4690;
+  height: 100px;
+  margin: 0 auto;
+}
+
+.external-user-kit-realocation-pro-card-text {
+  text-align: center;
 }
 
 .external-user-kit-realocation-pro-card-btn-container {
