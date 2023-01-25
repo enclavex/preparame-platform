@@ -184,12 +184,12 @@ export default {
             // id: "b2dda7e3-a6f6-4771-b59a-eeb8b7b5769a", //homologação
             id: "5fca32d9-2abd-42a1-9043-2920ef156530", //Produção
             title: "Kit Realocação Pró",
-            unit_price: "1990",
+            unit_price: "2990",
             tangible: false,
             quantity: 1,
           },
         ],
-        amount: "1990",
+        amount: "2990",
       };
 
       const token = localStorage.getItem("token");
@@ -239,7 +239,7 @@ export default {
           orderId: this.paymentOrderCreated.data.orderId,
           // productId: "b2dda7e3-a6f6-4771-b59a-eeb8b7b5769a", //homologação
           productId: "5fca32d9-2abd-42a1-9043-2920ef156530", //Produção
-          amount: "1990",
+          amount: "2990",
           quantity: "1",
         };
 
