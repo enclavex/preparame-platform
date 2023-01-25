@@ -6,6 +6,10 @@
       </div>
       <div class="shopping-cart-item-card-info-product-schedule-label">
         {{ product.shortName }}
+
+        <div class="shopping-cart-item-card-delete text-caption" @click="deleteItem(product.id)">
+          Excluir item
+        </div>
       </div>
       <div :class="{ 'shopping-cart-item-card-add-info': true, row: !mobile }">
         <div
@@ -18,7 +22,7 @@
             Quantidade: {{ product.qnty }}
           </div>
         </div>
-        <q-space v-if="mobile" ></q-space>
+        <q-space v-if="mobile"></q-space>
         <div
           :class="{
             'shopping-cart-item-card-info-product-value-container': true,
@@ -47,6 +51,11 @@ export default {
       price: 0,
       mobile: false,
     };
+  },
+  methods: {
+    deleteItem(productId) {
+      this.$parent.deleteItem(productId)
+    }
   },
   mounted() {
     this.mobile = window.mobileAndTabletCheck();
@@ -142,6 +151,15 @@ export default {
 .shopping-cart-item-card-add-info {
   display: flex;
   justify-content: space-between;
+}
+
+.shopping-cart-item-card-delete {
+  cursor: pointer;
+}
+
+.shopping-cart-item-card-delete:hover {
+  color: red;
+  transition: .5s ease all;
 }
 
 @media (orientation: portrait) {

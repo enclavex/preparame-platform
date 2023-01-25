@@ -14,7 +14,7 @@
         />
       </div>
       <div class="shopping-cart-total col-4">
-        <ShoppingCartTotalCard :products="productsAdjusted" />
+        <ShoppingCartTotalCard :products="productsAdjusted" :key="productsAdjusted.length"/>
       </div>
     </div>
   </div>
@@ -33,8 +33,26 @@ export default {
     return {
       products: [],
       productsAdjusted: [],
-      mobile: false
+      mobile: false,
     };
+  },
+  methods: {
+    deleteItem: async function (productId) {
+      const productIndex = this.productsAdjusted.findIndex(product => {
+        return product.id == productId
+      })
+
+      this.productsAdjusted.splice(productIndex, 1)
+      this.products.splice(productIndex, 1)
+
+      let actualCart = localStorage.getItem("cart") || "[]";
+
+      actualCart = JSON.parse(actualCart);
+
+      localStorage.removeItem("cart");
+
+      localStorage.setItem("cart", JSON.stringify(this.products));
+    },
   },
   mounted() {
     window.scrollTo(0, 0);

@@ -12,7 +12,7 @@
           :products="products"
           :interviewSimulator="interviewSimulator"
         />
-        <div class="row">
+        <div :class="{row: !mobile}">
           <UserCard
             v-if="loadUserCard"
             class="col-3"

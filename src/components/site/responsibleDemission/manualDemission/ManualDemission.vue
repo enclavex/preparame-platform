@@ -33,7 +33,7 @@
             'col-9': true,
           }"
         >
-          Baixe agora o e-book gratuito manual do desligamento humanizado
+          Acesse agora o e-book gratuito manual do desligamento humanizado
         </div>
         <div class="manual-demission-sub-title">
           <br />
@@ -43,6 +43,7 @@
           class="manual-demission-btn"
           label="Acessar"
           href="https://preparame-backend.s3.sa-east-1.amazonaws.com/others/e-book+Manual+da+Demiss%C3%A3o+Respons%C3%A1vel+-+Prepara.me.pdf"
+          target="_blank"
         />
       </div>
     </div>
