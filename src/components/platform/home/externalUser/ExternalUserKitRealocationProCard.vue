@@ -86,7 +86,7 @@
               }"
             >
               <p>
-                Um pagamento único de R$19,90 dará
+                Um pagamento único de R$29,90 dará
                 <b>acesso ilimitado por 3 meses</b> a essas vantagens!
               </p>
             </div>
