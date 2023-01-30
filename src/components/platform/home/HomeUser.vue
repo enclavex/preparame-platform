@@ -12,7 +12,7 @@
           :products="products"
           :interviewSimulator="interviewSimulator"
         />
-        <div :class="{row: !mobile}">
+        <div :class="{ row: !mobile }">
           <UserCard
             v-if="loadUserCard"
             class="col-3"
@@ -61,6 +61,9 @@ import ExternalUserInterviewSimulatorCard from "./externalUser/ExternalUserInter
 import ExternalUserResumeCreatorCard from "./externalUser/ExternalUserResumeCreatorCard.vue";
 import ExternalUserIndividualMentorshipCard from "./externalUser/ExternalUserIndividualMentorshipCard.vue";
 import UserCard from "./user/UserCard.vue";
+import axios from "axios";
+import { mapActions } from "vuex";
+import { baseApiUrl, showError } from "../../../../src/global.js";
 
 import { filterCrud } from "./../../general/crud/utils/filterCrud";
 
@@ -88,6 +91,24 @@ export default {
   },
   mounted() {
     this.mobile = window.mobileAndTabletCheck();
+
+    const userId = localStorage.getItem("userId");
+
+    let config = {
+      method: "GET",
+      headers: { authorization: `Bearer ${localStorage.getItem("token")}` },
+      url: `${baseApiUrl}/users/${userId}`,
+    };
+
+    axios(config)
+      .then(async (user) => {
+        await this.setUserDates(user.data[0]);
+        this.getExpiresDate();
+      })
+      .catch((err) => {
+        console.log(err);
+        showError(err);
+      });
   },
   async created() {
     const filters = [
@@ -111,28 +132,32 @@ export default {
 
     this.loadUserCard = true;
 
-    this.daysToExpirePeriodTest =
-      ((new Date() - new Date(localStorage.getItem("periodTest"))) /
-        1000 /
-        60 /
-        60 /
-        24) *
-      -1;
-
-    this.daysToExpireUse =
-      ((new Date() - new Date(localStorage.getItem("expiresDate"))) /
-        1000 /
-        60 /
-        60 /
-        24) *
-      -1;
-
-    this.periodTest = this.daysToExpirePeriodTest > 0;
-    this.kitPro = this.daysToExpireUse > 0;
+    this.getExpiresDate();
   },
   methods: {
+    ...mapActions("users", ["setUserDates"]),
     goUrl: function (url) {
       this.$router.push({ path: `${url}/${this.product.id}` });
+    },
+    getExpiresDate: function () {
+      this.daysToExpirePeriodTest =
+        ((new Date() - new Date(localStorage.getItem("periodTest"))) /
+          1000 /
+          60 /
+          60 /
+          24) *
+        -1;
+
+      this.daysToExpireUse =
+        ((new Date() - new Date(localStorage.getItem("expiresDate"))) /
+          1000 /
+          60 /
+          60 /
+          24) *
+        -1;
+
+      this.periodTest = this.daysToExpirePeriodTest > 0;
+      this.kitPro = this.daysToExpireUse > 0;
     },
   },
 };

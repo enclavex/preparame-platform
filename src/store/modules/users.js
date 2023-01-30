@@ -12,7 +12,6 @@ export default ({
             state.auth = !!user
 
             if (user) {
-                console.log(user)
                 localStorage.setItem('token', user.token);
                 localStorage.setItem('refresh_token', user.refresh_token);
                 localStorage.setItem('userAvatarUrl', user.user.avatarUrl);
@@ -32,11 +31,21 @@ export default ({
 
                 localStorage.setItem('logged', false);
             }
+        },
+        setUserDates(state, user) {
+            console.log(user)
+            if (user) {
+                localStorage.setItem('expiresDate', user.expiresDate);
+                localStorage.setItem('periodTest', user.periodTest);
+            }
         }
     },
     actions: {
         setUser(state, payload) {
             state.commit("setUser", payload)
+        },
+        setUserDates(state, payload) {
+            state.commit("setUserDates", payload)
         }
     }
 })

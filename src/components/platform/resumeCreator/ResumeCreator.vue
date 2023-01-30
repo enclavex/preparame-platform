@@ -62,8 +62,6 @@ export default {
   methods: {
     goStep() {
       this.stepResume ++
-
-      console.log(this.stepResume)
     },
     backStep() {
       this.stepResume --

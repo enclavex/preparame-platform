@@ -181,8 +181,8 @@ export default {
       const data = {
         items: [
           {
-            // id: "b2dda7e3-a6f6-4771-b59a-eeb8b7b5769a", //homologação
-            id: "5fca32d9-2abd-42a1-9043-2920ef156530", //Produção
+            id: "b2dda7e3-a6f6-4771-b59a-eeb8b7b5769a", //homologação
+            // id: "5fca32d9-2abd-42a1-9043-2920ef156530", //Produção
             title: "Kit Realocação Pró",
             unit_price: "2990",
             tangible: false,
@@ -215,6 +215,7 @@ export default {
           this.paymentOrderCreated.data.id;
         this.paymentOrderCreated.data.status = "CREATED";
         this.paymentOrderCreated.data.dateCreated = new Date();
+        this.paymentOrderCreated.data.expiresAt = new Date(this.paymentOrderCreated.data.expires_at);
 
         delete this.paymentOrderCreated.data.id;
 
@@ -237,8 +238,8 @@ export default {
 
         const newOrderItem = {
           orderId: this.paymentOrderCreated.data.orderId,
-          // productId: "b2dda7e3-a6f6-4771-b59a-eeb8b7b5769a", //homologação
-          productId: "5fca32d9-2abd-42a1-9043-2920ef156530", //Produção
+          productId: "b2dda7e3-a6f6-4771-b59a-eeb8b7b5769a", //homologação
+          // productId: "5fca32d9-2abd-42a1-9043-2920ef156530", //Produção
           amount: "2990",
           quantity: "1",
         };
