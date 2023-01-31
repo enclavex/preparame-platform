@@ -4,7 +4,6 @@
       :class="{
         'schedule-container': true,
         'q-ma-md': true,
-        
       }"
     >
       <q-card-section>
@@ -115,7 +114,13 @@ export default {
 
 .schedule-container {
   border-radius: 15px;
-  width: 98%;
+  width: 100%;
   margin: 0 auto;
+}
+
+@media (orientation: portrait) {
+  .schedule-container {
+    width: 98%;
+  }
 }
 </style>
