@@ -110,8 +110,10 @@ export default {
         this.openLogin = true;
       }
 
+      loginControl.loggedFrom = 'CART'
+
       const loginInterval = setInterval(() => {
-        if (loginControl.isLogged) {
+        if (loginControl.isLogged && loginControl.loggedFrom == 'CART') {
           this.openLogin = false;
 
           this.beforePayment = true;

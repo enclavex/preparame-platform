@@ -16,10 +16,11 @@ export default {
   },
   methods: {
     requestLogin: function () {
-      const loginInterval = setInterval(() => {
-        if (loginControl.isLogged) {
+      loginControl.loggedFrom = "LOGIN";
 
-          this.$router.push("/platform")
+      const loginInterval = setInterval(() => {
+        if (loginControl.isLogged && loginControl.loggedFrom == "LOGIN") {
+          this.$router.push("/platform");
 
           clearInterval(loginInterval);
         }
@@ -27,8 +28,8 @@ export default {
     },
   },
   created() {
-    this.requestLogin()
-  }
+    this.requestLogin();
+  },
 };
 </script>
 
