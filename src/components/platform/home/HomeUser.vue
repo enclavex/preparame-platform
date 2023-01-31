@@ -34,6 +34,7 @@
                 'external-user-options': true,
               }"
             >
+              <Schedule :homeType="'USER'"/>
               <ExternalUserInterviewSimulatorCard :class="{ 'col-12': true }" />
               <ExternalUserKitRealocationProCard
                 v-if="!kitPro"
@@ -60,6 +61,7 @@ import ExternalUserKitRealocationProCard from "./externalUser/ExternalUserKitRea
 import ExternalUserInterviewSimulatorCard from "./externalUser/ExternalUserInterviewSimulatorCard.vue";
 import ExternalUserResumeCreatorCard from "./externalUser/ExternalUserResumeCreatorCard.vue";
 import ExternalUserIndividualMentorshipCard from "./externalUser/ExternalUserIndividualMentorshipCard.vue";
+import Schedule from "./templates/Schedule.vue";
 import UserCard from "./user/UserCard.vue";
 import axios from "axios";
 import { mapActions } from "vuex";
@@ -88,6 +90,7 @@ export default {
     ExternalUserIndividualMentorshipCard,
     ExternalUserWelcomeCardMobile,
     UserCard,
+    Schedule,
   },
   mounted() {
     this.mobile = window.mobileAndTabletCheck();
