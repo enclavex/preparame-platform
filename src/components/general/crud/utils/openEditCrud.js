@@ -36,7 +36,6 @@ async function openEditCrud(id, url, fields) {
                     } else {
                         mainTableFields[values[0]].model = values[1];
                     }
-
                 }
             });
 
@@ -54,6 +53,8 @@ async function openEditCrud(id, url, fields) {
                     }
                 })
             }
+
+            console.log(fields)
 
             if (fields.childTable && fields.childTable.tableColumns) {
                 const dateColumns = fields.childTable.tableColumns.filter(column => {

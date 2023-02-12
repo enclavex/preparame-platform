@@ -52,7 +52,7 @@
                 src="./../../../../assets/imgs/homeApoioRespostas.png"
               />
               <p class="external-user-kit-realocation-pro-card-text">
-                <b>Facilidade na hora de ensaiar suas respostas</b>
+                <b>Apoio de resposta em cada pergunta, para você treinar e dar respostas mais assertivas.</b>
               </p>
               <div
                 class="row external-user-kit-realocation-pro-card-btn-container justify-around"
