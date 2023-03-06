@@ -105,6 +105,7 @@ export default {
       eventValid: true,
       lessThen24Hours: false,
       lessThen1Hour: false,
+      moreThen1Hour: false,
       confirm: false,
       eventSchedule: {},
     };
@@ -142,7 +143,7 @@ export default {
 
     dateSchedule = new Date(
       dateSchedule.setHours(
-        dateSchedule.getHours() + dateSchedule.getTimezoneOffset() / 60
+        dateSchedule.getHours() + (dateSchedule.getTimezoneOffset() / 60) + 1
       )
     );
 
@@ -154,10 +155,11 @@ export default {
 
     this.eventValid = !(actualDateAddEventDuration > dateSchedule);
 
-    const diffHours = Math.abs(actualDate - dateSchedule) / 36e5;
+    const diffHours = (Math.abs(actualDate - dateSchedule) / 36e5);
 
     this.lessThen24Hours = diffHours < 24;
-    this.lessThen1Hour = diffHours < 1;
+    this.lessThen1Hour = diffHours < 2;
+    this.moreThen1Hour = diffHours > 1;
 
     this.scheduleDay = dateSchedule.getDate();
 
@@ -174,7 +176,7 @@ export default {
         ? this.eventSchedule.schedules[0].product.name
         : "Serviço não identificado";
 
-    let hour = `0${dateSchedule.getHours()}`;
+    let hour = `0${dateSchedule.getHours() - 1}`;
     hour = hour.substring(hour.length - 2);
 
     let minute = `0${dateSchedule.getMinutes()}`;

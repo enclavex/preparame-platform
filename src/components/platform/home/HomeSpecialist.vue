@@ -1,6 +1,6 @@
 <template>
   <div id="q-app" class="schedule">
-    <q-page>
+    <q-page class="q-pa-md">
       <Schedule :homeType="'SPECIALIST'"/>
     </q-page>
   </div>

@@ -24,7 +24,7 @@ export default {
       title: "Usuários",
       url: "users",
       blockCreateNew: true,
-      blockRemove: true,
+      blockRemove: false,
       breadcrumbs: [
         {
           title: "Usuários",

@@ -152,19 +152,6 @@
         </template>
       </q-input>
 
-      <q-input
-        id="token"
-        class="login-form-signin-container"
-        v-model="user.subscribeToken"
-        name="token"
-        label="Cupom"
-        v-if="!token"
-      >
-        <template v-slot:prepend>
-          <q-icon name="mdi-ticket" />
-        </template>
-      </q-input>
-
       <div class="login-form-accept-terms-container">
         <q-checkbox v-model="acceptTerms" class="login-form-accept-terms" />
         <div class="login-form-accept-terms-text">
