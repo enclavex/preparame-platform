@@ -3,7 +3,7 @@
     <q-card class="row col-12 user-card-container q-py-md">
       <q-card-section class="col-12 user-card-profile-level-info">
         <q-banner
-          v-if="!surveyAnswered"
+          v-if="!surveyAnswered && companyId != 'null'"
           rounded
           class="q-ma-sm text-white bg-prepara-me"
         >
@@ -60,7 +60,7 @@
           </div>
         </q-banner>
         <q-banner
-          v-if="!laborRiskAlert"
+          v-if="!laborRiskAlert && companyId != 'null'"
           rounded
           class="q-ma-sm text-white bg-negative"
         >
@@ -115,13 +115,16 @@ export default {
       laborRiskAlertDialog: false,
       laborRiskAlert: false,
       simulator: false,
-      productsSchedulables: []
+      productsSchedulables: [],
+      companyId: "",
     };
   },
   created() {
     this.userAvatarUrl = localStorage.getItem("userAvatarUrl");
-
     this.userName = localStorage.getItem("userName");
+    this.companyId = localStorage.getItem("companyId");
+
+    console.log(this.companyId);
   },
   mounted() {
     this.productsSchedulables = this.products.filter((product) => {

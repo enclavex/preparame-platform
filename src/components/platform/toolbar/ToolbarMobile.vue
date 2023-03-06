@@ -2,13 +2,7 @@
   <div id="q-app" class="platform-toolbar">
     <q-header elevated class="platform-toolbar-header">
       <q-toolbar>
-        <q-btn
-          flat
-          @click="toogleMenu()"
-          round
-          dense
-          icon="menu"
-        ></q-btn>
+        <q-btn flat @click="toogleMenu()" round dense icon="menu"></q-btn>
         <q-toolbar-title>Prepara.me</q-toolbar-title>
         <q-btn-dropdown stretch flat label="Perfil">
           <q-list class="toolbar-perfil">
@@ -58,6 +52,13 @@ export default {
       localStorage.removeItem("userName");
       localStorage.removeItem("userType");
       localStorage.removeItem("userEmail");
+      localStorage.removeItem("userId");
+      localStorage.removeItem("surveyAnswered");
+      localStorage.removeItem("laborRiskAlert");
+      localStorage.removeItem("companyId");
+      localStorage.removeItem("createdAt");
+      localStorage.removeItem("expiresDate");
+      localStorage.removeItem("periodTest");
 
       this.$router.push({ path: "/login" });
     },

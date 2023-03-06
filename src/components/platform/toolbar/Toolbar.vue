@@ -53,6 +53,13 @@ export default {
       localStorage.removeItem("userName");
       localStorage.removeItem("userType");
       localStorage.removeItem("userEmail");
+      localStorage.removeItem("userId");
+      localStorage.removeItem("surveyAnswered");
+      localStorage.removeItem("laborRiskAlert");
+      localStorage.removeItem("companyId");
+      localStorage.removeItem("createdAt");
+      localStorage.removeItem("expiresDate");
+      localStorage.removeItem("periodTest");
 
       this.$router.push({ path: "/login" });
     },

@@ -33,7 +33,6 @@ export default ({
             }
         },
         setUserDates(state, user) {
-            console.log(user)
             if (user) {
                 localStorage.setItem('expiresDate', user.expiresDate);
                 localStorage.setItem('periodTest', user.periodTest);
