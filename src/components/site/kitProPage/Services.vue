@@ -1,6 +1,6 @@
 <template>
   <div class="services">
-    <div class="title">kit da recolocação pró</div>
+    <div class="title">kit de recolocação pró</div>
     <div class="subtitle">
       Um pagamento único de R$29,90 te dará
       <b>acesso ilimitado por 3 meses</b> a:
@@ -159,7 +159,7 @@ export default {
     }
 
     button {
-      width: 10vw;
+      width: 20vw;
       margin: 0 auto;
     }
   }

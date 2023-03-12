@@ -1,8 +1,12 @@
 <template>
   <div class="presentation">
     <div class="info">
-      <div class="title">kit da recolocação</div>
+      <div class="title">kit de recolocação</div>
       <div class="subtitle">Simulador de Entrevistas Automático</div>
+      <div class="plus-sign">
+        <img :src="imgURL(plus.img)" alt />
+      </div>
+      <div class="subtitle">Modelo de Currículo Assertivo</div>
       <div v-if="mobile" class="image"></div>
       <div class="form">
         <q-btn
@@ -21,6 +25,9 @@ export default {
   data() {
     return {
       mobile: false,
+      plus: {
+        img: "service_plus",
+      },
     };
   },
   mounted() {
@@ -29,8 +36,13 @@ export default {
   methods: {
     freeAccess() {
       this.$router.push({ path: "/login" });
-    }
-  }
+    },
+    imgURL: function (pathName) {
+      var images = require.context("../../../assets/imgs/", false, /\.png$/);
+
+      return images(`./${pathName}.png`);
+    },
+  },
 };
 </script>
 
@@ -62,13 +74,19 @@ export default {
         text-align: center;
         color: #ffffff;
         margin-bottom: 20px;
+        margin-top: 20px;
+      }
+
+      .plus-sign {
+        display: flex;
+        justify-content: center;
       }
 
       .form {
         display: flex;
         flex-direction: column;
 
-        .title { 
+        .title {
           font-family: "Nunito";
           font-style: normal;
           font-size: 25px;
@@ -89,6 +107,9 @@ export default {
         button {
           align-self: center;
           justify-self: center;
+          width: 400px;
+          height: 70px;
+          font-size: 1.5rem;
         }
       }
     }
@@ -102,6 +123,7 @@ export default {
       background-position-x: 100%;
       right: 0px;
       width: 50vw;
+      top: 10vh;
     }
   }
 }

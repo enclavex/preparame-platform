@@ -3,7 +3,7 @@
     <div class="background-top"></div>
     <div class="container">
       <div class="pre-title">conheça as vantagens do nosso</div>
-      <div class="title">kit da recolocação</div>
+      <div class="title">kit de recolocação</div>
       <div class="subtitle">
         Assine o <b>Pró</b> para ter acesso a <b>todos</b> os nossos benefícios
       </div>
@@ -157,7 +157,7 @@ export default {
 
       .services {
         height: 40vh;
-        width: 60vw;
+        width: 85vw;
         display: flex;
         flex-direction: row;
         justify-content: space-around;
@@ -165,7 +165,7 @@ export default {
 
         .box {
           height: 40vh;
-          width: 15vw;
+          width: 25vw;
           padding: 40px;
           background-color: white;
           display: flex;
@@ -187,6 +187,7 @@ export default {
 
           button {
             height: 2.5rem;
+            width: 200px;
           }
         }
 

@@ -41,6 +41,16 @@ export default {
           function: "Psicologa",
           img: "leticia"
         },
+        {
+          name: "Barbara Cardozo",
+          function: "Psicologa",
+          img: "barbara"
+        },
+        {
+          name: "Lays Jasper",
+          function: "Psicologa",
+          img: "lays"
+        },
       ]
     }
   },
