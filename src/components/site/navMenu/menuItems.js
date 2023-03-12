@@ -6,6 +6,10 @@ const menuItems = [
                 name: "Mentorias individuais",
                 to: "/ProductList",
             },
+            {
+                name: "Kit Recolocação Pro",
+                to: "/KitRecolocacao",
+            },
         ],
     },
     {

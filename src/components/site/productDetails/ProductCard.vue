@@ -11,9 +11,6 @@
         <q-icon name="done" />{{ item.content }}
       </li>
     </ul>
-    <!-- <div class="best-sellers-card-know-more">
-      <a href="/#/ProductDetails">Saiba mais</a>
-    </div> -->
     <div class="best-sellers-card-price">R$ {{ priceConverted }}</div>
     <div class="best-sellers-card-buy" @click="addToCart(product)">
       Adicionar ao Carrinho

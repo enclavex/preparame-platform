@@ -10,6 +10,7 @@ import PrivacyTerms from "../../layouts/PrivacyTerms.vue"
 import UseTerms from "../../layouts/UseTerms.vue"
 import ResponsibleDemission from "../../layouts/ResponsibleDemission.vue"
 import PageNotFound from "../../pages/PageNotFound.vue"
+import KitPro from "../../components/site/kitProPage/KitProPage"
 
 const siteRoutes = [
     {
@@ -33,6 +34,18 @@ const siteRoutes = [
             path: "/",
             components: {
                 content: ProductDetails
+            }
+        }]
+    },
+    {
+        path: "/KitRecolocacao",
+        components: {
+            site: Site
+        },
+        children: [{
+            path: "/",
+            components: {
+                content: KitPro
             }
         }]
     },
