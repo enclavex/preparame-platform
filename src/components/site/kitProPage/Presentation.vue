@@ -141,7 +141,7 @@ export default {
         }
 
         .subtitle {
-          font-size: 1rem;
+          font-size: 1.2rem;
           line-height: unset;
           margin-bottom: unset;
         }
@@ -156,12 +156,19 @@ export default {
             width: 80vw;
             margin: 5px auto;
           }
+
+          button {
+            width: unset;
+            height: unset;
+            font-size: unset;
+          }
         }
       }
 
       .image {
         width: 100vw;
         height: 45vh;
+        top: unset;
       }
     }
   }
