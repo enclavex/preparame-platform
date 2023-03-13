@@ -177,11 +177,11 @@ export default {
             font-family: "Nunito";
             font-weight: 700;
             height: 2.5rem;
-            line-height: 2.5rem;
+            line-height: 2rem;
             font-size: 1.3rem;
 
             img {
-              height: 2.5rem;
+              height: 2rem;
             }
           }
 
@@ -195,6 +195,8 @@ export default {
           padding: 40px 0 40px 40px;
 
           .description {
+            line-height: 1.4rem;
+
             div {
               width: 100%;
               color: $prepara-me-blue;

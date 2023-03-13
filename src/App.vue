@@ -18,7 +18,7 @@ window.mobileAndTabletCheck = function () {
     )
       check = true;
   })(navigator.userAgent || navigator.vendor || window.opera);
-  return check;
+  return false;
 };
 
 /*
