@@ -1,59 +1,50 @@
 <template>
   <div id="q-app" class="home-company">
-    <q-page :class="{ 'q-pa-md': !mobile, row: !mobile }">
+    <q-page :class="{ 'q-pa-md': !mobile }">
       <div
         :class="{
           'home-company-charts': true,
           'justify-between': true,
-          'col-12': !mobile,
-          row: !mobile,
-          column: mobile,
         }"
       >
-        <NpsCard
-          v-if="dashboardsLoaded"
-          :class="{ 'col-2': !mobile }"
-          :nps="nps"
-        ></NpsCard>
-        <EmployeerBrandRiskCard
-          v-if="dashboardsLoaded"
-          :class="{ 'col-2': !mobile }"
-          :employeerBrandRisk="brandRisk"
-        ></EmployeerBrandRiskCard>
-        <LaborRiskCard
-          v-if="dashboardsLoaded"
-          :class="{ 'col-2': !mobile }"
-          :laborRisk="laborRisk"
-        ></LaborRiskCard>
-        <RealocatedsCard
-          v-if="dashboardsLoaded"
-          :class="{ 'col-2': !mobile }"
-          :realocateds="countRealocateds"
-          :totalUsers="countUsers"
-        ></RealocatedsCard>
-        <RegisteredEmployeesCard
-          v-if="dashboardsLoaded"
-          :class="{ 'col-2': !mobile }"
-          :registeredEmployees="countUsers"
-          :totalEmployees="countEmployees"
-        >
-        </RegisteredEmployeesCard>
-        <LaborRiskAlertCard
-          v-if="dashboardsLoaded"
-          :class="{ 'col-2': !mobile }"
-          :laborRiskAlerts="countLaborRiskAlerts"
-          :totalUsers="countUsers"
-        ></LaborRiskAlertCard>
-        <LaborRiskDetailedCard
-          v-if="dashboardsLoaded"
-          :class="{ 'col-4': !mobile }"
-          :laborRisks="laborRiskData"
-        />
-        <FeelingsMapCard
-          v-if="dashboardsLoaded"
-          :class="{ 'col-4': !mobile }"
-          :feelingsMap="feelingsMapData"
-        />
+        <div class="home-company-charts-cards q-gutter-xs">
+          <NpsCard v-if="dashboardsLoaded" :nps="nps"></NpsCard>
+          <EmployeerBrandRiskCard
+            v-if="dashboardsLoaded"
+            :employeerBrandRisk="brandRisk"
+          ></EmployeerBrandRiskCard>
+          <LaborRiskCard
+            v-if="dashboardsLoaded"
+            :laborRisk="laborRisk"
+          ></LaborRiskCard>
+          <RealocatedsCard
+            v-if="dashboardsLoaded"
+            :realocateds="countRealocateds"
+            :totalUsers="countUsers"
+          ></RealocatedsCard>
+          <RegisteredEmployeesCard
+            v-if="dashboardsLoaded"
+            :registeredEmployees="countUsers"
+            :totalEmployees="countEmployees"
+          >
+          </RegisteredEmployeesCard>
+          <LaborRiskAlertCard
+            v-if="dashboardsLoaded"
+            :laborRiskAlerts="countLaborRiskAlerts"
+            :totalUsers="countUsers"
+          ></LaborRiskAlertCard>
+        </div>
+
+        <div class="home-company-charts-cards justify-around">
+          <LaborRiskDetailedCard
+            v-if="dashboardsLoaded"
+            :laborRisks="laborRiskData"
+          />
+          <FeelingsMapCard
+            v-if="dashboardsLoaded"
+            :feelingsMap="feelingsMapData"
+          />
+        </div>
       </div>
       <div
         :class="{
@@ -265,8 +256,14 @@ export default {
 
 .home-company-charts {
   display: flex;
-  flex-direction: row;
+  flex-direction: column;
   height: 20vh !important;
+}
+
+.home-company-charts-cards {
+  display: flex;
+  flex-direction: row;
+  width: 100%;
 }
 
 .home-company-charts-detailed {

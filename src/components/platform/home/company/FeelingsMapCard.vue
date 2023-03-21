@@ -6,20 +6,20 @@
           >Mapa de Sentimentos</q-card-section
         >
       </div>
-      <Pie
+      <Column
         v-if="showChart"
         :data="feelingsMapDataChartConverted"
-        :height="380"
+        :height="450"
       />
     </div>
   </q-card>
 </template>
 
 <script>
-import Pie from "./../../../general/charts/Pie.vue";
+import Column from "./../../../general/charts/Column.vue";
 export default {
   components: {
-    Pie,
+    Column,
   },
   props: ["feelingsMap"],
   data() {
@@ -34,14 +34,17 @@ export default {
   },
   methods: {
     converDataChart: function () {
-      this.feelingsMapDataChartConverted.push(["Sentimento", "Quantidade"]);
+      this.feelingsMapDataChartConverted.push(["Sentimento", "Quantidade", { role: 'style' }]);
 
       this.feelingsMap.forEach((feeling) => {
         this.feelingsMapDataChartConverted.push([
           feeling.feeling,
           feeling.count,
+          'color: #1a27b7'
         ]);
       });
+
+      console.log(this.feelingsMapDataChartConverted)
     },
   },
 };
@@ -49,12 +52,14 @@ export default {
 
 <style lang="scss">
 .home-company-feelings-map-card {
-  width: 15vw;
-  height: 20vh;
+  width: 40vw;
+  height: 60vh;
+  box-shadow: none;
+  border-radius: 5%;
 }
 
 .home-company-feelings-map-card-title {
-  color: $text-grey;
+  color: $text-dark-grey;
   font-size: 2.2rem;
   text-align: center;
   width: 100%;

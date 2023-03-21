@@ -51,6 +51,8 @@ export default {
 .home-company-brand-risk-detailed-card {
   width: 15vw;
   height: 20vh;
+  border-radius: 15%;
+  box-shadow: none;
 }
 
 .home-company-brand-risk-detailed-card-title {

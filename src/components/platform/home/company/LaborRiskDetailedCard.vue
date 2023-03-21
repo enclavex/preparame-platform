@@ -7,13 +7,13 @@
           <h6>Notas de 1 a 10</h6>
         </q-card-section>
       </div>
-      <Column v-if="showChart" :data="laborRiskDataChartConverted" :height="380" />
+      <Column v-if="showChart" :data="laborRiskDataChartConverted" :height="450" />
     </div>
   </q-card>
 </template>
 
 <script>
-import Column from "../../../general/charts/Column.vue";
+import Column from "./../../../general/charts/Column.vue";
 export default {
   components: {
     Column,
@@ -31,12 +31,13 @@ export default {
   },
   methods: {
     converDataChart: function () {
-      this.laborRiskDataChartConverted.push(["Risco Trabalhista", "Soma"]);
+      this.laborRiskDataChartConverted.push(["Risco Trabalhista", "Soma", { role: 'style' }]);
 
       this.laborRisks.forEach((laborRisk) => {
         this.laborRiskDataChartConverted.push([
           laborRisk.question,
           laborRisk.count,
+          'color: #ff4690'
         ]);
       });
     },
@@ -46,12 +47,14 @@ export default {
 
 <style lang="scss">
 .home-company-labor-risk-detailed-card {
-  width: 15vw;
-  height: 20vh;
+  width: 40vw;
+  height: 60vh;
+  box-shadow: none;
+  border-radius: 5%;
 }
 
 .home-company-labor-risk-detailed-card-title {
-  color: $text-grey;
+  color: $text-dark-grey;
   font-size: 2.2rem;
   text-align: center;
   width: 100%;

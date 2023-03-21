@@ -3,7 +3,7 @@
     <q-card class="row col-12 user-card-container q-py-md">
       <q-card-section class="col-12 user-card-profile-level-info">
         <q-banner
-          v-if="!surveyAnswered && companyId != 'null'"
+          v-if="!surveyAnswered"
           rounded
           class="q-ma-sm text-white bg-prepara-me"
         >

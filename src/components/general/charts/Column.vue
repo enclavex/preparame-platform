@@ -13,18 +13,6 @@ export default {
   },
   data() {
     return {
-      // colors: [
-      //   "660029",
-      //   "7A0031",
-      //   "8F0039",
-      //   "A30041",
-      //   "B80049",
-      //   "CC0052",
-      //   "E0005A",
-      //   "F50062",
-      //   "FF0A6C",
-      //   "FF1F78",
-      // ],
       chartData: [],
       chartOptions: {
         chart: {
@@ -52,11 +40,9 @@ export default {
     adjustColors: function () {
       this.data.forEach((arrayDataChart, index) => {
         if (index === 0) {
-          // arrayDataChart.push({ role: "style" });
           arrayDataChart.push({ role: "annotation" });
           arrayDataChart.push({ role: "tooltip" });
         } else {
-          // arrayDataChart.push(`color: #${this.colors[index - 1]}`);
           arrayDataChart.push(arrayDataChart[1].toFixed(2).replace(".", ","));
           arrayDataChart.push(arrayDataChart[0] + '\n' + 'Média: ' + arrayDataChart[1].toFixed(2).replace(".", ","));
         }

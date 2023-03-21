@@ -1,27 +1,13 @@
 <template>
   <q-card class="home-company-nps-card column q-pb-md q-px-md q-ma-md">
-    <div class="home-company-nps-card-header row">
-      <q-icon
-        name="mdi-account-heart-outline"
-        class="text-h1 text-grey-4 text-weight-thin q-ml-md col-4"
-      ></q-icon>
-      <div class="home-company-nps-card-info-container col-6">
+    <div class="home-company-nps-card-header">
+      <div class="home-company-nps-card-info-container">
         <q-card-section class="home-company-nps-card-title">NPS</q-card-section>
         <q-card-section class="home-company-nps-card-nps">{{
           nps
         }}</q-card-section>
       </div>
     </div>
-    <q-card-section class="home-company-nps-card-bar-container row">
-      <div class="home-company-nps-card-progress-bar-container col-12">
-        <div
-          class="home-company-nps-card-progress-bar-indicator"
-          :style="{
-            width: `${npsPercent}%`,
-          }"
-        ></div>
-      </div>
-    </q-card-section>
   </q-card>
 </template>
 
@@ -43,27 +29,43 @@ export default {
 .home-company-nps-card {
   width: 18vw;
   height: 20vh;
+  border-radius: 15%;
+  box-shadow: none;
 }
 
 .home-company-nps-card-header {
   height: 16vh;
 }
 
+.home-company-nps-card-info-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-content: center;
+  height: 100%;
+}
+
 .home-company-nps-card-title {
-  color: $text-grey;
-  text-align: right;
+  display: flex;
+  justify-content: center;
+  align-content: center;
+  vertical-align: center;
+  color: $text-dark-grey;
+  text-align: center;
   width: 100%;
-  padding-top: 10px;
-  padding-left: 0;
-  padding-right: 0;
-  padding-bottom: 0;
+  font-size: 1.5rem;
+  line-height: 1.2rem;
+  height: 4rem;
 }
 
 .home-company-nps-card-nps {
-  color: $text-dark-grey;
+  background: linear-gradient(90deg, #1a27b7 0%, #ff4690 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
   width: 100%;
-  font-size: 2rem;
-  text-align: right;
+  font-size: 3.5rem;
+  text-align: center;
   padding: 0;
   letter-spacing: 0;
 }
