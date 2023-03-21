@@ -112,7 +112,7 @@ export default {
                 },
                 {
                   label: "Empresa",
-                  value: "user_ADMIN",
+                  value: "COMPANY_ADMIN",
                 },
 
               ],
