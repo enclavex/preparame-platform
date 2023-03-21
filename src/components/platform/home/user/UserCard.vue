@@ -19,6 +19,21 @@
         </q-banner>
 
         <q-banner
+          rounded
+          class="q-ma-sm text-white bg-prepara-me"
+        >
+          <div class="user-card-banner-content row">
+            <q-btn
+              flat
+              color="white"
+              label="Comprar mentoria individual"
+              class="col-12"
+              @click="goUrl(`productList`)"
+            />
+          </div>
+        </q-banner>
+
+        <q-banner
           v-if="simulator"
           rounded
           class="q-ma-sm text-white bg-prepara-me"
