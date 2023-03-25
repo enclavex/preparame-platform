@@ -4,12 +4,10 @@ import { baseApiUrl, showError } from "../../../../global";
 
 async function saveCrud(url, data, method = "post", format = false) {
     try {
-
         if (url.slice(0, 1) !== "/") {
             url = `/${url}`
         }
-    
-    
+       
         Object.entries(data)
             .forEach(values => {
                 if (values[0] === 'id') {

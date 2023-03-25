@@ -1,6 +1,7 @@
 import ScheduleProductsList from "../../components/platform/scheduleProducts/ScheduleProductsList.vue"
 import ProductsQueryCrud from "../../components/platform/productsCrud/ProductsQueryCrud.vue"
 import ProductsRegisterCrud from "../../components/platform/productsCrud/ProductsRegisterCrud.vue"
+import AddProductToUserRegisterCrud from "../../components/platform/addProductToUserCrud/AddProductToUserRegisterCrud"
 import ScheduleSpecialistsList from "../../components/platform/scheduleProducts/ScheduleSpecialistsList.vue"
 import Orders from "../../components/platform/orders/Orders.vue"
 import Platform from "../../layouts/Platform.vue"
@@ -15,6 +16,18 @@ const productRoutes = [
             path: "/",
             components: {
                 content: ProductsQueryCrud
+            }
+        }]
+    },
+    {
+        path: "/addProductToUser",
+        components: {
+            site: Platform
+        },
+        children: [{
+            path: "/",
+            components: {
+                content: AddProductToUserRegisterCrud
             }
         }]
     },

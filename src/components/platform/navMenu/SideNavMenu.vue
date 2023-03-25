@@ -86,6 +86,12 @@ const menu = {
         separator: false,
         url: "simulatorVideos",
       },
+      {
+        icon: "mdi-account-edit",
+        label: "Adicionar Produto para Usuário",
+        separator: false,
+        url: "addProductToUser",
+      },
     ],
   },
   USER: {
