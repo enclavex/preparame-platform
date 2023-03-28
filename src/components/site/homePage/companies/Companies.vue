@@ -54,15 +54,22 @@ export default {
       carousel: [],
       companies: [
         {
+          name: "CertSign",
+          url: "",
+          src: require("../../../../assets/imgs/company-cert.svg"),
+          sequence: 0,
+        },
+        {
           name: "Alice",
           url: "",
           src: require("../../../../assets/imgs/company-alice.svg"),
           sequence: 1,
         },
+        
         {
-          name: "CertSign",
+          name: "Great",
           url: "",
-          src: require("../../../../assets/imgs/company-cert.svg"),
+          src: require("../../../../assets/imgs/great.png"),
           sequence: 2,
         },
         {
@@ -74,37 +81,37 @@ export default {
         {
           name: "Memed",
           url: "",
-          src: require("../../../../assets/imgs/memed.jpg"),
+          src: require("../../../../assets/imgs/memed.png"),
           sequence: 4,
         },
         {
           name: "Pulses",
           url: "",
-          src: require("../../../../assets/imgs/pulses.jpg"),
+          src: require("../../../../assets/imgs/pulses.png"),
           sequence: 5,
         },
         {
           name: "Grupo Safira",
           url: "",
-          src: require("../../../../assets/imgs/safira.jpg"),
+          src: require("../../../../assets/imgs/safira.png"),
           sequence: 6,
         },
         {
           name: "Sorte Online",
           url: "",
-          src: require("../../../../assets/imgs/sorte.jpg"),
+          src: require("../../../../assets/imgs/sorte.png"),
           sequence: 7,
         },
         {
           name: "Legiti",
           url: "",
-          src: require("../../../../assets/imgs/legiti.jpg"),
+          src: require("../../../../assets/imgs/legiti.png"),
           sequence: 8,
         },
         {
           name: "Coimma",
           url: "",
-          src: require("../../../../assets/imgs/coimma.jpg"),
+          src: require("../../../../assets/imgs/coimma.png"),
           sequence: 9,
         },
 {

@@ -5,7 +5,7 @@
         <q-banner
           v-if="!surveyAnswered"
           rounded
-          class="q-ma-sm text-white bg-prepara-me"
+          class="q-ma-sm text-white bg-prepara-me-blue"
         >
           <div class="user-card-banner-content row">
             <q-btn
@@ -14,21 +14,6 @@
               label="Responder Pesquisa de Desligamento"
               class="col-12"
               @click="goUrl(`survey`)"
-            />
-          </div>
-        </q-banner>
-
-        <q-banner
-          rounded
-          class="q-ma-sm text-white bg-prepara-me"
-        >
-          <div class="user-card-banner-content row">
-            <q-btn
-              flat
-              color="white"
-              label="Comprar mentoria individual"
-              class="col-12"
-              @click="goUrl(`productList`)"
             />
           </div>
         </q-banner>
@@ -74,6 +59,22 @@
             </div>
           </div>
         </q-banner>
+
+        <q-banner
+          rounded
+          class="q-ma-sm text-white bg-prepara-me-blue"
+        >
+          <div class="user-card-banner-content row">
+            <q-btn
+              flat
+              color="white"
+              label="Conheça outros serviços"
+              class="col-12"
+              @click="goUrl(`productList`)"
+            />
+          </div>
+        </q-banner>
+
         <q-banner
           v-if="!laborRiskAlert && companyId != 'null'"
           rounded

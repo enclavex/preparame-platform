@@ -5,7 +5,11 @@
         <h1>Quem <b>Somos</b></h1>
       </div>
       <div class="who-we-are-employees-container">
-        <WhoWeAreEmployee v-for="employee in employees" :key="employee.name" :employee="employee"/>
+        <WhoWeAreEmployee
+          v-for="employee in employees"
+          :key="employee.name"
+          :employee="employee"
+        />
       </div>
     </div>
   </div>
@@ -24,35 +28,45 @@ export default {
         {
           name: "Lucy Nunes",
           function: "Fundadora",
-          img: "lucy"
+          img: "prelucy",
         },
         {
           name: "Leandro de Andria",
           function: "Especialista em carreira e recrutador",
-          img: "leandro"
+          img: "preleandro",
         },
         {
-          name: "Mayara Breder",
-          function: "Especialista em carreira e recrutadora",
-          img: "mayara"
+          name: "Bárbara Cardozo",
+          function: "Especialista em recrutamento e seleção",
+          img: "prebarbara",
         },
         {
-          name: "Leticia Nunes",
-          function: "Psicologa",
-          img: "leticia"
-        },
-        {
-          name: "Barbara Cardozo",
-          function: "Psicologa",
-          img: "barbara"
+          name: "Andrea B. C. Leal",
+          function: "Operações",
+          img: "preandrea",
         },
         {
           name: "Lays Jasper",
-          function: "Psicologa",
-          img: "lays"
+          function: "Psicologa e especialista em recrutamento e seleção",
+          img: "prelays",
         },
-      ]
-    }
+        {
+          name: "Raquel Tetti",
+          function: "Especialista em carreira",
+          img: "preraquel",
+        },
+        {
+          name: "Priscila Dietrich",
+          function: "Psicologa e especialista em recrutamento e seleção",
+          img: "prepriscila",
+        },
+        {
+          name: "Murilo Parangaba",
+          function: "Comercial",
+          img: "premurilo",
+        },
+      ],
+    };
   },
 };
 </script>
@@ -70,7 +84,7 @@ export default {
 }
 
 .who-we-are-title {
-  background: linear-gradient(272.04deg, #15AA7C 0%, #1A27B7 102.19%);
+  background: linear-gradient(272.04deg, #15aa7c 0%, #1a27b7 102.19%);
 }
 
 .who-we-are-title h1 {
