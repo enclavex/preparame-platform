@@ -16,7 +16,7 @@
         <div class="event-schedule-day text-caption">{{ month }}</div>
       </div>
       <div class="row items-start items-center event-schedule-info col-10">
-        <div class="event-schedule-product col items-center col-8">
+        <div class="event-schedule-product col items-center col-6">
           <div class="text-subtitle1">{{ productName }}</div>
           <div class="text-caption text-weight-light">
             {{
@@ -28,6 +28,18 @@
         </div>
         <div class="event-schedule-hour col-1">
           <div class="text-subtitle1 text-center">{{ hour }}</div>
+        </div>
+        <div class="event-schedule-hour col-2">
+          <q-rating
+            v-model="eventSchedule.schedules[0].rating"
+            max="5"
+            size="2em"
+            color="gold"
+            icon="star_border"
+            icon-selected="star"
+            :disable="eventValid"
+            @click="rateSpecialist()"
+          />
         </div>
         <div class="event-schedule-hour col-2">
           <div class="text-subtitle1 text-center">
@@ -135,6 +147,14 @@ export default {
 
       document.location.reload(true);
     },
+    async rateSpecialist() {
+      await saveCrud(
+        `specialists/schedule/${this.eventSchedule.schedules[0].id}`,
+        this.eventSchedule.schedules[0],
+        "put",
+        true
+      );
+    },
   },
   mounted() {
     this.eventSchedule.schedules = Object.entries(this.schedulesGroup)[0][1];
@@ -143,7 +163,7 @@ export default {
 
     dateSchedule = new Date(
       dateSchedule.setHours(
-        dateSchedule.getHours() + (dateSchedule.getTimezoneOffset() / 60) + 1
+        dateSchedule.getHours() + dateSchedule.getTimezoneOffset() / 60 + 1
       )
     );
 
@@ -155,7 +175,7 @@ export default {
 
     this.eventValid = !(actualDateAddEventDuration > dateSchedule);
 
-    const diffHours = (Math.abs(actualDate - dateSchedule) / 36e5);
+    const diffHours = Math.abs(actualDate - dateSchedule) / 36e5;
 
     this.lessThen24Hours = diffHours < 24;
     this.lessThen1Hour = diffHours < 2;
