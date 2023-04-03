@@ -26,6 +26,7 @@ export default ({
                 localStorage.setItem('expiresDate', user.user.expiresDate);
                 localStorage.setItem('periodTest', user.user.periodTest);
                 localStorage.setItem('logged', true);
+                localStorage.setItem('surveyPopupShowed', false);
             } else {
                 delete axios.defaults.headers.common["Authorization"]
 

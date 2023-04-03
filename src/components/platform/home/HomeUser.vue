@@ -34,7 +34,7 @@
                 'external-user-options': true,
               }"
             >
-              <Schedule :homeType="'USER'"/>
+              <Schedule :homeType="'USER'" />
               <ExternalUserInterviewSimulatorCard :class="{ 'col-12': true }" />
               <ExternalUserKitRealocationProCard
                 v-if="!kitPro"
@@ -50,6 +50,16 @@
           </div>
         </div>
       </div>
+      <q-dialog v-model="showSurveySuggestion">
+        <div class="popup-recent-demission">
+          <div class="container-info">
+            <div class="title">Foi demitida(o) em 2023?</div>
+            <div class="sub-title">Queremos saber como foi sua experiência</div>
+            <div class="detail">é bem rapidinho</div>
+            <div class="buton" @click="answerSurvey()">Responder Pesquisa</div>
+          </div>
+        </div>
+      </q-dialog>
     </q-page>
   </div>
 </template>
@@ -80,6 +90,10 @@ export default {
       kitPro: false,
       daysToExpirePeriodTest: 0,
       daysToExpireUse: 0,
+      b2cUser: false,
+      surveyAnswered: false,
+      showSurveySuggestion: false,
+      surveyPopupShowed: false
     };
   },
   components: {
@@ -94,6 +108,14 @@ export default {
   },
   mounted() {
     this.mobile = window.mobileAndTabletCheck();
+
+    this.b2cUser = localStorage.getItem("companyId") ? true : false;
+    this.surveyAnswered = localStorage.getItem("surveyAnswered") == "true";
+    this.surveyPopupShowed  = localStorage.getItem('surveyPopupShowed') == 'true';
+
+    this.showSurveySuggestion = this.b2cUser && !this.surveyAnswered && !this.surveyPopupShowed;
+
+    localStorage.setItem('surveyPopupShowed', true);
 
     const userId = localStorage.getItem("userId");
 
@@ -142,6 +164,9 @@ export default {
     goUrl: function (url) {
       this.$router.push({ path: `${url}/${this.product.id}` });
     },
+    answerSurvey: function (url) {
+      this.$router.push({ path: `/survey` });
+    },
     getExpiresDate: function () {
       this.daysToExpirePeriodTest =
         ((new Date() - new Date(localStorage.getItem("periodTest"))) /
@@ -166,9 +191,74 @@ export default {
 };
 </script>
 
-<style>
+<style lang="scss">
 .home-external-user {
   height: 100%;
+}
+
+.popup-recent-demission {
+  background-color: $prepara-me;
+  height: 45vh;
+  width: 60vw;
+  background-image: url("../../../assets/imgs/popup-recent-demission.png");
+  background-repeat: no-repeat;
+  background-size: contain;
+  display: flex;
+  flex-direction: row-reverse;
+
+  .container-info {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    background-color: white;
+    width: 50%;
+    justify-content: center;
+    padding: 10px;
+
+    .title {
+      font-weight: bold;
+      font-size: 1.8rem;
+      text-align: center;
+      width: 80%;
+      margin: 0 auto 0 auto;
+      background-color: $prepara-me;
+      border-radius: 20px;
+      margin-bottom: 20px;
+    }
+
+    .sub-title {
+      font-weight: bold;
+      font-size: 1.1rem;
+      text-align: center;
+      width: 80%;
+      margin: 0 auto 0 auto;
+    }
+
+    .detail {
+      font-weight: bold;
+      font-size: 0.8rem;
+      text-align: center;
+      width: 80%;
+      margin: 0 auto 10px auto;
+    }
+
+    .buton {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-content: center;
+      font-weight: bold;
+      font-size: 1.3rem;
+      text-align: center;
+      width: 80%;
+      margin: 0 auto 0 auto;
+      background-color: $accent;
+      border-radius: 20px;
+      height: 8vh;
+      cursor: pointer;
+      user-select: none;
+    }
+  }
 }
 
 .external-user-options {
