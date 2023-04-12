@@ -98,6 +98,26 @@ export default {
             label: "name",
           },
         },
+        easyRegister: {
+          label: "Cadastro Simples",
+          name: "easyRegister",
+          size: "3",
+          row: 3,
+          col: 2,
+          model: "",
+          type: "Select",
+          options: [
+            {
+              label: "Sim",
+              value: "YES",
+            },
+            {
+              label: "Não",
+              value: "NO",
+            },
+          ],
+          visible: true,
+        },
       },
       columns: [
         {
@@ -153,6 +173,14 @@ export default {
           align: "left",
           label: "Usuário",
           field: "user.name",
+          sortable: true,
+          visible: true,
+        },
+        {
+          name: "easyRegister",
+          align: "left",
+          label: "Cadastro Simples",
+          field: "easyRegister.label",
           sortable: true,
           visible: true,
         },

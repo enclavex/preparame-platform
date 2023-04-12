@@ -62,6 +62,8 @@ export default {
   },
   created() {
     this.definesVisibleColumns();
+
+    console.log(this.result)
   },
   methods: {
     definesVisibleColumns: function () {

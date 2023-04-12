@@ -118,6 +118,26 @@ export default {
                 label: "name",
               },
             },
+            easyRegister: {
+              label: "Cadastro Simples",
+              name: "easyRegister",
+              size: "3",
+              row: 4,
+              col: 2,
+              model: "",
+              type: "Select",
+              options: [
+                {
+                  label: "Sim",
+                  value: "YES",
+                },
+                {
+                  label: "Não",
+                  value: "NO",
+                },
+              ],
+              visible: true,
+            },
           },
         },
       },
@@ -142,12 +162,12 @@ export default {
   methods: {
     save: async function (data) {
       try {
-        const url = this.tables.mainTable.apiUrl.replace(":companyId", data.mainTable.companyId)
-
-        const companyEmployeeCreated = await saveCrud(
-          url,
-          data.mainTable
+        const url = this.tables.mainTable.apiUrl.replace(
+          ":companyId",
+          data.mainTable.companyId
         );
+
+        const companyEmployeeCreated = await saveCrud(url, data.mainTable);
 
         return companyEmployeeCreated;
       } catch (err) {

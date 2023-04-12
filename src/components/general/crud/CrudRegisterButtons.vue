@@ -58,8 +58,6 @@ export default {
             }
           });
 
-          console.log(values);
-
           this.data[Object.keys(this.tables)[index]] = values.reduce(
             (array, value) => {
               if (value.type === "Date") {
@@ -89,7 +87,9 @@ export default {
       this.onReset();
     },
     onReset: function () {
-      window.location.reload();
+      setTimeout(() => {
+        window.location.reload();
+      }, 1000);
     },
   },
 };
