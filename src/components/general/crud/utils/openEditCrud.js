@@ -19,6 +19,7 @@ async function openEditCrud(id, url, fields) {
 
         const object = Array.isArray(mainDataObject) ? mainDataObject[0] : mainDataObject
 
+        console.log(fields)
         if (object.id) {
             const mainTableFields = fields.mainTable.registerColumns
 
@@ -33,6 +34,8 @@ async function openEditCrud(id, url, fields) {
                                 }
                             }
                         }
+                    } else if (mainTableFields[values[0]].type === "Date") {
+                        mainTableFields[values[0]].model = formatDateToString(values[1])
                     } else {
                         mainTableFields[values[0]].model = values[1];
                     }
@@ -53,8 +56,6 @@ async function openEditCrud(id, url, fields) {
                     }
                 })
             }
-
-            console.log(fields)
 
             if (fields.childTable && fields.childTable.tableColumns) {
                 const dateColumns = fields.childTable.tableColumns.filter(column => {

@@ -58,8 +58,20 @@ export default {
             }
           });
 
+          console.log(values);
+
           this.data[Object.keys(this.tables)[index]] = values.reduce(
-            (array, value) => ({ ...array, [value.name]: value.model }),
+            (array, value) => {
+              if (value.type === "Date") {
+                const dateParts = value.model.split("/");
+
+                value.model = new Date(
+                  `${dateParts[2]}-${dateParts[1]}-${dateParts[0]}`
+                );
+              }
+
+              return { ...array, [value.name]: value.model };
+            },
             {}
           );
         }

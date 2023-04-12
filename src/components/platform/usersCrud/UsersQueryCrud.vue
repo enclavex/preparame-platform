@@ -175,6 +175,16 @@ export default {
               value: "",
             },
           ],
+        },
+        expiresDate: {
+          label: "Data Expiração Kit Recolocação",
+          name: "expiresDate",
+          size: "3",
+          row: 3,
+          col: 2,
+          model: "",
+          type: "Date",
+          visible: true
         }
       },
       columns: [
@@ -247,6 +257,14 @@ export default {
           align: "left",
           label: "Empresa",
           field: "company.name",
+          sortable: true,
+          visible: true,
+        },
+        {
+          name: "expiryDateFormated",
+          align: "center",
+          label: "Data Expiração Kit Recolocação",
+          field: "expiryDateFormated",
           sortable: true,
           visible: true,
         },
