@@ -82,9 +82,9 @@ export default {
           type: "success",
           message: "Cadastrado com sucesso.",
         });
-      }
 
-      this.onReset();
+        this.onReset();
+      }
     },
     onReset: function () {
       setTimeout(() => {

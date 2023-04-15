@@ -8,7 +8,7 @@
         class="login-form-signin-container"
         v-model="user.email"
         name="loginEmail"
-        label="E-Mail"
+        label="E-Mail ou CPF"
       >
         <template v-slot:prepend>
           <q-icon name="mdi-email" />
@@ -249,11 +249,11 @@ export default {
         return;
       }
 
-      if (!emailValidation(this.user.email)) {
-        showError("Email Inválido.");
-        document.getElementById("email").focus();
-        return;
-      }
+      // if (!emailValidation(this.user.email)) {
+      //   showError("Email Inválido.");
+      //   document.getElementById("email").focus();
+      //   return;
+      // }
 
       if (!this.user.password) {
         showError("Senha do usuário deve ser preenchido.");
