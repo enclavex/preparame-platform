@@ -14,13 +14,22 @@ export default {
   components: {
     Login,
   },
+  data() {
+    return {
+      redirectToSurvey: false,
+    };
+  },
   methods: {
     requestLogin: function () {
       loginControl.loggedFrom = "LOGIN";
 
       const loginInterval = setInterval(() => {
         if (loginControl.isLogged && loginControl.loggedFrom == "LOGIN") {
-          this.$router.push("/platform");
+          if (this.redirectToSurvey) {
+            this.$router.push("/survey");
+          } else {
+            this.$router.push("/platform");
+          }
 
           clearInterval(loginInterval);
         }
@@ -28,6 +37,12 @@ export default {
     },
   },
   created() {
+    const queryString = window.location.hash;
+
+    if (queryString.indexOf("pesquisa")) {
+      this.redirectToSurvey = true;
+    }
+
     this.requestLogin();
   },
 };
