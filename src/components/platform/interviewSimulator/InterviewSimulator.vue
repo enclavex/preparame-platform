@@ -574,6 +574,16 @@ export default {
     font-size: 1rem;
   }
 
+  .interview-simulator-container {
+    flex-direction: column;
+  }
+
+  .interview-simulator-webcam {
+    height: 30vh;
+    width: 90vw;
+    margin: auto;
+  }
+  
   .interview-simulator-video {
     height: 30vh;
     width: 90vw;
