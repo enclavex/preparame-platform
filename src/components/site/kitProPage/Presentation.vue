@@ -210,8 +210,8 @@ export default {
       .subtitle {
         font-family: "Nunito";
         font-weight: 700;
-        font-size: 1.5rem;
-        line-height: 1.2rem;
+        font-size: 1.3rem;
+        line-height: 1.0rem;
         text-align: center;
         color: #ffffff;
         margin-bottom: 10px;
@@ -221,7 +221,7 @@ export default {
       .plus-sign {
         display: flex;
         justify-content: center;
-        height: 75px;
+        height: 50px;
       }
 
       .form {
