@@ -332,37 +332,6 @@ export default {
                 video: true,
               })
               .then(function (stream) {
-                const track = stream.getVideoTracks()[0];
-
-                console.log(
-                  "The device supports the following capabilities: ",
-                  track.getCapabilities()
-                );
-
-                track
-                  .applyConstraints({
-                    advanced: [{ exposureMode: "manual" }],
-                  })
-                  .then(() => {
-                    track
-                      .applyConstraints({
-                        advanced: [{ exposureTime: 3 }],
-                      })
-                      .then(() => {
-                        // success
-                        console.log(
-                          "The new device settings are: ",
-                          track.getSettings()
-                        );
-                      })
-                      .catch((e) => {
-                        console.error("Failed to set exposure time", e);
-                      });
-                  })
-                  .catch((e) => {
-                    console.error("Failed to set manual exposure mode", e);
-                  });
-
                 video.srcObject = stream;
               })
               .catch(function (error) {
