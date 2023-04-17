@@ -201,8 +201,8 @@ export default {
       .title {
         font-family: "Russo One", sans-serif;
         font-weight: 400;
-        font-size: 83px;
-        line-height: 72px;
+        font-size: 3rem;
+        line-height: 3rem;
         text-align: center;
         color: #ffffff;
       }
@@ -210,8 +210,8 @@ export default {
       .subtitle {
         font-family: "Nunito";
         font-weight: 700;
-        font-size: 35px;
-        line-height: 45px;
+        font-size: 1.5rem;
+        line-height: 1.2rem;
         text-align: center;
         color: #ffffff;
         margin-bottom: 10px;
@@ -247,8 +247,9 @@ export default {
           align-self: center;
           justify-self: center;
           width: 400px;
-          height: 70px;
-          font-size: 1.5rem;
+          height: 60px;
+          line-height: 50px;
+          font-size: 1.0rem;
         }
       }
     }
