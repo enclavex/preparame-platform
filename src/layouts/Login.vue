@@ -39,7 +39,7 @@ export default {
   created() {
     const queryString = window.location.hash;
 
-    if (queryString.indexOf("pesquisa")) {
+    if (queryString.indexOf("pesquisa") > 0) {
       this.redirectToSurvey = true;
     }
 
