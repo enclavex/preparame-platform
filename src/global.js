@@ -31,4 +31,9 @@ export function showError(e) {
     return false
 }
 
+export function showSucess(e) {
+    Notify.create({ type: 'success', message: e })
+    return true
+}
+
 export default { baseApiUrl, showError }

@@ -249,12 +249,6 @@ export default {
         return;
       }
 
-      // if (!emailValidation(this.user.email)) {
-      //   showError("Email Inválido.");
-      //   document.getElementById("email").focus();
-      //   return;
-      // }
-
       if (!this.user.password) {
         showError("Senha do usuário deve ser preenchido.");
         document.getElementById("loginPassword").focus();

@@ -9,9 +9,126 @@
       <div class="subtitle">Modelo de Currículo Assertivo</div>
       <div v-if="mobile" class="image"></div>
       <div class="form">
+        <div class="login-form-signin">
+          <div class="login-modal-title">Cadastre-se em nossa plataforma</div>
+
+          <q-input
+            id="name"
+            class="login-form-signin-container"
+            v-model="user.name"
+            name="name"
+            label="Nome Completo"
+            color="secondary"
+            dark
+            filled
+            label-color="white"
+            dense
+          >
+            <template v-slot:prepend>
+              <q-icon color="white" name="mdi-account" />
+            </template>
+          </q-input>
+
+          <q-input
+            id="email"
+            class="login-form-signin-container"
+            v-model="user.email"
+            name="email"
+            label="E-Mail"
+            color="secondary"
+            dark
+            filled
+            label-color="white"
+            dense
+          >
+            <template v-slot:prepend>
+              <q-icon color="white" name="mdi-email" />
+            </template>
+          </q-input>
+
+          <q-input
+            id="documentId"
+            class="login-form-signin-container"
+            v-model="user.documentId"
+            mask="###.###.###-##"
+            name="cpf"
+            label="CPF"
+            color="secondary"
+            filled
+            label-color="white"
+            dense
+            dark
+          >
+            <template v-slot:prepend>
+              <q-icon color="white" name="mdi-card-account-details" />
+            </template>
+          </q-input>
+
+          <q-input
+            id="password"
+            class="login-form-signin-container"
+            v-model="user.password"
+            type="password"
+            name="password"
+            label="Senha"
+            color="secondary"
+            filled
+            label-color="white"
+            dense
+            dark
+            @input="passwordValidate()"
+          >
+            <template v-slot:prepend>
+              <q-icon color="white" name="mdi-lock" />
+            </template>
+
+            <template v-slot:append>
+              <div
+                :class="{
+                  'text-red': forcePassword === 'Fraca',
+                  'text-orange': forcePassword === 'Média',
+                  'text-green': forcePassword === 'Forte',
+                  'login-form-signin-container-hint-password': true,
+                }"
+              >
+                <q-icon
+                  v-if="forcePassword === 'Fraca'"
+                  name="mdi-emoticon-sad-outline"
+                  :tooltip="forcePassword"
+                />
+                <q-icon
+                  v-if="forcePassword === 'Média'"
+                  name="mdi-emoticon-neutral-outline"
+                />
+                <q-icon
+                  v-if="forcePassword === 'Forte'"
+                  name="mdi-emoticon-outline"
+                />
+              </div>
+            </template>
+          </q-input>
+
+          <q-input
+            id="confirmPassword"
+            class="login-form-signin-container"
+            v-model="user.confirmPassword"
+            type="password"
+            name="confirmPassword"
+            label="Confirmação da Senha"
+            color="secondary"
+            filled
+            label-color="white"
+            dense
+            dark
+          >
+            <template v-slot:prepend>
+              <q-icon color="white" name="mdi-lock" />
+            </template>
+          </q-input>
+        </div>
         <q-btn
           class="q-mt-lg text-white bg-prepara-me-blue"
-          label="Acessar Gratuitamente"
+          label="Cadastrar Gratuitamente"
           @click="freeAccess()"
         />
       </div>
@@ -21,6 +138,9 @@
 </template>
 
 <script>
+import { passwordValidation } from "../../../utils/passwordValidation.js";
+import { signUp } from "../../../utils/controls/loginControl.js";
+
 export default {
   data() {
     return {
@@ -28,6 +148,10 @@ export default {
       plus: {
         img: "service_plus",
       },
+      user: {},
+      forcePassword: "",
+      acceptTerms: true,
+      token: ""
     };
   },
   mounted() {
@@ -35,12 +159,29 @@ export default {
   },
   methods: {
     freeAccess() {
-      this.$router.push({ path: "/login" });
+      if (signUp(this.acceptTerms, this.user, this.token)) {
+        this.$router.push({ path: "/login" });
+      }
     },
     imgURL: function (pathName) {
       var images = require.context("../../../assets/imgs/", false, /\.png$/);
 
       return images(`./${pathName}.png`);
+    },
+    passwordValidate: function () {
+      const forcePassword = passwordValidation(this.user.password);
+
+      if (forcePassword <= 100) {
+        this.forcePassword = "Forte";
+      }
+
+      if (forcePassword <= 70) {
+        this.forcePassword = "Média";
+      }
+
+      if (forcePassword <= 30) {
+        this.forcePassword = "Fraca";
+      }
     },
   },
 };
@@ -73,18 +214,25 @@ export default {
         line-height: 45px;
         text-align: center;
         color: #ffffff;
-        margin-bottom: 20px;
-        margin-top: 20px;
+        margin-bottom: 10px;
+        margin-top: 10px;
       }
 
       .plus-sign {
         display: flex;
         justify-content: center;
+        height: 75px;
       }
 
       .form {
         display: flex;
         flex-direction: column;
+
+        .login-form-signin {
+          .login-form-signin-container {
+            margin-bottom: 8px;
+          }
+        }
 
         .title {
           font-family: "Nunito";
@@ -92,15 +240,6 @@ export default {
           font-size: 25px;
           line-height: 45px;
           text-align: center;
-          color: #ffffff;
-        }
-
-        label {
-          font-family: "Nunito";
-          font-style: normal;
-          font-size: 1rem;
-          line-height: 1rem;
-          text-align: left;
           color: #ffffff;
         }
 
@@ -138,6 +277,10 @@ export default {
         .title {
           font-size: 2rem;
           line-height: unset;
+        }
+
+        .login-form-signin-container {
+          margin-bottom: 5px;
         }
 
         .subtitle {
