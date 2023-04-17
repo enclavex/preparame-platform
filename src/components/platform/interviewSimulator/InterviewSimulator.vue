@@ -20,16 +20,23 @@
     <div class="interview-simulator-video-title">
       {{ simulatorVideos[videoNumber].question }}
     </div>
-    <video
-      class="interview-simulator-video"
-      controls
-      autoplay
-      controlsList="nodownload"
-      oncontextmenu="return false;"
-    >
-      <source :src="simulatorVideos[videoNumber].linkVideo" type="video/mp4" />
-      Your browser does not support the video tag.
-    </video>
+
+    <div class="interview-simulator-container">
+      <video autoplay id="video" class="interview-simulator-webcam"></video>
+      <video
+        class="interview-simulator-video"
+        controls
+        autoplay
+        controlsList="nodownload"
+        oncontextmenu="return false;"
+      >
+        <source
+          :src="simulatorVideos[videoNumber].linkVideo"
+          type="video/mp4"
+        />
+        Your browser does not support the video tag.
+      </video>
+    </div>
     <div class="interview-simulator-control row justify-around">
       <q-btn
         outline
@@ -161,6 +168,7 @@
 <script>
 import Breadcrumbs from "../../general/Breacrumbs.vue";
 import { filterCrud } from "./../../general/crud/utils/filterCrud";
+import { showError } from "../../../../src/global.js";
 
 export default {
   components: {
@@ -311,6 +319,62 @@ export default {
       this.interviewPercent =
         ((this.videoNumber + 1) / this.simulatorVideos.length) * 100;
     },
+    initiateWebCam() {
+      setTimeout(() => {
+        {
+          var video = document.getElementById("video");
+          var vendorUrl = window.URL || window.webkitURL;
+
+          if (navigator.mediaDevices.getUserMedia) {
+            navigator.mediaDevices
+              .getUserMedia({
+                audio: true,
+                video: {
+                  width: { min: 1024, ideal: 1280, max: 1920 },
+                  height: { min: 576, ideal: 720, max: 1080 },
+                },
+              })
+              .then(function (stream) {
+                const track = stream.getVideoTracks()[0];
+
+                console.log(
+                  "The device supports the following capabilities: ",
+                  track.getCapabilities()
+                );
+
+                track
+                  .applyConstraints({
+                    advanced: [{ exposureMode: "manual" }],
+                  })
+                  .then(() => {
+                    track
+                      .applyConstraints({
+                        advanced: [{ exposureTime: 3 }],
+                      })
+                      .then(() => {
+                        // success
+                        console.log(
+                          "The new device settings are: ",
+                          track.getSettings()
+                        );
+                      })
+                      .catch((e) => {
+                        console.error("Failed to set exposure time", e);
+                      });
+                  })
+                  .catch((e) => {
+                    console.error("Failed to set manual exposure mode", e);
+                  });
+
+                video.srcObject = stream;
+              })
+              .catch(function (error) {
+                console.log("Something went wrong!");
+              });
+          }
+        }
+      }, 100);
+    },
   },
   async created() {
     await this.loadGroupVideos();
@@ -338,6 +402,8 @@ export default {
     if (!(this.daysToExpireUse > 0) && !(this.daysToExpirePeriodTest > 0)) {
       this.expired = true;
     }
+
+    this.initiateWebCam();
   },
 };
 </script>
@@ -373,10 +439,21 @@ export default {
   margin: 0 auto;
 }
 
+.interview-simulator-container {
+  display: flex;
+}
+
+.interview-simulator-webcam {
+  position: relative;
+  height: 50vh;
+  width: 40vw;
+  margin: 20px auto;
+}
+
 .interview-simulator-video {
   position: relative;
   height: 50vh;
-  width: 50vw;
+  width: 40vw;
   margin: 20px auto;
 }
 
