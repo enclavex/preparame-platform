@@ -335,7 +335,7 @@ export default {
                 video.srcObject = stream;
               })
               .catch(function (error) {
-                console.log("Something went wrong!");
+                console.log(error);
               });
           }
         }
