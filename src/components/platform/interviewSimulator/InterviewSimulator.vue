@@ -329,10 +329,7 @@ export default {
             navigator.mediaDevices
               .getUserMedia({
                 audio: true,
-                video: {
-                  width: { min: 1024, ideal: 1280, max: 1920 },
-                  height: { min: 576, ideal: 720, max: 1080 },
-                },
+                video: true,
               })
               .then(function (stream) {
                 const track = stream.getVideoTracks()[0];
@@ -583,7 +580,7 @@ export default {
     width: 90vw;
     margin: auto;
   }
-  
+
   .interview-simulator-video {
     height: 30vh;
     width: 90vw;
