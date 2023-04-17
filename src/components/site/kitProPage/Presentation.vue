@@ -202,7 +202,7 @@ export default {
         font-family: "Russo One", sans-serif;
         font-weight: 400;
         font-size: 3rem;
-        line-height: 3rem;
+        line-height: 2rem;
         text-align: center;
         color: #ffffff;
       }
@@ -211,10 +211,10 @@ export default {
         font-family: "Nunito";
         font-weight: 700;
         font-size: 1.3rem;
-        line-height: 1.0rem;
+        line-height: .8rem;
         text-align: center;
         color: #ffffff;
-        margin-bottom: 10px;
+        margin-bottom: 5px;
         margin-top: 10px;
       }
 
@@ -263,7 +263,6 @@ export default {
       background-position-x: 100%;
       right: 0px;
       width: 50vw;
-      top: 10vh;
     }
   }
 }
