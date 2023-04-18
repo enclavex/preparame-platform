@@ -320,26 +320,33 @@ export default {
         ((this.videoNumber + 1) / this.simulatorVideos.length) * 100;
     },
     initiateWebCam() {
-      setTimeout(() => {
-        {
-          var video = document.getElementById("video");
-          var vendorUrl = window.URL || window.webkitURL;
+      const videoStartInterval = setInterval(() => {
+        var video = document.getElementById("video");
 
-          if (navigator.mediaDevices.getUserMedia) {
-            navigator.mediaDevices
-              .getUserMedia({
-                video: true,
-              })
-              .then(function (stream) {
-                console.log(video)
-                console.log(stream)
+        if (video) {
+          clearInterval(videoStartInterval);
 
-                video.srcObject = stream;
-              })
-              .catch(function (error) {
-                console.log(error);
-              });
-          }
+          setTimeout(() => {
+            {
+              var video = document.getElementById("video");
+
+              if (navigator.mediaDevices.getUserMedia) {
+                navigator.mediaDevices
+                  .getUserMedia({
+                    video: true,
+                  })
+                  .then(function (stream) {
+                    console.log(video);
+                    console.log(stream);
+
+                    video.srcObject = stream;
+                  })
+                  .catch(function (error) {
+                    console.log(error);
+                  });
+              }
+            }
+          }, 1000);
         }
       }, 1000);
     },
