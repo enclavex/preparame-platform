@@ -328,10 +328,12 @@ export default {
           if (navigator.mediaDevices.getUserMedia) {
             navigator.mediaDevices
               .getUserMedia({
-                audio: true,
                 video: true,
               })
               .then(function (stream) {
+                console.log(video)
+                console.log(stream)
+
                 video.srcObject = stream;
               })
               .catch(function (error) {
@@ -339,7 +341,7 @@ export default {
               });
           }
         }
-      }, 100);
+      }, 1000);
     },
   },
   async created() {
