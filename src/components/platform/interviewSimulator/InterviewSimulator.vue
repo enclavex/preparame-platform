@@ -168,7 +168,6 @@
 <script>
 import Breadcrumbs from "../../general/Breacrumbs.vue";
 import { filterCrud } from "./../../general/crud/utils/filterCrud";
-import { showError } from "../../../../src/global.js";
 
 export default {
   components: {
@@ -294,7 +293,7 @@ export default {
       this.calculatePercent();
     },
     startVideo() {
-      var video = document.querySelector("video");
+      var video = document.querySelector(".interview-simulator-video");
 
       if (video) {
         setTimeout(function () {
@@ -306,12 +305,12 @@ export default {
       }
     },
     pauseVideo() {
-      var video = document.querySelector("video");
+      var video = document.querySelector(".interview-simulator-video");
 
       video.pause();
     },
     playVideo() {
-      var video = document.querySelector("video");
+      var video = document.querySelector(".interview-simulator-video");
 
       video.play();
     },
@@ -336,9 +335,6 @@ export default {
                     video: true,
                   })
                   .then(function (stream) {
-                    console.log(video);
-                    console.log(stream);
-
                     video.srcObject = stream;
                   })
                   .catch(function (error) {
