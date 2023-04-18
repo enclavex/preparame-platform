@@ -26,7 +26,6 @@
       <video
         class="interview-simulator-video"
         controls
-        autoplay
         controlsList="nodownload"
         oncontextmenu="return false;"
       >
@@ -293,16 +292,17 @@ export default {
       this.calculatePercent();
     },
     startVideo() {
-      var video = document.querySelector(".interview-simulator-video");
+      setTimeout(function () {
+        var video = document.querySelector(".interview-simulator-video");
 
-      if (video) {
-        setTimeout(function () {
+        console.log("teste", video)
+        if (video) {
           video.pause();
 
           video.load();
           video.play();
-        }, 250);
-      }
+        }
+      }, 1000);
     },
     pauseVideo() {
       var video = document.querySelector(".interview-simulator-video");
