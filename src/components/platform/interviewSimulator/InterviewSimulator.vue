@@ -26,6 +26,7 @@
       <video
         class="interview-simulator-video"
         controls
+        autoplay
         controlsList="nodownload"
         oncontextmenu="return false;"
       >
@@ -246,7 +247,7 @@ export default {
         });
       }
 
-      this.startVideo();
+      // this.startVideo();
       this.calculatePercent();
     },
     nextGroup() {
@@ -295,7 +296,6 @@ export default {
       setTimeout(function () {
         var video = document.querySelector(".interview-simulator-video");
 
-        console.log("teste", video)
         if (video) {
           video.pause();
 
