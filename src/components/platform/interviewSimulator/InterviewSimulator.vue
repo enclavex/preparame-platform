@@ -247,8 +247,10 @@ export default {
         });
       }
 
-      // this.startVideo();
-      this.calculatePercent();
+      setTimeout(() => {
+        this.startVideo();
+        this.calculatePercent();
+      }, 1000)
     },
     nextGroup() {
       this.videoGroupNumber = this.videoGroupNumber + 1;
