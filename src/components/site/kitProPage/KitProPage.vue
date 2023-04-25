@@ -11,21 +11,28 @@
 import Presentation from "./Presentation.vue";
 import Services from "./Services.vue";
 import Advantages from "./Advantages.vue";
-import Newsletter from "../homePage/newsletter/Newsletter.vue"
+import Newsletter from "../homePage/newsletter/Newsletter.vue";
 
 export default {
   components: {
     Presentation,
     Services,
     Advantages,
-    Newsletter
+    Newsletter,
   },
 };
 </script>
 
-<style>
+<style lang="scss">
 .kit-pro-page {
   height: 100%;
   width: 100vw;
+}
+
+@media (orientation: portrait) {
+  .kit-pro-page {
+    height: 100%;
+    width: 100vw;
+  }
 }
 </style>

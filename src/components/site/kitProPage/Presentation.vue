@@ -272,6 +272,7 @@ export default {
     .presentation {
       align-items: unset;
       flex-direction: column;
+      height: 150vh;
 
       .info {
         .title {
@@ -310,7 +311,7 @@ export default {
 
       .image {
         width: 100vw;
-        height: 45vh;
+        height: 35vh;
         top: unset;
       }
     }

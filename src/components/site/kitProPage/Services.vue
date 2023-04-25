@@ -168,7 +168,7 @@ export default {
 @media (orientation: portrait) {
   .kit-pro-page {
     .services {
-      height: 90vh;
+      height: 110vh;
 
       .title {
         font-size: 1.8rem;

@@ -227,7 +227,7 @@ export default {
 @media (orientation: portrait) {
   .kit-pro-page {
     .advantages {
-      height: 110vh;
+      height: 130vh;
       width: 100vw;
 
       .container {
@@ -250,7 +250,7 @@ export default {
         }
 
         .services {
-          height: 70vh;
+          height: 80vh;
           width: 100vw;
           flex-direction: column;
           margin: 5vw;
