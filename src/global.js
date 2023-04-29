@@ -7,7 +7,7 @@ var baseApiUrlDefinition = ""
 if (process.env.NODE_ENV && process.env.NODE_ENV == 'development') {
     baseApiUrlDefinition = "http://localhost:3334"
 } else {
-    baseApiUrlDefinition = "https://api.prepara.me"
+    baseApiUrlDefinition = "http://3.91.64.166"
 }
 
 export const baseApiUrl = baseApiUrlDefinition
