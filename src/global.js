@@ -4,11 +4,11 @@ export const userKey = "__knowledge_user"
 
 var baseApiUrlDefinition = ""
 
-if (process.env.NODE_ENV && process.env.NODE_ENV == 'development') {
-    baseApiUrlDefinition = "http://localhost:3334"
-} else {
-    baseApiUrlDefinition = "https://api.prepara.me"
-}
+// if (process.env.NODE_ENV && process.env.NODE_ENV == 'development') {
+//     baseApiUrlDefinition = "http://localhost:3334"
+// } else {
+    baseApiUrlDefinition = "https://api.prepara.me:3334"
+// }
 
 export const baseApiUrl = baseApiUrlDefinition
 

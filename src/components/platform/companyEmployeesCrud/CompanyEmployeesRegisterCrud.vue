@@ -162,6 +162,11 @@ export default {
   methods: {
     save: async function (data) {
       try {
+        if (!data.mainTable.companyId) {
+          showError("Necessário informar a empresa")
+          return 
+        }
+
         const url = this.tables.mainTable.apiUrl.replace(
           ":companyId",
           data.mainTable.companyId
